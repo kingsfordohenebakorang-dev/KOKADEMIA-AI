@@ -1,9 +1,33 @@
 import React from 'react';
 import { Navbar } from '@/components/Navbar';
-import { motion } from 'framer-motion';
 import { BookOpen, ShieldCheck, Activity, Brain } from 'lucide-react';
+import { prisma } from '@/lib/prisma';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import { requireRole } from '@/lib/rbac';
+import { StatusCard } from '@/components/StatusCard';
+import { Role } from '@prisma/client';
 
-export default function AdminPage() {
+export const dynamic = 'force-dynamic';
+
+export default async function AdminPage() {
+    const session = await getServerSession();
+
+    // Explicit RBAC protection: bounce unauthenticated or non-admin users
+    if (!session || !session.user) {
+        redirect('/');
+    }
+    try {
+        requireRole((session.user as any).role as Role, ["ADMIN"]);
+    } catch {
+        redirect('/dashboard'); // Bounces Student roles back to their dashboard
+    }
+
+    // Pull live metrics from PostgreSQL
+    const totalUsers = await prisma.user.count();
+    const adminCount = await prisma.user.count({ where: { role: 'ADMIN' } });
+    const studentCount = await prisma.user.count({ where: { role: 'STUDENT' } });
+
     return (
         <div className="min-h-screen bg-black text-white">
             <Navbar />
@@ -19,24 +43,12 @@ export default function AdminPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <StatusCard title="Active Users" value="2,401" icon={Activity} color="text-green-400" />
-                    <StatusCard title="Lectures Active" value="142" icon={BookOpen} color="text-blue-400" />
-                    <StatusCard title="Queries Logged" value="15.2k" icon={Brain} color="text-purple-400" />
-                    <StatusCard title="Avg Match Trust" value="94%" icon={ShieldCheck} color="text-yellow-400" />
+                    <StatusCard title="Total Users" value={totalUsers} icon={Activity} color="text-green-400" />
+                    <StatusCard title="Active Students" value={studentCount} icon={BookOpen} color="text-blue-400" />
+                    <StatusCard title="Platform Admins" value={adminCount} icon={ShieldCheck} color="text-purple-400" />
+                    <StatusCard title="Avg Match Trust" value="94%" icon={Brain} color="text-yellow-400" />
                 </div>
             </main>
         </div>
-    );
-}
-
-function StatusCard({ title, value, icon: Icon, color }: any) {
-    return (
-        <motion.div whileHover={{ y: -5 }} className="bg-white/5 border border-white/10 p-6 rounded-xl">
-            <div className={`p-3 rounded-lg bg-white/5 w-fit ${color} mb-4`}>
-                <Icon className="w-6 h-6" />
-            </div>
-            <h3 className="text-3xl font-bold">{value}</h3>
-            <p className="text-sm text-gray-500 mt-1 uppercase tracking-wider">{title}</p>
-        </motion.div>
     );
 }
