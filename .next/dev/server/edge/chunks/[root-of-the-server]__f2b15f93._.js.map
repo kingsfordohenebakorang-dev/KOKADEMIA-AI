@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 16, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/middleware.ts"],"sourcesContent":["import { getToken } from \"next-auth/jwt\";\nimport { NextResponse } from \"next/server\";\n\nexport async function middleware(req: any) {\n    const token = await getToken({ req });\n\n    if (!token) {\n        return NextResponse.redirect(new URL(\"/\", req.url));\n    }\n\n    return NextResponse.next();\n}\n\nexport const config = {\n    matcher: [\"/dashboard\", \"/admin\"],\n};\n"],"names":[],"mappings":";;;;;;AAAA;AACA;AAAA;;;AAEO,eAAe,WAAW,GAAQ;IACrC,MAAM,QAAQ,MAAM,IAAA,gKAAQ,EAAC;QAAE;IAAI;IAEnC,IAAI,CAAC,OAAO;QACR,OAAO,gMAAY,CAAC,QAAQ,CAAC,IAAI,IAAI,KAAK,IAAI,GAAG;IACrD;IAEA,OAAO,gMAAY,CAAC,IAAI;AAC5B;AAEO,MAAM,SAAS;IAClB,SAAS;QAAC;QAAc;KAAS;AACrC"}}]
+}

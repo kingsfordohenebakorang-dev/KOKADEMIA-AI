@@ -1,6 +1,7 @@
 {
   "/_global-error/page": "/_global-error",
   "/_not-found/page": "/_not-found",
+  "/api/auth/signup/route": "/api/auth/signup",
   "/api/chat/route": "/api/chat",
   "/api/ingest/route": "/api/ingest",
   "/chat/page": "/chat",

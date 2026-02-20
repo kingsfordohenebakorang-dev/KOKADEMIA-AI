@@ -1,7 +1,9 @@
 self.__SERVER_FILES_MANIFEST={
   "version": 1,
   "config": {
-    "env": {},
+    "env": {
+      "NEXT_PUBLIC_API_URL": "http://localhost:3000"
+    },
     "webpack": null,
     "typescript": {
       "ignoreBuildErrors": false
@@ -20,7 +22,7 @@ self.__SERVER_FILES_MANIFEST={
       "jsx",
       "js"
     ],
-    "poweredByHeader": true,
+    "poweredByHeader": false,
     "compress": true,
     "images": {
       "deviceSizes": [
@@ -83,7 +85,7 @@ self.__SERVER_FILES_MANIFEST={
     "productionBrowserSourceMaps": false,
     "excludeDefaultMomentLocales": true,
     "reactProductionProfiling": false,
-    "reactStrictMode": null,
+    "reactStrictMode": true,
     "reactMaxHeadersLength": 6000,
     "httpAgentOptions": {
       "keepAlive": true
