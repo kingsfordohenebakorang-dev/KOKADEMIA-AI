@@ -11,6 +11,7 @@ yarn.lock
 # Build output
 dist/
 build/
+.next/
 *.tsbuildinfo
 
 # Logs
@@ -38,3 +39,11 @@ secrets/
 private_keys/
 *.pem
 *.key
+
+# TestSprite / MCP temporary files
+run-testsprite.mjs
+test-mcp.js
+.testsprite/
+.cursor/
+BLUEPRINT.pdf
+BLUEPRINT.txt

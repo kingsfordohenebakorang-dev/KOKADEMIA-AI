@@ -5,7 +5,12 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
+if (!process.env.NEXTAUTH_SECRET) {
+    throw new Error("FATAL: NEXTAUTH_SECRET environment variable is not set.");
+}
+
 const handler = NextAuth({
+    secret: process.env.NEXTAUTH_SECRET,
     providers: [
         CredentialsProvider({
             name: "Credentials",
@@ -14,14 +19,16 @@ const handler = NextAuth({
                 password: {},
             },
             async authorize(credentials) {
+                if (!credentials?.email || !credentials?.password) return null;
+
                 const user = await prisma.user.findUnique({
-                    where: { email: credentials?.email },
+                    where: { email: credentials.email },
                 });
 
                 if (!user || !user.password) return null;
 
                 const valid = await bcrypt.compare(
-                    credentials!.password,
+                    credentials.password,
                     user.password
                 );
 
@@ -35,6 +42,10 @@ const handler = NextAuth({
             },
         }),
     ],
+    pages: {
+        signIn: "/login",
+        error: "/login",
+    },
     callbacks: {
         async jwt({ token, user }) {
             if (user) {
@@ -51,7 +62,9 @@ const handler = NextAuth({
     },
     session: {
         strategy: "jwt",
+        maxAge: 8 * 60 * 60, // 8 hours (more secure than default 30 days)
     },
 });
 
 export { handler as GET, handler as POST };
+

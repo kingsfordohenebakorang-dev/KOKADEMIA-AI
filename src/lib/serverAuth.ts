@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = process.env.JWT_SECRET || "dev-secret";
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+    throw new Error("FATAL: JWT_SECRET environment variable is not set. Cannot start server securely.");
+}
 
 export interface AuthPayload {
     userId: string;
@@ -11,7 +14,7 @@ export interface AuthPayload {
 
 export function verifyJWT(token: string): AuthPayload | null {
     try {
-        const decoded = jwt.verify(token, JWT_SECRET) as AuthPayload;
+        const decoded = jwt.verify(token, JWT_SECRET!) as unknown as AuthPayload;
         return decoded;
     } catch (error) {
         return null;
@@ -19,7 +22,7 @@ export function verifyJWT(token: string): AuthPayload | null {
 }
 
 export function generateJWT(payload: AuthPayload): string {
-    return jwt.sign(payload, JWT_SECRET, {
+    return jwt.sign(payload, JWT_SECRET!, {
         expiresIn: "24h",
         algorithm: "HS256",
     });

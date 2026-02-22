@@ -30,6 +30,30 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
         }
 
+        // Security: File size limit (10MB)
+        const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+        if (file.size > MAX_FILE_SIZE) {
+            return NextResponse.json(
+                { error: 'File too large. Maximum size is 10MB.' },
+                { status: 413 }
+            );
+        }
+
+        // Security: Whitelist allowed MIME types
+        const ALLOWED_TYPES = [
+            'application/pdf',
+            'image/png',
+            'image/jpeg',
+            'image/webp',
+            'text/plain',
+        ];
+        if (!ALLOWED_TYPES.includes(file.type)) {
+            return NextResponse.json(
+                { error: `File type '${file.type}' is not allowed. Allowed: PDF, PNG, JPEG, WebP, TXT.` },
+                { status: 400 }
+            );
+        }
+
         const buffer = Buffer.from(await file.arrayBuffer());
 
         let textContent = '';
