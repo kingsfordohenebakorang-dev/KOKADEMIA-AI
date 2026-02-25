@@ -9,6 +9,13 @@ export async function middleware(req: NextRequest) {
     const isProtectedRoute = path.startsWith('/dashboard') || path.startsWith('/admin');
 
     if (isProtectedRoute) {
+        // TODO: Re-enable auth when database is connected
+        // Temporarily bypass for development until Prisma/DB is configured
+        const isDev = process.env.NODE_ENV === 'development';
+        if (isDev) {
+            return NextResponse.next();
+        }
+
         const token = await getToken({ req });
 
         if (!token) {
