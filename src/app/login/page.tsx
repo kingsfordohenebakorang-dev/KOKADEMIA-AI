@@ -23,8 +23,8 @@ export default function LoginPage() {
         await new Promise(resolve => setTimeout(resolve, 1500));
 
         if (email === 'admin@actuary.com' && password === 'admin') {
-            // Bypass pricing entirely for admins and go straight to the dashboard
-            window.location.href = '/dashboard';
+            // Admin login: route to admin dashboard
+            window.location.href = '/admin';
         } else if (isSignUp) {
             setStep('pricing'); // Move to pricing
         } else {
