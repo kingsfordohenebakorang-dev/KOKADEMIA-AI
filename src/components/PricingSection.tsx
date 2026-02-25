@@ -9,12 +9,11 @@ const plans = [
         name: "Foundation",
         price: "GH₵ 0",
         period: "/month",
-        description: "Essential trial for quick reference. Claude Haiku model.",
+        description: "Essential trial for quick reference and light study.",
         features: [
             "10 AI Queries / Day",
             "5 Document Uploads / Month",
             "1 Exam Generation",
-            "800 Max Input/Output Tokens",
             "Standard Response Speed"
         ],
         buttonText: "Start for Free",
@@ -24,16 +23,16 @@ const plans = [
     },
     {
         name: "Analyst",
-        price: "GH₵ 39",
+        price: "GH₵ 49",
         period: "/month",
-        description: "Serious prep with Claude Sonnet and Notebook mode.",
+        description: "Serious prep with enhanced AI and Notebook mode.",
         features: [
             "150 AI Queries / Month",
             "50 Document Uploads",
             "3MB Max Per File",
-            "2,000 Input / 1,500 Output Tokens",
             "Notebook Mode Access",
-            "Basic Mock Exams"
+            "Basic Mock Exams",
+            "Faster Response Speed"
         ],
         buttonText: "Go Analyst",
         buttonLink: "/register?plan=analyst",
@@ -42,15 +41,15 @@ const plans = [
     },
     {
         name: "Semester Pro",
-        price: "GH₵ 149",
+        price: "GH₵ 159",
         period: "/semester",
-        description: "Full-powered 4-month package with Opus verification.",
+        description: "Full-powered 4-month package for top students.",
         features: [
             "600 AI Queries / Semester",
             "150 Document Uploads",
             "5MB Max Per File",
             "Actuarial + Math Vault Access",
-            "15 Verified Solutions via Opus",
+            "15 Verified Solutions",
             "Priority Queue + Offline Mode",
             "Full Mock Exam Generator"
         ],
@@ -150,8 +149,8 @@ export function PricingSection() {
                     <h3 className="text-xl font-bold text-white text-center mb-6">Add-On Boost Packs</h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
                         {[
-                            { name: "Query Boost", price: "GH₵ 20", desc: "+100 Sonnet queries" },
-                            { name: "Verification Boost", price: "GH₵ 30", desc: "+5 Opus verifications" },
+                            { name: "Query Boost", price: "GH₵ 20", desc: "+100 additional queries" },
+                            { name: "Verification Boost", price: "GH₵ 30", desc: "+5 verified solutions" },
                             { name: "Exam Pack", price: "GH₵ 40", desc: "3 full mock exams (batch processed)" },
                         ].map((pack, i) => (
                             <div key={i} className="p-4 rounded-xl border border-white/10 bg-white/5 text-center hover:bg-white/10 transition-all">

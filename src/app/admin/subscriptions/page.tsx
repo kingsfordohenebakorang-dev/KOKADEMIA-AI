@@ -3,22 +3,22 @@ import React, { useState } from "react";
 import { CreditCard, DollarSign, AlertTriangle, RefreshCw, TrendingUp, ArrowUp, Settings } from "lucide-react";
 
 const subscriptions = [
-    { id: 1, user: "Kwame Asante", email: "kwame@ug.edu.gh", plan: "Semester Pro", amount: "GH₵ 149", period: "Semester", status: "Active", nextBilling: "Aug 15, 2026", method: "MTN MoMo" },
-    { id: 2, user: "Ama Mensah", email: "ama@knust.edu.gh", plan: "Analyst", amount: "GH₵ 39", period: "Monthly", status: "Active", nextBilling: "Mar 3, 2026", method: "Card" },
-    { id: 3, user: "Yaw Darko", email: "yaw@legon.ug.edu.gh", plan: "Analyst", amount: "GH₵ 39", period: "Monthly", status: "Active", nextBilling: "Mar 20, 2026", method: "Card" },
-    { id: 4, user: "Abena Owusu", email: "abena@upsa.edu.gh", plan: "Semester Pro", amount: "GH₵ 149", period: "Semester", status: "Failed", nextBilling: "Overdue", method: "MTN MoMo" },
-    { id: 5, user: "Nana Yeboah", email: "nana@knust.edu.gh", plan: "Semester Pro", amount: "GH₵ 149", period: "Semester", status: "Active", nextBilling: "Jul 28, 2026", method: "Card" },
+    { id: 1, user: "Kwame Asante", email: "kwame@ug.edu.gh", plan: "Semester Pro", amount: "GH₵ 159", period: "Semester", status: "Active", nextBilling: "Aug 15, 2026", method: "MTN MoMo" },
+    { id: 2, user: "Ama Mensah", email: "ama@knust.edu.gh", plan: "Analyst", amount: "GH₵ 49", period: "Monthly", status: "Active", nextBilling: "Mar 3, 2026", method: "Card" },
+    { id: 3, user: "Yaw Darko", email: "yaw@legon.ug.edu.gh", plan: "Analyst", amount: "GH₵ 49", period: "Monthly", status: "Active", nextBilling: "Mar 20, 2026", method: "Card" },
+    { id: 4, user: "Abena Owusu", email: "abena@upsa.edu.gh", plan: "Semester Pro", amount: "GH₵ 159", period: "Semester", status: "Failed", nextBilling: "Overdue", method: "MTN MoMo" },
+    { id: 5, user: "Nana Yeboah", email: "nana@knust.edu.gh", plan: "Semester Pro", amount: "GH₵ 159", period: "Semester", status: "Active", nextBilling: "Jul 28, 2026", method: "Card" },
 ];
 
 const failedPayments = [
-    { user: "Abena Owusu", email: "abena@upsa.edu.gh", amount: "GH₵ 149", date: "Feb 15, 2026", reason: "Insufficient funds", retries: 3 },
-    { user: "Kofi Adu", email: "kofi.adu@ug.edu.gh", amount: "GH₵ 39", date: "Feb 22, 2026", reason: "Card expired", retries: 1 },
+    { user: "Abena Owusu", email: "abena@upsa.edu.gh", amount: "GH₵ 159", date: "Feb 15, 2026", reason: "Insufficient funds", retries: 3 },
+    { user: "Kofi Adu", email: "kofi.adu@ug.edu.gh", amount: "GH₵ 49", date: "Feb 22, 2026", reason: "Card expired", retries: 1 },
 ];
 
 const planConfig = [
-    { name: "Foundation", price: "GH₵ 0", queries: "10/day", docs: "5/month", exams: "1", tokens: "800 I/O", editable: true },
-    { name: "Analyst", price: "GH₵ 39/mo", queries: "150/month", docs: "50", exams: "Basic", tokens: "2000/1500", editable: true },
-    { name: "Semester Pro", price: "GH₵ 149/sem", queries: "600/sem", docs: "150", exams: "Full", tokens: "Opus", editable: true },
+    { name: "Foundation", price: "GH₵ 0", queries: "10/day", docs: "5/month", exams: "1", speed: "Standard", editable: true },
+    { name: "Analyst", price: "GH₵ 49/mo", queries: "150/month", docs: "50", exams: "Basic", speed: "Fast", editable: true },
+    { name: "Semester Pro", price: "GH₵ 159/sem", queries: "600/sem", docs: "150", exams: "Full", speed: "Priority", editable: true },
 ];
 
 const revenueMonths = [
@@ -198,7 +198,7 @@ export default function SubscriptionsPage() {
                                 <div className="flex justify-between text-gray-400"><span>Queries</span><span className="text-white font-mono">{p.queries}</span></div>
                                 <div className="flex justify-between text-gray-400"><span>Documents</span><span className="text-white font-mono">{p.docs}</span></div>
                                 <div className="flex justify-between text-gray-400"><span>Exams</span><span className="text-white font-mono">{p.exams}</span></div>
-                                <div className="flex justify-between text-gray-400"><span>Tokens</span><span className="text-white font-mono">{p.tokens}</span></div>
+                                <div className="flex justify-between text-gray-400"><span>Speed</span><span className="text-white font-mono">{p.speed}</span></div>
                             </div>
                             <button className="w-full py-2 text-xs bg-white/5 border border-white/10 rounded-lg text-gray-400 hover:bg-white/10 hover:text-white transition-all flex items-center justify-center gap-1">
                                 <Settings className="w-3 h-3" /> Edit Limits

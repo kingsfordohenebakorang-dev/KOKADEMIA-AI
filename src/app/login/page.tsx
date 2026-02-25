@@ -160,25 +160,25 @@ export default function LoginPage() {
                                 title="Free Tier"
                                 price="GH₵ 0"
                                 icon={<Shield className="w-6 h-6 text-gray-400" />}
-                                features={["5 Documents", "25 AI Queries", "1 Exam Generation", "No Notebook/Offline mode"]}
+                                features={["5 Documents", "10 AI Queries / Day", "1 Exam Generation", "Standard Speed"]}
                                 onSelect={() => handlePlanSelect('free')}
                             />
                             <PricingCard
-                                title="Pro Student"
+                                title="Analyst"
                                 price="GH₵ 49"
                                 period="/mo"
                                 icon={<User className="w-6 h-6 text-blue-400" />}
-                                features={["50 Documents", "300 AI Queries", "20 Exam Generations", "Notebook Mode", "Priority Speed"]}
-                                onSelect={() => handlePlanSelect('pro')}
+                                features={["50 Documents", "150 AI Queries / Month", "Notebook Mode", "Basic Mock Exams", "Faster Speed"]}
+                                onSelect={() => handlePlanSelect('analyst')}
                             />
                             <PricingCard
-                                title="KOK Semester Pass"
-                                price="GH₵ 169"
+                                title="Semester Pro"
+                                price="GH₵ 159"
                                 period="/semester"
                                 badge="🏆 BEST VALUE"
                                 highlighted
                                 icon={<Crown className="w-6 h-6 text-yellow-400" />}
-                                features={["150 Documents", "1,200 Total Queries", "80 Exam Generations", "Verified Solutions", "Offline Mode & Priority Queue"]}
+                                features={["150 Documents", "600 Queries / Semester", "15 Verified Solutions", "Full Mock Exams", "Offline Mode + Priority Queue"]}
                                 onSelect={() => handlePlanSelect('semester')}
                             />
                         </div>

@@ -118,17 +118,19 @@ graph TD
 
 | Tier | Price (GH₵) | Features & Limits |
 |------|-------------|-------------------|
-| **Foundation** | 0 / month | Claude Haiku; 10 queries/day; 5 docs/month; 1 exam generation; max 800 input/output tokens; no offline/notebook mode |
-| **Analyst** | 39 / month | Claude Sonnet; 150 queries/month; 50 docs; 3MB max per file; max 2,000 input / 1,500 output tokens; Notebook mode; basic mock exams; no Opus verification |
-| **Semester Pro** | 149 / semester | 600 queries/semester; 150 docs; 5MB max per file; cached Actuarial + Math Vault; 15 Verified Solutions via Opus; priority queue; offline mode; full mock exam generator |
+| **Foundation** | 0 / month | 10 queries/day; 5 docs/month; 1 exam generation; standard response speed; no offline/notebook mode |
+| **Analyst** | 49 / month | 150 queries/month; 50 docs; 3MB max per file; Notebook mode; basic mock exams; faster response speed |
+| **Semester Pro** | 159 / semester | 600 queries/semester; 150 docs; 5MB max per file; Actuarial + Math Vault access; 15 verified solutions; priority queue; offline mode; full mock exam generator |
 | **Institutional** | Contact Sales | University-wide dashboards; centralized billing; 500+ student minimum; full admin features; predictive analytics; campus-wide access |
+
+> **Note (Internal):** Model selection is handled server-side and is NOT exposed to users. Foundation uses Haiku, Analyst uses Sonnet, Semester Pro uses Opus for verification. This is a competitive advantage — users see features, not infrastructure.
 
 ### Add-On Boost Packs
 
 | Pack | Price (GH₵) | Includes |
 |------|-------------|----------|
-| **Query Boost** | 20 | +100 Sonnet queries |
-| **Verification Boost** | 30 | +5 Opus verifications |
+| **Query Boost** | 20 | +100 additional queries |
+| **Verification Boost** | 30 | +5 verified solutions |
 | **Exam Pack** | 40 | 3 full mock exams (batch processed) |
 
 ---
