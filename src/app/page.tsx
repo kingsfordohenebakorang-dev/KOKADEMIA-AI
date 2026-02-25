@@ -5,14 +5,25 @@ import { PricingSection } from "@/components/PricingSection";
 
 export default function Home() {
   return (
-    <main className="dark min-h-screen bg-black text-white selection:bg-indigo-500/30">
+    <main className="min-h-screen bg-[#08080c] text-white selection:bg-indigo-500/20">
       <Navbar />
       <Hero />
       <FeaturesSection />
-      <PricingSection />
+      <div id="pricing">
+        <PricingSection />
+      </div>
 
-      {/* Decorative Blur at bottom */}
-      <div className="fixed bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none z-20" />
+      {/* Footer */}
+      <footer className="border-t border-white/[0.04] py-12 px-8">
+        <div className="max-w-4xl mx-auto flex items-center justify-between">
+          <span className="text-[11px] text-gray-700">© 2026 KOK TRUST AI. Built for serious students.</span>
+          <div className="flex items-center gap-6 text-[11px] text-gray-700">
+            <a href="#" className="hover:text-gray-500 transition-colors">Privacy</a>
+            <a href="#" className="hover:text-gray-500 transition-colors">Terms</a>
+            <a href="mailto:support@koktrust.ai" className="hover:text-gray-500 transition-colors">Contact</a>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }

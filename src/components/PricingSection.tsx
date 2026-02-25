@@ -62,24 +62,22 @@ const plans = [
 
 export function PricingSection() {
     return (
-        <section className="relative py-24 px-6 md:px-12 bg-black border-t border-white/5 overflow-hidden">
-            {/* Background Gradients */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none" />
+        <section className="relative py-32 px-8 border-t border-white/[0.04] overflow-hidden">
+            {/* Subtle bg glow */}
+            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-900/[0.04] rounded-full blur-[150px] pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-5xl mx-auto">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-center mb-16"
+                    className="mb-16"
                 >
-                    <h2 className="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400 mb-6">
-                        Invest in Your Future
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-200 mb-3">
+                        Pricing
                     </h2>
-                    <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-                        Sustainable, high-performance AI tools tailored for your academic success.
-                        The <span className="text-indigo-400 font-semibold">Semester Pro</span> offers the best value for dedicated students.
+                    <p className="text-sm text-gray-600 max-w-md leading-relaxed">
+                        Transparent plans for students at every level. No hidden fees.
                     </p>
                 </motion.div>
 

@@ -1,131 +1,125 @@
 "use client"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight, BookOpen, Sigma, Calculator } from "lucide-react"
+import { ArrowRight, CheckCircle, Shield } from "lucide-react"
 
 export function Hero() {
     return (
-        <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-            {/* Background Ambience */}
+        <section className="relative min-h-screen flex items-center overflow-hidden">
+            {/* Subtle background glow — not overpowering */}
             <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px] animate-pulse" />
-                <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-pink-500/10 rounded-full blur-[120px] animate-pulse delay-1000" />
+                <div className="absolute top-1/3 left-1/4 w-[600px] h-[400px] bg-indigo-600/[0.04] rounded-full blur-[150px]" />
+                <div className="absolute bottom-1/4 right-1/5 w-[500px] h-[300px] bg-purple-600/[0.03] rounded-full blur-[120px]" />
             </div>
 
-            <div className="relative z-10 w-full max-w-6xl px-6 flex flex-col md:flex-row items-center gap-12">
+            <div className="relative z-10 w-full max-w-6xl mx-auto px-8 flex flex-col lg:flex-row items-center gap-16 pt-14">
 
-                {/* Text Content */}
-                <div className="flex-1 space-y-8 text-center md:text-left">
+                {/* ─── Left: Text Content ─── */}
+                <div className="flex-1 max-w-xl">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        transition={{ duration: 0.7 }}
                     >
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-indigo-300 mb-6">
-                            <span className="w-2 h-2 rounded-full bg-indigo-400 animate-pulse" />
-                            KOK TRUST AI v1.0
-                        </div>
-
-                        <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[1.1]">
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500">
-                                Master Actuarial &<br /> Mathematical Sciences
-                            </span>
+                        <h1 className="text-[2.75rem] md:text-[3.5rem] font-bold leading-[1.1] tracking-tight text-gray-100">
+                            Verified Solutions for Actuarial &amp; Mathematical Sciences
                         </h1>
                     </motion.div>
 
                     <motion.p
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-                        className="text-lg md:text-xl text-gray-400 max-w-2xl"
+                        transition={{ duration: 0.7, delay: 0.15 }}
+                        className="text-base text-gray-500 mt-6 leading-relaxed max-w-md"
                     >
-                        Upload lecture notes from any quantitative course. Get verified symbolic
-                        solutions — from actuarial reserving to multivariable calculus — powered by our Trust Layer.
+                        Not another AI that guesses answers. KOK TRUST AI translates
+                        every mathematical query into symbolic code, executes it, and
+                        verifies the result — before showing you anything.
                     </motion.p>
 
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+                        transition={{ duration: 0.7, delay: 0.3 }}
+                        className="mt-8 flex items-center gap-4"
                     >
-                        <Link href="/dashboard" className="group relative px-8 py-4 bg-white text-black rounded-xl font-bold overflow-hidden transition-transform hover:scale-105 inline-flex items-center justify-center">
-                            <span className="relative z-10 flex items-center gap-2">
-                                Start Studying <ArrowRight className="w-4 h-4" />
-                            </span>
-                            <div className="absolute inset-0 bg-gradient-to-r from-indigo-200 to-purple-200 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <Link
+                            href="/login"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white text-[13px] font-semibold rounded-lg transition-all"
+                        >
+                            Start Studying <ArrowRight className="w-3.5 h-3.5" />
                         </Link>
-
-                        <Link href="/exams" className="px-8 py-4 rounded-xl border border-white/10 hover:bg-white/5 text-white font-medium transition-colors flex items-center justify-center gap-2">
-                            <BookOpen className="w-4 h-4 text-indigo-400" /> View Syllabus
-                        </Link>
+                        <a
+                            href="#how-it-works"
+                            className="text-[13px] text-gray-500 hover:text-gray-300 transition-colors"
+                        >
+                            See how it works →
+                        </a>
                     </motion.div>
 
+                    {/* Trust indicators */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 1 }}
-                        className="pt-8 flex items-center gap-6 text-sm text-gray-500 font-mono justify-center md:justify-start"
+                        transition={{ delay: 0.8 }}
+                        className="mt-10 flex items-center gap-6 text-[11px] text-gray-600"
                     >
-                        <span className="flex items-center gap-2"><Sigma className="w-4 h-4" /> LaTeX Support</span>
-                        <span className="w-1 h-1 bg-gray-700 rounded-full" />
-                        <span>Actuarial & Math</span>
-                        <span className="w-1 h-1 bg-gray-700 rounded-full" />
-                        <span className="flex items-center gap-2"><Calculator className="w-4 h-4" /> SymPy Verified</span>
+                        <span className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3 text-indigo-500/60" /> Symbolically Verified</span>
+                        <span className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3 text-indigo-500/60" /> Actuarial &amp; Math</span>
+                        <span className="flex items-center gap-1.5"><CheckCircle className="w-3 h-3 text-indigo-500/60" /> SOA / IFoA Aligned</span>
                     </motion.div>
                 </div>
 
-                {/* Hero Visual */}
+                {/* ─── Right: System Preview (subtle, precise) ─── */}
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1, delay: 0.2 }}
-                    className="flex-1 w-full max-w-[500px] aspect-square relative"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.9, delay: 0.3 }}
+                    className="flex-1 w-full max-w-md"
                 >
-                    {/* Main Card */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-3xl border border-white/10 backdrop-blur-xl p-8 transform rotate-3 hover:rotate-0 transition-transform duration-700">
-                        {/* Mock Chat Interface */}
-                        <div className="h-full flex flex-col gap-4">
-                            <div className="flex items-start gap-4">
-                                <div className="w-8 h-8 rounded-full bg-gray-700 shrink-0" />
-                                <div className="glass p-4 rounded-2xl rounded-tl-none text-sm text-gray-300">
-                                    <p>{'Evaluate $\\int_0^\\infty x^2 e^{-x} dx$ and verify using the Gamma function.'}</p>
+                    <div className="bg-[#0c0c14] border border-white/[0.05] rounded-xl overflow-hidden shadow-2xl shadow-black/50">
+                        {/* Header bar */}
+                        <div className="h-9 flex items-center gap-2 px-4 border-b border-white/[0.04] bg-[#0a0a10]">
+                            <div className="flex gap-1.5">
+                                <div className="w-2 h-2 rounded-full bg-gray-700" />
+                                <div className="w-2 h-2 rounded-full bg-gray-700" />
+                                <div className="w-2 h-2 rounded-full bg-gray-700" />
+                            </div>
+                            <span className="text-[9px] text-gray-700 font-mono ml-2">KOK TRUST AI — Tutor Workspace</span>
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-5 space-y-4">
+                            {/* Query */}
+                            <div>
+                                <div className="text-[9px] text-gray-700 uppercase tracking-widest mb-1.5">Query</div>
+                                <p className="text-[12px] text-gray-400 leading-relaxed">
+                                    Evaluate <span className="text-gray-300 font-mono">∫₀^∞ x² e^(-x) dx</span> and verify using the Gamma function.
+                                </p>
+                            </div>
+
+                            {/* Separator */}
+                            <div className="border-t border-white/[0.03]" />
+
+                            {/* Solution */}
+                            <div>
+                                <div className="text-[9px] text-gray-700 uppercase tracking-widest mb-2">Solution</div>
+                                <div className="text-[12px] text-gray-400 leading-relaxed space-y-2">
+                                    <p className="text-gray-500">Using the Gamma function identity:</p>
+                                    <div className="bg-[#08080c] border border-white/[0.03] rounded-lg px-4 py-3 text-center">
+                                        <span className="text-[14px] text-gray-200 font-mono">Γ(3) = ∫₀^∞ x² e^(-x) dx = 2! = 2</span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className="flex items-start gap-4 flex-row-reverse">
-                                <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center shrink-0">
-                                    <Sigma className="w-4 h-4 text-white" />
-                                </div>
-                                <div className="glass p-4 rounded-2xl rounded-tr-none text-sm text-white w-full">
-                                    <p className="font-mono text-xs text-indigo-300 mb-2">✓ Verified via SymPy Trust Layer</p>
-                                    <p className="mb-2">Using integration by parts & Gamma function:</p>
-                                    <div className="p-3 bg-black/40 rounded-lg font-mono text-center my-2 border border-white/5">
-                                        {'$$\\Gamma(3) = \\int_0^\\infty x^2 e^{-x} dx = 2! = 2$$'}
-                                    </div>
-                                    <p className="text-gray-400 text-xs mt-2 flex items-center gap-1">
-                                        <span className="w-2 h-2 rounded-full bg-green-500" />
-                                        Verified • Source: Mathematical Analysis Ch.8
-                                    </p>
-                                </div>
+                            {/* Trust Layer Badge */}
+                            <div className="flex items-center gap-2 pt-2">
+                                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                <span className="text-[10px] text-emerald-500/80 font-medium">Verified via symbolic engine</span>
+                                <span className="text-[10px] text-gray-700 ml-auto font-mono">98% confidence</span>
                             </div>
                         </div>
                     </div>
-
-                    {/* Floating Elements */}
-                    <motion.div
-                        animate={{ y: [0, -20, 0] }}
-                        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
-                        className="absolute -top-8 -right-8 p-4 glass rounded-2xl border border-white/10"
-                    >
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 font-bold">✓</div>
-                            <div className="text-xs">
-                                <div className="font-bold text-white">Trust Score</div>
-                                <div className="text-gray-400">98% Verified</div>
-                            </div>
-                        </div>
-                    </motion.div>
                 </motion.div>
 
             </div>

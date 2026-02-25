@@ -1,8 +1,7 @@
 "use client"
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
-import { Upload, LogOut, User as UserIcon, Calculator } from 'lucide-react';
+import { Shield, LogOut, User as UserIcon } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
 
 export function Navbar() {
@@ -10,46 +9,41 @@ export function Navbar() {
     const { data: session } = useSession();
 
     return (
-        <nav className="fixed top-0 left-0 w-full h-16 border-b border-white/5 bg-black/50 backdrop-blur-xl flex items-center justify-between px-6 z-50">
-            <Link href="/" className="flex items-center gap-2 group">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center group-hover:shadow-[0_0_15px_rgba(99,102,241,0.5)] transition-all">
-                    <Calculator className="w-5 h-5 text-white" />
+        <nav className="fixed top-0 left-0 w-full h-14 border-b border-white/[0.04] bg-[#08080c]/80 backdrop-blur-xl flex items-center justify-between px-8 z-50">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-md bg-gradient-to-br from-indigo-600 to-purple-700 flex items-center justify-center">
+                    <Shield className="w-3.5 h-3.5 text-white" />
                 </div>
-                <span className="font-bold text-lg tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+                <span className="font-bold text-sm tracking-tight text-gray-200">
                     KOK<span className="text-indigo-400">TRUST</span>AI
                 </span>
             </Link>
 
-            <div className="flex items-center gap-6 text-sm font-medium text-gray-400">
-                <Link href="/chat" className="hover:text-white transition-colors text-indigo-400 font-semibold">Tutor AI</Link>
-                <Link href="/exams" className="hover:text-white transition-colors">Exams</Link>
-
+            {/* Right side */}
+            <div className="flex items-center gap-8 text-[13px] font-medium text-gray-500">
                 {session && session.user ? (
-                    <div className="flex items-center gap-4">
-                        <Link href="/dashboard" className={cn("hover:text-white transition-colors", pathname === '/dashboard' && "text-white")}>
-                            Dashboard
-                        </Link>
-                        <div className="h-4 w-[1px] bg-white/10" />
-                        <div className="flex items-center gap-2 text-gray-200">
-                            <UserIcon className="w-4 h-4" />
-                            <span>{session.user.email?.split('@')[0]}</span>
+                    /* Authenticated state */
+                    <div className="flex items-center gap-6">
+                        <Link href="/dashboard" className="hover:text-white transition-colors">Dashboard</Link>
+                        <div className="h-3.5 w-px bg-white/[0.06]" />
+                        <div className="flex items-center gap-2 text-gray-400">
+                            <UserIcon className="w-3.5 h-3.5" />
+                            <span className="text-[12px]">{session.user.email?.split('@')[0]}</span>
                         </div>
-                        <button onClick={() => signOut()} className="p-2 hover:bg-white/10 rounded-full transition-colors text-red-400" title="Logout">
-                            <LogOut className="w-4 h-4" />
+                        <button onClick={() => signOut()} className="text-gray-600 hover:text-red-400 transition-colors" title="Logout">
+                            <LogOut className="w-3.5 h-3.5" />
                         </button>
                     </div>
                 ) : (
-                    <Link href="/login" className="hover:text-white transition-colors">Log In</Link>
+                    /* Pre-login state — minimal, curated */
+                    <>
+                        <a href="#how-it-works" className="hover:text-gray-300 transition-colors">Product</a>
+                        <a href="#pricing" className="hover:text-gray-300 transition-colors">Pricing</a>
+                        <Link href="/login" className="text-gray-300 hover:text-white transition-colors">Log In</Link>
+                    </>
                 )}
-
-                <Link
-                    href="/upload"
-                    className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full hover:bg-gray-200 transition-colors"
-                >
-                    <Upload className="w-4 h-4" />
-                    <span>Upload Notes</span>
-                </Link>
             </div>
         </nav>
-    );
+    )
 }
