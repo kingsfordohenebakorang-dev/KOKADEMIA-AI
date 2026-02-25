@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { ArrowRight, BookOpen, Sigma } from "lucide-react"
+import { ArrowRight, BookOpen, Sigma, Calculator } from "lucide-react"
 
 export function Hero() {
     return (
@@ -28,7 +28,7 @@ export function Hero() {
 
                         <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[1.1]">
                             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500">
-                                Master Actuarial <br /> Science with KOK TRUST AI
+                                Master Actuarial &<br /> Mathematical Sciences
                             </span>
                         </h1>
                     </motion.div>
@@ -39,8 +39,8 @@ export function Hero() {
                         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                         className="text-lg md:text-xl text-gray-400 max-w-2xl"
                     >
-                        Upload your lecture notes. Get step-by-step symbolic solutions,
-                        provenance-backed answers, and interactive visualizations.
+                        Upload lecture notes from any quantitative course. Get verified symbolic
+                        solutions — from actuarial reserving to multivariable calculus — powered by our Trust Layer.
                     </motion.p>
 
                     <motion.div
@@ -69,9 +69,9 @@ export function Hero() {
                     >
                         <span className="flex items-center gap-2"><Sigma className="w-4 h-4" /> LaTeX Support</span>
                         <span className="w-1 h-1 bg-gray-700 rounded-full" />
-                        <span>SOA/CAS Aligned</span>
+                        <span>Actuarial & Math</span>
                         <span className="w-1 h-1 bg-gray-700 rounded-full" />
-                        <span>Symbolic Solver</span>
+                        <span className="flex items-center gap-2"><Calculator className="w-4 h-4" /> SymPy Verified</span>
                     </motion.div>
                 </div>
 
@@ -89,7 +89,7 @@ export function Hero() {
                             <div className="flex items-start gap-4">
                                 <div className="w-8 h-8 rounded-full bg-gray-700 shrink-0" />
                                 <div className="glass p-4 rounded-2xl rounded-tl-none text-sm text-gray-300">
-                                    <p>Calculate the present value of a 10-year annuity-due of 1000 with $i=5\%$.</p>
+                                    <p>{'Evaluate $\\int_0^\\infty x^2 e^{-x} dx$ and verify using the Gamma function.'}</p>
                                 </div>
                             </div>
 
@@ -98,14 +98,14 @@ export function Hero() {
                                     <Sigma className="w-4 h-4 text-white" />
                                 </div>
                                 <div className="glass p-4 rounded-2xl rounded-tr-none text-sm text-white w-full">
-                                    <p className="font-mono text-xs text-indigo-300 mb-2">Asking SymPy...</p>
-                                    <p className="mb-2">Using the formula for annuity-due:</p>
+                                    <p className="font-mono text-xs text-indigo-300 mb-2">✓ Verified via SymPy Trust Layer</p>
+                                    <p className="mb-2">Using integration by parts & Gamma function:</p>
                                     <div className="p-3 bg-black/40 rounded-lg font-mono text-center my-2 border border-white/5">
-                                        {'$$\\ddot{a}_{\\overline{n}|} = \\frac{1 - v^n}{d}$$'}
+                                        {'$$\\Gamma(3) = \\int_0^\\infty x^2 e^{-x} dx = 2! = 2$$'}
                                     </div>
                                     <p className="text-gray-400 text-xs mt-2 flex items-center gap-1">
                                         <span className="w-2 h-2 rounded-full bg-green-500" />
-                                        Verified from Life Contingencies P.42
+                                        Verified • Source: Mathematical Analysis Ch.8
                                     </p>
                                 </div>
                             </div>
@@ -119,10 +119,10 @@ export function Hero() {
                         className="absolute -top-8 -right-8 p-4 glass rounded-2xl border border-white/10"
                     >
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 font-bold">A+</div>
+                            <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 font-bold">✓</div>
                             <div className="text-xs">
-                                <div className="font-bold text-white">Exam P</div>
-                                <div className="text-gray-400">98% Accuracy</div>
+                                <div className="font-bold text-white">Trust Score</div>
+                                <div className="text-gray-400">98% Verified</div>
                             </div>
                         </div>
                     </motion.div>

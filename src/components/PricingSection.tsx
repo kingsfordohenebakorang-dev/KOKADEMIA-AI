@@ -6,14 +6,15 @@ import { cn } from "@/lib/utils";
 
 const plans = [
     {
-        name: "Free Tier",
+        name: "Foundation",
         price: "GH₵ 0",
-        period: "/forever",
-        description: "Essential trial for quick reference.",
+        period: "/month",
+        description: "Essential trial for quick reference. Claude Haiku model.",
         features: [
-            "5 Document Uploads",
-            "25 AI Queries / Month",
-            "1 Exam-Style Generation",
+            "10 AI Queries / Day",
+            "5 Document Uploads / Month",
+            "1 Exam Generation",
+            "800 Max Input/Output Tokens",
             "Standard Response Speed"
         ],
         buttonText: "Start for Free",
@@ -22,33 +23,36 @@ const plans = [
         icon: Zap
     },
     {
-        name: "Pro Student",
-        price: "GH₵ 49",
+        name: "Analyst",
+        price: "GH₵ 39",
         period: "/month",
-        description: "Serious prep with higher limits.",
+        description: "Serious prep with Claude Sonnet and Notebook mode.",
         features: [
+            "150 AI Queries / Month",
             "50 Document Uploads",
-            "300 AI Queries / Month",
-            "20 Exam-Style Generations",
+            "3MB Max Per File",
+            "2,000 Input / 1,500 Output Tokens",
             "Notebook Mode Access",
-            "Priority Response Speed"
+            "Basic Mock Exams"
         ],
-        buttonText: "Go Pro",
-        buttonLink: "/register?plan=pro",
+        buttonText: "Go Analyst",
+        buttonLink: "/register?plan=analyst",
         popular: false,
         icon: Star
     },
     {
-        name: "KOK Semester Pass",
-        price: "GH₵ 169",
+        name: "Semester Pro",
+        price: "GH₵ 149",
         period: "/semester",
-        description: "The ultimate 4-month package for top students.",
+        description: "Full-powered 4-month package with Opus verification.",
         features: [
+            "600 AI Queries / Semester",
             "150 Document Uploads",
-            "1,200 AI Queries Total",
-            "80 Exam-Style Generations",
-            "Verified Solutions & Offline Mode",
-            "Priority Queue Access"
+            "5MB Max Per File",
+            "Actuarial + Math Vault Access",
+            "15 Verified Solutions via Opus",
+            "Priority Queue + Offline Mode",
+            "Full Mock Exam Generator"
         ],
         buttonText: "Get Best Value",
         buttonLink: "/register?plan=semester",
@@ -76,7 +80,7 @@ export function PricingSection() {
                     </h2>
                     <p className="text-gray-400 max-w-2xl mx-auto text-lg">
                         Sustainable, high-performance AI tools tailored for your academic success.
-                        The <span className="text-indigo-400 font-semibold">KOK Semester Pass</span> offers the best value for dedicated students.
+                        The <span className="text-indigo-400 font-semibold">Semester Pro</span> offers the best value for dedicated students.
                     </p>
                 </motion.div>
 
@@ -135,6 +139,29 @@ export function PricingSection() {
                         </motion.div>
                     ))}
                 </div>
+
+                {/* Boost Packs */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mt-12 mb-16"
+                >
+                    <h3 className="text-xl font-bold text-white text-center mb-6">Add-On Boost Packs</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
+                        {[
+                            { name: "Query Boost", price: "GH₵ 20", desc: "+100 Sonnet queries" },
+                            { name: "Verification Boost", price: "GH₵ 30", desc: "+5 Opus verifications" },
+                            { name: "Exam Pack", price: "GH₵ 40", desc: "3 full mock exams (batch processed)" },
+                        ].map((pack, i) => (
+                            <div key={i} className="p-4 rounded-xl border border-white/10 bg-white/5 text-center hover:bg-white/10 transition-all">
+                                <div className="text-lg font-bold text-white mb-1">{pack.name}</div>
+                                <div className="text-indigo-400 font-mono text-sm mb-2">{pack.price}</div>
+                                <div className="text-gray-400 text-xs">{pack.desc}</div>
+                            </div>
+                        ))}
+                    </div>
+                </motion.div>
 
                 {/* Institutional Section */}
                 <motion.div

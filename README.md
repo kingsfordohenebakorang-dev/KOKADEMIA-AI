@@ -1,18 +1,37 @@
-# Actuarial GPT & Cinematic Study Platform
+# KOK TRUST AI — Actuarial & Mathematical Sciences Platform
 
-A premium AI-powered study platform for actuarial science students, featuring symbolic math solving, cinematic visuals, and provenance-backed answers.
+A premium AI-powered study platform for **actuarial science** and **mathematical sciences** students, featuring a **Neuro-Symbolic Trust Layer** that ensures every calculation is verified through SymPy code generation and sandbox execution.
+
+## Academic Coverage
+
+### Actuarial Science
+- Probability, Survival Models, Risk Theory
+- Financial Mathematics, Loss Distributions
+- Life Contingencies, Annuities, Premium Calculation
+- SOA/IFoA exam preparation
+
+### Mathematical Sciences
+- Calculus (Single & Multivariable)
+- Linear Algebra & Matrices
+- Differential Equations (ODE, PDE)
+- Real Analysis & Proof Techniques
+- Mathematical Statistics & Data Science Foundations
+
+## Trust Layer
+
+The LLM is **never trusted** to solve math directly:
+1. **Intent** → Student asks a question
+2. **Code Generation** → AI generates Python/SymPy code
+3. **Execution** → Secure sandbox runs code for exact answers
+4. **Verification** → AI cites source document & page
 
 ## Features
 - **Cinematic UI**: Built with Next.js, Framer Motion, and Tailwind CSS.
-- **Symbolic Math**: LaTeX rendering with KaTeX and standard mathematical equations.
-- **AI Integration**: Prepared for RAG with Vector DB and LLM integration.
-
-## Usage
-
-Once the development server is running, you can:
-- **Upload Documents**: Navigate to the upload page to submit PDFs for knowledge ingestion.
-- **Explore Concepts**: Use the interactive visualizer to explore mapping of actuarial science topics (e.g., mortality tables, derivatives, life insurance mathematics).
-- **Solve Math Queries**: Utilize the symbolic math engine for clear, step-by-step actuarial solutions.
+- **Symbolic Math**: LaTeX rendering with KaTeX and SymPy verification.
+- **AI Integration**: RAG with Vector DB (Pinecone) and LLM synthesis.
+- **Exam Engine**: Timed simulations, custom exams, verified solutions.
+- **Institutional Dashboard**: Cohort analytics, predictive scoring.
+- **Retention Tools**: Flashcards, notebook mode, offline access.
 
 ## Getting Started
 
@@ -21,31 +40,36 @@ Once the development server is running, you can:
    npm install
    ```
 
-2. **Run Development Server**:
+2. **Configure Environment**:
+   ```bash
+   cp .env.example .env.local
+   # Edit .env.local with your actual API keys and secrets
+   ```
+
+3. **Run Development Server**:
    ```bash
    npm run dev
    ```
 
-3. **Build for Production**:
+4. **Build for Production**:
    ```bash
    npm run build
    npm start
    ```
 
 ## Project Structure
-- `src/app`: Next.js App Router pages and API routes.
-- `src/components`: UI components (Hero, Navbar, MathBlock).
-- `src/lib`: Utility functions.
-- `PLAN.md`: 12-week development roadmap.
+- `src/app` — Next.js App Router pages and API routes
+- `src/components` — UI components (Hero, Navbar, MathBlock, Pricing)
+- `src/lib` — Utility functions (router, prompts, auth, schemas)
+- `prisma/` — Database schema
+- `BLUEPRINT.md` — Full product blueprint and architecture
 
-## Git Setup
-To push this to your GitHub repository:
-1. Create a new repository on GitHub.
-2. Run:
-   ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/actuarial-platform.git
-   git branch -M main
-   git push -u origin main
-   ```
+## Tech Stack
+- **Frontend:** Next.js 14+ / Framer Motion / Tailwind CSS
+- **Backend:** Node.js + Python (SymPy Math Engine)
+- **Database:** PostgreSQL + Pinecone (Vector Search)
+- **Auth:** NextAuth.js with JWT
+- **Deployment:** Vercel / Docker
 
-# KOK-TRUST-AI
+## Repository
+[github.com/kingsfordohenebakorang-dev/KOK-TRUST-AI](https://github.com/kingsfordohenebakorang-dev/KOK-TRUST-AI)

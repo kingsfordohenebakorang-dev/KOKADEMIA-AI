@@ -1,29 +1,57 @@
-# Actuarial GPT: Production System Blueprint
+# KOK TRUST AI – Actuarial + Mathematical Sciences Blueprint
 
-## 1. One-Page Product Spec (Technical)
+## 1. Core Concept
 
-**System Name:** Actuarial GPT (AGPT)
-**Core Value:** Deterministic, document-grounded symbolic math solving for high-stakes actuarial exams.
+**System Name:** KOK TRUST AI  
+**Core Value:** Verified, structured AI learning platform for actuarial and mathematical sciences with a **Neuro-Symbolic Trust Layer**.  
 **Architecture:** Hybrid RAG (Vector + Graph) + Symbolic Compute Engine (SymPy) + Cinematic Frontend.
 
-**Key Features:**
-*   **Ingestion:** Multi-format (PDF/TEX/IMG) -> MathPix OCR -> Semantic Chunking.
-*   **Intelligence:** 
-    *   *Router:* Classifies query -> (Compute | Retrieval | Hybrid).
-    *   *Solver:* SymPy/NumPy layer for ground-truth calculation.
-    *   *Synthesis:* LLM (GPT-4) wraps provenance & reasoning around symbolic results.
-*   **Knowledge Graph (KG):** Neo4j storage of theorems, formulas, and their dependencies.
-*   **Frontend:** Next.js + Framer Motion. "Bloomberg for Actuaries" aesthetic.
-*   **Auth:** Role-based (Student/Pro/Institution).
-
-**Success Metrics:**
-*   **Accuracy:** >95% Symbolic Correctness on Benchmark.
-*   **Latency:** <2s for Compute, <5s for RAG+Synthesis.
-*   **Retention:** >40% DAU/MAU ratio.
+### Trust Layer (Neuro-Symbolic Architecture)
+- LLM is **not trusted** to do math directly.
+- Workflow:
+  1. **Intent:** Student asks a question ("Integrate x² dx" / "Calculate annuity due…").
+  2. **Code Generation:** AI generates Python code using SymPy for math verification.
+  3. **Execution:** Secure sandbox runs code for exact numeric or symbolic answers.
+  4. **Verification:** AI cites source document/page (textbook, lecture slide).
 
 ---
 
-## 2. System Architecture & Data Flow
+## 2. Strategic Layers
+
+| # | Layer | Description |
+|---|-------|-------------|
+| 1 | **Lecturer Layer** | Verified syllabus uploads, authenticated mock exams |
+| 2 | **Institutional Dashboard** | Analytics for department heads, cohort metrics |
+| 3 | **Predictive Analytics** | AI forecasts exam success based on usage patterns |
+| 4 | **Timed Simulation** | Mock exams with countdown timers, auto-submission |
+| 5 | **Retention Tools** | Offline flashcards, spaced repetition, streaks |
+| 6 | **Growth Mechanics** | Referral systems, campus ambassador tools |
+
+---
+
+## 3. Academic Coverage
+
+### Actuarial Science
+- Probability & Survival Models
+- Risk Theory & Ruin Probabilities
+- Financial Mathematics (TVM, Duration, Convexity)
+- Loss Distributions & Compound Models
+- Life Contingencies & Annuities
+- CT-series textbooks & SOA/IFoA syllabi
+
+### Mathematical Sciences
+- **Calculus** — Single & Multivariable (limits, derivatives, integrals, series)
+- **Linear Algebra** — Matrices, eigenvalues, vector spaces, transformations
+- **Differential Equations** — ODE, PDE, Laplace transforms
+- **Real Analysis** — Proofs, convergence, continuity, measure theory
+- **Mathematical Statistics** — Distributions, estimation, hypothesis testing
+- **Data Science Foundations** — Regression, classification basics
+
+Every calculation is verified using the **Python/SymPy engine**, regardless of discipline.
+
+---
+
+## 4. System Architecture & Data Flow
 
 ```mermaid
 graph TD
@@ -54,162 +82,113 @@ graph TD
     Synthesizer -->|JSON Resp| API
     end
 
-    subgraph "Analytics & feedback"
-    API -->|Log Interaction| Postgres[Relational DB]
+    subgraph "Analytics & Feedback"
+    API -->|Log Interaction| Postgres[PostgreSQL]
     Postgres -->|Aggregations| Dashboard[Analytics View]
     end
 ```
 
 ---
 
-## 3. Database Schema Recommendations
+## 5. Feature Breakdown
 
-### Relational (PostgreSQL) - User & Metadata
-```sql
-CREATE TABLE users (
-  id UUID PRIMARY KEY,
-  role VARCHAR(20) CHECK (role IN ('free', 'pro', 'institution')),
-  institution_id UUID,
-  created_at TIMESTAMP
-);
-
-CREATE TABLE documents (
-  id UUID PRIMARY KEY,
-  user_id UUID REFERENCES users(id),
-  s3_key VARCHAR(255),
-  title VARCHAR(255),
-  parsing_status VARCHAR(20),
-  math_density_score FLOAT, -- For routing decisions
-  is_public BOOLEAN DEFAULT FALSE
-);
-
-CREATE TABLE queries (
-  id UUID PRIMARY KEY,
-  user_id UUID REFERENCES users(id),
-  query_text TEXT,
-  query_type VARCHAR(20), -- 'symbolic', 'retrieval'
-  latency_ms INTEGER,
-  feedback_score INTEGER -- 1-5 stars
-);
-```
-
-### Knowledge Graph Schema (Neo4j)
-*   **Nodes labels:** `Concept`, `Formula`, `Theorem`, `Exam` (e.g., "Exam P"), `DocumentChunk`.
-*   **Relationships:**
-    *   `(Formula)-[:DERIVED_FROM]->(Theorem)`
-    *   `(Concept)-[:TESTED_IN]->(Exam)`
-    *   `(DocumentChunk)-[:MENTIONS]->(Concept)`
-    *   `(Formula)-[:DEPENDS_ON]->(Variable)`
+| Layer | Features |
+|-------|----------|
+| **Academic Intelligence & Tutoring** | Expert LLM for actuarial & math; symbolic verification; LaTeX rendering; provenance tracking |
+| **Exam Engine & Simulation** | Timed simulations; custom exams; verified solutions; smart syllabus parsing |
+| **Institutional Infrastructure** | Lecturer uploads; class analytics; predictive success scoring |
+| **Retention & Mobile** | Flashcards; notebook mode; offline mode; behavioral nudges |
+| **Growth & Community** | Campus ambassador tools; collaborative knowledge base; peer benchmarking |
 
 ---
 
-## 4. API Route Examples
+## 6. Tech Stack
 
-### `POST /api/solve` (The Math Router)
-```typescript
-{
-  "query": "Calculate variance of a 10-year deferred annuity due",
-  "context_doc_ids": ["doc_123"]
-}
-```
-**Logic:**
-1.  **Classifier:** Detects "Calculate", "variance", "annuity". -> Route: **Hybrid**.
-2.  **Symbolic:** Calls Python microservice: `curtate_variance(deferred=10, type='due')`.
-3.  **Retrieval:** Fetches definitions from `doc_123` to confirm notation ($i$ vs $\delta$).
-4.  **Response:** Returns standard JSON with `steps[]`.
-
-### `POST /api/graph/explore` (Visual Explorer)
-```typescript
-{
-  "concept": "Survival Function",
-  "depth": 2
-}
-```
-**Response:** Nodes and edges connecting "Survival Function" -> "Force of Mortality" -> "Life Table".
+- **Frontend:** Next.js 14+ + Framer Motion + Tailwind CSS
+- **Backend:** Node.js + Python (Math Engine via SymPy)
+- **Database:** PostgreSQL (users/metadata) + Pinecone (vector search)
+- **Knowledge Graph:** Neo4j (theorem/formula relationships)
+- **Deployment:** Dockerized & scalable (Vercel + AWS)
 
 ---
 
-## 5. Math Solver Integration Plan
+## 7. Pricing Model
 
-**Stack:** Python (FastAPI) + SymPy + Actuarial-specific libraries (`lifelib`).
+### Subscription Tiers
+
+| Tier | Price (GH₵) | Features & Limits |
+|------|-------------|-------------------|
+| **Foundation** | 0 / month | Claude Haiku; 10 queries/day; 5 docs/month; 1 exam generation; max 800 input/output tokens; no offline/notebook mode |
+| **Analyst** | 39 / month | Claude Sonnet; 150 queries/month; 50 docs; 3MB max per file; max 2,000 input / 1,500 output tokens; Notebook mode; basic mock exams; no Opus verification |
+| **Semester Pro** | 149 / semester | 600 queries/semester; 150 docs; 5MB max per file; cached Actuarial + Math Vault; 15 Verified Solutions via Opus; priority queue; offline mode; full mock exam generator |
+| **Institutional** | Contact Sales | University-wide dashboards; centralized billing; 500+ student minimum; full admin features; predictive analytics; campus-wide access |
+
+### Add-On Boost Packs
+
+| Pack | Price (GH₵) | Includes |
+|------|-------------|----------|
+| **Query Boost** | 20 | +100 Sonnet queries |
+| **Verification Boost** | 30 | +5 Opus verifications |
+| **Exam Pack** | 40 | 3 full mock exams (batch processed) |
+
+---
+
+## 8. Vector Vault (Actuarial + Math)
+
+- **Purpose:** Store PDFs of textbooks & course notes as searchable vectors.
+- **Process:**
+  1. **Chunking:** Break PDFs into 500-word paragraphs.
+  2. **Embedding:** Convert paragraphs into vectors (text-embedding-3-small).
+  3. **Retrieval:** AI queries the vault for exact context before answering.
+- **Tech Options:** Pinecone (managed) or Supabase Vector (if on Vercel).
+- **Hybrid Search:** BM25 keyword boost + semantic dense search + graph expansion.
+
+---
+
+## 9. Math Solver Integration Plan
+
+**Stack:** Python (FastAPI) + SymPy + Actuarial-specific libraries.
 
 **Library Structure:**
-*   `agpt.life_contingencies`: `check_survival(x, t)`, `commutation_functions`.
-*   `agpt.financial_math`: `annuity_due(n, i)`, `bond_price(yield, coupon)`.
-*   `agpt.loss_models`: `aggregate_loss_variance(freq_dist, sev_dist)`.
+- `agpt.life_contingencies`: `check_survival(x, t)`, `commutation_functions`.
+- `agpt.financial_math`: `annuity_due(n, i)`, `bond_price(yield, coupon)`.
+- `agpt.loss_models`: `aggregate_loss_variance(freq_dist, sev_dist)`.
+- `agpt.calculus`: `integrate(expr)`, `differentiate(expr)`, `limits(expr)`.
+- `agpt.linear_algebra`: `eigenvalues(matrix)`, `row_reduce(matrix)`, `determinant(matrix)`.
+- `agpt.diff_eq`: `solve_ode(eq)`, `laplace_transform(expr)`.
+- `agpt.statistics`: `hypothesis_test(data)`, `confidence_interval(data)`.
 
 **Workflow:**
-1.  LLM generates **Python Code** based on the query (e.g., `solve(Eq(Price, 1000*v^n), n)`).
-2.  **Sandbox Execution:** Run code in a secure, timeout-restricted environment.
-3.  **Output:** Capture `stdout` and Latex-formatted return value.
+1. LLM generates **Python Code** based on the query.
+2. **Sandbox Execution:** Run code in a secure, timeout-restricted environment.
+3. **Output:** Capture `stdout` and LaTeX-formatted return value.
 
 ---
 
-## 6. Vector Retrieval Strategy (Hybrid)
+## 10. Security Model
 
-1.  **Semantic Search:** `text-embedding-3-small` for broad concept matching.
-2.  **Keyword Boost:** BM25 on extracted formulas (e.g., specifically matching "$$\ddot{a}_{x}$$").
-3.  **Graph Expansion:** If user searches "Ruin Probability", also fetch chunks linked to "Cramér-Lundberg Model" via the Knowledge Graph.
-4.  **Re-ranking:** Cohere Rerank to prioritize chunks from "Trusted Authorities" (e.g., SOA Syllabus docs) over random uploads.
-
----
-
-## 7. Cost Modeling (Per 1,000 Active Users)
-
-**Assumptions:**
-*   User makes 10 queries/day.
-*   Avg input: 500 tokens. Avg output: 1k tokens.
-
-**Estimated Monthly Costs:**
-1.  **LLM (OpenAI GPT-4o):**
-    *   $5.00 / 1M input tokens * 15M tokens = $75
-    *   $15.00 / 1M output tokens * 30M tokens = $450
-2.  **MathPix OCR:**
-    *   100 docs/mo * 10 pages * $0.002 = $2.00
-3.  **Vector DB (Pinecone):** Starter Tier (~$70/mo).
-4.  **Compute (Vercel/AWS):** ~$50.
-
-**Total Est:** ~$650/month for 1k users ($0.65/user).
-**Revenue:** Pro Plan @ $15/mo = $15,000.
-**Margin:** ~95%.
+- **Encryption:** AES-256 for parsed text stored in DB.
+- **Presigned URLs:** S3 links expire after 15 minutes.
+- **Provenance:** Every answer block has a content hash of the source chunk.
+- **Auth:** Role-based (Student / Pro / Institution), JWT + NextAuth.
+- **Rate Limiting:** Per-tier query limits enforced at API level.
+- **Input Validation:** Zod schemas on all endpoints.
 
 ---
 
-## 8. Evaluation Framework (Harness)
+## 11. Evaluation Framework
 
-**Python Script Outline (`eval_harness.py`):**
-1.  Load `benchmark_questions.json`: `{ "q": "...", "ground_truth_latex": "..." }`.
-2.  Run `agpt_solver(q)`.
-3.  **Symbolic Check:** use SymPy to simplify `(generated_answer - ground_truth)`. If 0, Pass.
-4.  **Citation Check:** Verify if returned Document ID exists in the "Gold Standard" list for that topic.
+**Python Script (`eval_harness.py`):**
+1. Load `benchmark_questions.json`: `{ "q": "...", "ground_truth_latex": "..." }`.
+2. Run `agpt_solver(q)`.
+3. **Symbolic Check:** Use SymPy to simplify `(generated_answer - ground_truth)`. If 0, Pass.
+4. **Citation Check:** Verify if returned Document ID exists in the "Gold Standard" list.
 
----
-
-## 9. Monetization & Security Model
-
-**Tiers:**
-*   **Free:** 3 uploads (indexed but volatile). 10 Math queries/day.
-*   **Pro ($15/mo):** Unlimited. Knowledge Graph Explorer. Notebook Mode.
-*   **Institution:** SSO. Admin Dashboard. "Professor Mode" (upload authoritative answer keys).
-
-**Security:**
-*   **Encryption:** AES-256 for parsed text stored in DB.
-*   **Presigned URLs:** S3 links expire after 15 minutes.
-*   **Provenance:** Every answer block has a content hash of the source chunk.
+**Success Metrics:**
+- **Accuracy:** >95% Symbolic Correctness on Benchmark.
+- **Latency:** <2s for Compute, <5s for RAG+Synthesis.
+- **Retention:** >40% DAU/MAU ratio.
 
 ---
 
-## 10. Cinematic UI Implementation Guide
-
-**Nano Banana → Framer Workflow:**
-1.  **Nano Banana:** Generate "Flowing Probability Cloud" 3D asset.
-2.  **Export:** `high_res_cloud.webm` (video with alpha channel).
-3.  **Framer:**
-    *   Import video as background.
-    *   Add `ScrollTransform` to rotate the cloud as user reads.
-    *   Overlay glass cards with `backdrop-filter: blur(20px)`.
-4.  **Export Code:** Copy React component code (`framer-motion` variants) into `src/components/Hero.tsx`.
-
----
-
-This blueprint provides the exact roadmap to move from MVP (Sprint 2/3) to the fully realized "Bloomberg for Actuaries" product.
+This positions KOK Trust AI as a **verified, structured learning platform** for both actuarial and broader quantitative disciplines, with strong cost control, academic credibility, and campus-focused adoption strategy.
