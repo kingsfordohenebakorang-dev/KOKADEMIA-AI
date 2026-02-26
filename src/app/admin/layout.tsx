@@ -5,13 +5,14 @@ import { usePathname } from "next/navigation";
 import {
     LayoutDashboard, Users, CreditCard, BookOpen, BrainCircuit,
     BarChart3, Settings, Bell, Search, ChevronDown, LogOut,
-    Activity, Shield, Menu, X
+    Activity, Shield, Menu, X, Tag
 } from "lucide-react";
 
 const sidebarItems = [
     { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { label: "Users", href: "/admin/users", icon: Users },
     { label: "Subscriptions", href: "/admin/subscriptions", icon: CreditCard },
+    { label: "Discount Codes", href: "/admin/discounts", icon: Tag },
     { label: "Content", href: "/admin/content", icon: BookOpen },
     { label: "AI Monitor", href: "/admin/ai-monitor", icon: BrainCircuit },
     { label: "Analytics", href: "/admin/analytics", icon: BarChart3 },
@@ -59,8 +60,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                 href={item.href}
                                 onClick={() => setSidebarOpen(false)}
                                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${isActive
-                                        ? "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
-                                        : "text-gray-400 hover:text-white hover:bg-white/5"
+                                    ? "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
+                                    : "text-gray-400 hover:text-white hover:bg-white/5"
                                     }`}
                             >
                                 <item.icon className="w-4 h-4" />
