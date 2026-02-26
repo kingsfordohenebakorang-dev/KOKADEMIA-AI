@@ -2,11 +2,23 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Lock, ArrowRight, User, Check, Zap, Shield, Crown, RefreshCw } from 'lucide-react';
+import { Mail, Lock, ArrowRight, User, Check, Zap, Shield, Crown, RefreshCw, Tag, X, AlertCircle, CheckCircle } from 'lucide-react';
+
+// Valid discount codes (in production, validate server-side)
+const validCodes: Record<string, { type: "percentage" | "fixed"; value: number; appliesTo: string }> = {
+    "WELCOME25": { type: "percentage", value: 25, appliesTo: "All Plans" },
+    "KNUST2026": { type: "percentage", value: 15, appliesTo: "Semester Pro" },
+    "FIRSTMONTH": { type: "fixed", value: 20, appliesTo: "Analyst" },
+    "STUDYGROUP10": { type: "percentage", value: 10, appliesTo: "All Plans" },
+};
+
+const planPrices: Record<string, { price: number; label: string; period: string }> = {
+    analyst: { price: 49, label: "Analyst", period: "/mo" },
+    semester: { price: 159, label: "Semester Pro", period: "/semester" },
+};
 
 export default function LoginPage() {
-    // 1. New 'step' state to manage flow: 'auth' -> 'pricing'
-    const [step, setStep] = useState<'auth' | 'pricing'>('auth');
+    const [step, setStep] = useState<'auth' | 'pricing' | 'discount'>('auth');
     const [isSignUp, setIsSignUp] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,19 +26,23 @@ export default function LoginPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+    // Discount code state
+    const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+    const [discountCode, setDiscountCode] = useState('');
+    const [discountStatus, setDiscountStatus] = useState<'idle' | 'valid' | 'invalid'>('idle');
+    const [appliedDiscount, setAppliedDiscount] = useState<{ type: "percentage" | "fixed"; value: number } | null>(null);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         setError(null);
 
-        // Mock API call
         await new Promise(resolve => setTimeout(resolve, 1500));
 
         if (email === 'admin@actuary.com' && password === 'admin') {
-            // Admin login: route to admin dashboard
             window.location.href = '/admin';
         } else if (isSignUp) {
-            setStep('pricing'); // Move to pricing
+            setStep('pricing');
         } else {
             setError('Invalid credentials');
             setIsLoading(false);
@@ -34,7 +50,52 @@ export default function LoginPage() {
     };
 
     const handlePlanSelect = (plan: string) => {
-        console.log(`Selected plan: ${plan}`);
+        if (plan === 'free') {
+            // Free tier — no discount prompt needed
+            window.location.href = '/dashboard';
+            return;
+        }
+        // Paid plan — show discount code prompt
+        setSelectedPlan(plan);
+        setDiscountCode('');
+        setDiscountStatus('idle');
+        setAppliedDiscount(null);
+        setStep('discount');
+    };
+
+    const handleApplyCode = () => {
+        const code = discountCode.trim().toUpperCase();
+        const discount = validCodes[code];
+
+        if (!discount) {
+            setDiscountStatus('invalid');
+            setAppliedDiscount(null);
+            return;
+        }
+
+        // Check if code applies to the selected plan
+        const plan = planPrices[selectedPlan!];
+        if (discount.appliesTo !== "All Plans" && discount.appliesTo !== plan.label) {
+            setDiscountStatus('invalid');
+            setAppliedDiscount(null);
+            return;
+        }
+
+        setDiscountStatus('valid');
+        setAppliedDiscount({ type: discount.type, value: discount.value });
+    };
+
+    const getDiscountedPrice = () => {
+        if (!selectedPlan || !appliedDiscount) return null;
+        const original = planPrices[selectedPlan].price;
+        if (appliedDiscount.type === "percentage") {
+            return Math.round(original * (1 - appliedDiscount.value / 100));
+        }
+        return Math.max(0, original - appliedDiscount.value);
+    };
+
+    const handleConfirmPlan = () => {
+        console.log(`Selected plan: ${selectedPlan}, discount: ${appliedDiscount ? JSON.stringify(appliedDiscount) : 'none'}`);
         window.location.href = '/dashboard';
     };
 
@@ -251,6 +312,133 @@ export default function LoginPage() {
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </motion.div>
+                )}
+
+                {step === 'discount' && selectedPlan && (
+                    /* --- DISCOUNT CODE VIEW --- */
+                    <motion.div
+                        key="discount-step"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, x: -100 }}
+                        className="w-full max-w-md z-10"
+                    >
+                        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
+                            {/* Header */}
+                            <div className="flex items-center justify-between mb-6">
+                                <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                                    <Tag className="w-5 h-5 text-indigo-400" /> Discount Code
+                                </h2>
+                                <button
+                                    onClick={() => { setStep('pricing'); setSelectedPlan(null); }}
+                                    className="p-1 rounded-lg hover:bg-white/10 text-gray-500 hover:text-white transition-colors"
+                                >
+                                    <X className="w-4 h-4" />
+                                </button>
+                            </div>
+
+                            {/* Selected Plan Summary */}
+                            <div className="bg-white/5 border border-white/5 rounded-xl p-4 mb-6">
+                                <div className="flex items-center justify-between">
+                                    <div>
+                                        <div className="text-sm font-semibold text-white">{planPrices[selectedPlan].label}</div>
+                                        <div className="text-xs text-gray-500 mt-0.5">Selected plan</div>
+                                    </div>
+                                    <div className="text-right">
+                                        {appliedDiscount && discountStatus === 'valid' ? (
+                                            <>
+                                                <div className="text-lg font-bold text-indigo-400">
+                                                    GH₵ {getDiscountedPrice()}<span className="text-xs text-gray-500">{planPrices[selectedPlan].period}</span>
+                                                </div>
+                                                <div className="text-xs text-gray-600 line-through">GH₵ {planPrices[selectedPlan].price}</div>
+                                            </>
+                                        ) : (
+                                            <div className="text-lg font-bold text-white">
+                                                GH₵ {planPrices[selectedPlan].price}<span className="text-xs text-gray-500">{planPrices[selectedPlan].period}</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Discount Input */}
+                            <div className="mb-4">
+                                <label className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-2 block">
+                                    Have a discount code? <span className="text-gray-600 normal-case">(optional)</span>
+                                </label>
+                                <div className="flex gap-2">
+                                    <input
+                                        value={discountCode}
+                                        onChange={e => {
+                                            setDiscountCode(e.target.value.toUpperCase());
+                                            if (discountStatus !== 'idle') {
+                                                setDiscountStatus('idle');
+                                                setAppliedDiscount(null);
+                                            }
+                                        }}
+                                        onKeyDown={e => { if (e.key === 'Enter') handleApplyCode(); }}
+                                        placeholder="e.g. WELCOME25"
+                                        className="flex-1 bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white font-mono placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all tracking-wider"
+                                    />
+                                    <button
+                                        onClick={handleApplyCode}
+                                        disabled={!discountCode.trim()}
+                                        className="px-4 py-3 bg-indigo-600 hover:bg-indigo-500 disabled:bg-gray-700 disabled:text-gray-500 text-white text-sm font-medium rounded-xl transition-all"
+                                    >
+                                        Apply
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Feedback */}
+                            {discountStatus === 'valid' && appliedDiscount && (
+                                <div className="flex items-center gap-2 p-3 rounded-xl bg-green-500/10 border border-green-500/20 mb-4">
+                                    <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
+                                    <span className="text-xs text-green-300">
+                                        Code applied! You save{' '}
+                                        <strong>
+                                            {appliedDiscount.type === 'percentage'
+                                                ? `${appliedDiscount.value}%`
+                                                : `GH₵ ${appliedDiscount.value}`}
+                                        </strong>{' '}
+                                        — new price is <strong>GH₵ {getDiscountedPrice()}{planPrices[selectedPlan].period}</strong>.
+                                    </span>
+                                </div>
+                            )}
+
+                            {discountStatus === 'invalid' && (
+                                <div className="flex items-center gap-2 p-3 rounded-xl bg-red-500/10 border border-red-500/20 mb-4">
+                                    <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
+                                    <span className="text-xs text-red-300">
+                                        Invalid code or not applicable to {planPrices[selectedPlan].label}. Please try another.
+                                    </span>
+                                </div>
+                            )}
+
+                            {/* Actions */}
+                            <div className="space-y-3 mt-6">
+                                <button
+                                    onClick={handleConfirmPlan}
+                                    className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-xl transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2"
+                                >
+                                    {discountStatus === 'valid' ? (
+                                        <>Continue with Discount <ArrowRight className="w-4 h-4" /></>
+                                    ) : (
+                                        <>Continue — GH₵ {planPrices[selectedPlan].price}{planPrices[selectedPlan].period} <ArrowRight className="w-4 h-4" /></>
+                                    )}
+                                </button>
+
+                                {discountStatus !== 'valid' && (
+                                    <button
+                                        onClick={handleConfirmPlan}
+                                        className="w-full text-xs text-gray-500 hover:text-gray-300 py-2 transition-colors"
+                                    >
+                                        Skip — I don&apos;t have a code
+                                    </button>
+                                )}
+                            </div>
                         </div>
                     </motion.div>
                 )}
