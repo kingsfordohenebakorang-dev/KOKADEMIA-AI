@@ -105,7 +105,7 @@ export default function LoginPage() {
             <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-black to-black opacity-50 z-0" />
 
             <AnimatePresence mode="wait">
-                {step === 'auth' ? (
+                {step === 'auth' && (
                     /* --- AUTHENTICATION VIEW --- */
                     <motion.div
                         key="auth-card"
@@ -203,12 +203,15 @@ export default function LoginPage() {
                             </p>
                         </div>
                     </motion.div>
-                ) : (
+                )}
+
+                {step === 'pricing' && (
                     /* --- PRICING VIEW --- */
                     <motion.div
                         key="pricing-grid"
                         initial={{ opacity: 0, x: 100 }}
                         animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -100 }}
                         className="w-full max-w-5xl z-10 flex flex-col items-center"
                     >
                         <div className="text-center mb-10 w-full">
