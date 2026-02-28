@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import {
     Tag, Plus, Search, Copy, Check, X, Trash2, Power, PowerOff,
-    Calendar, Users, Percent, DollarSign, Clock, AlertCircle
+    Calendar, Users, Percent, DollarSign, Clock, AlertCircle,
+    CheckSquare, Square, XCircle
 } from "lucide-react";
 
 interface DiscountCode {
@@ -59,6 +60,7 @@ export default function DiscountCodesPage() {
     const [filterStatus, setFilterStatus] = useState<"all" | "active" | "inactive" | "expired">("all");
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [copiedId, setCopiedId] = useState<number | null>(null);
+    const [selected, setSelected] = useState<Set<number>>(new Set());
 
     // New code form state
     const [newCode, setNewCode] = useState({
@@ -93,6 +95,48 @@ export default function DiscountCodesPage() {
 
     const handleDelete = (id: number) => {
         setCodes(prev => prev.filter(c => c.id !== id));
+        setSelected(prev => { const next = new Set(prev); next.delete(id); return next; });
+    };
+
+    // ── Batch operations ──
+    const toggleSelect = (id: number) => {
+        setSelected(prev => {
+            const next = new Set(prev);
+            next.has(id) ? next.delete(id) : next.add(id);
+            return next;
+        });
+    };
+
+    const toggleSelectAll = () => {
+        if (selected.size === filtered.length) {
+            setSelected(new Set());
+        } else {
+            setSelected(new Set(filtered.map(c => c.id)));
+        }
+    };
+
+    const batchActivate = () => {
+        setCodes(prev => prev.map(c =>
+            selected.has(c.id) && c.status !== "expired" ? { ...c, status: "active" } : c
+        ));
+        setSelected(new Set());
+    };
+
+    const batchDeactivate = () => {
+        setCodes(prev => prev.map(c =>
+            selected.has(c.id) && c.status !== "expired" ? { ...c, status: "inactive" } : c
+        ));
+        setSelected(new Set());
+    };
+
+    const batchDelete = () => {
+        setCodes(prev => prev.filter(c => !selected.has(c.id)));
+        setSelected(new Set());
+    };
+
+    const batchCopy = () => {
+        const selectedCodes = codes.filter(c => selected.has(c.id)).map(c => c.code).join(", ");
+        navigator.clipboard.writeText(selectedCodes);
     };
 
     const handleCreate = () => {
@@ -202,7 +246,14 @@ export default function DiscountCodesPage() {
                     <table className="w-full min-w-[900px]">
                         <thead>
                             <tr className="text-xs text-gray-500 uppercase tracking-wider border-b border-white/5">
-                                <th className="text-left px-5 py-3">Code</th>
+                                <th className="w-10 px-3 py-3">
+                                    <button onClick={toggleSelectAll} className="text-gray-500 hover:text-white transition-colors">
+                                        {filtered.length > 0 && selected.size === filtered.length
+                                            ? <CheckSquare className="w-4 h-4 text-indigo-400" />
+                                            : <Square className="w-4 h-4" />}
+                                    </button>
+                                </th>
+                                <th className="text-left px-3 py-3">Code</th>
                                 <th className="text-left px-3 py-3">Discount</th>
                                 <th className="text-left px-3 py-3">Applies To</th>
                                 <th className="text-left px-3 py-3">Usage</th>
@@ -213,9 +264,18 @@ export default function DiscountCodesPage() {
                         </thead>
                         <tbody>
                             {filtered.map(c => (
-                                <tr key={c.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                <tr key={c.id} className={`border-b border-white/5 hover:bg-white/5 transition-colors ${selected.has(c.id) ? "bg-indigo-500/[0.04]" : ""}`}>
+                                    {/* Checkbox */}
+                                    <td className="w-10 px-3 py-3">
+                                        <button onClick={() => toggleSelect(c.id)} className="text-gray-500 hover:text-white transition-colors">
+                                            {selected.has(c.id)
+                                                ? <CheckSquare className="w-4 h-4 text-indigo-400" />
+                                                : <Square className="w-4 h-4" />}
+                                        </button>
+                                    </td>
+
                                     {/* Code */}
-                                    <td className="px-5 py-3">
+                                    <td className="px-3 py-3">
                                         <div className="flex items-center gap-2">
                                             <code className="bg-indigo-500/10 text-indigo-400 px-2.5 py-1 rounded-lg text-sm font-mono font-bold tracking-wide">
                                                 {c.code}
@@ -250,7 +310,7 @@ export default function DiscountCodesPage() {
                                             <div className="w-20 h-1 bg-white/5 rounded-full overflow-hidden mt-1">
                                                 <div
                                                     className={`h-full rounded-full ${c.usedCount / c.maxUses > 0.9 ? "bg-red-500" :
-                                                            c.usedCount / c.maxUses > 0.6 ? "bg-yellow-500" : "bg-indigo-500"
+                                                        c.usedCount / c.maxUses > 0.6 ? "bg-yellow-500" : "bg-indigo-500"
                                                         }`}
                                                     style={{ width: `${Math.min((c.usedCount / c.maxUses) * 100, 100)}%` }}
                                                 />
@@ -270,8 +330,8 @@ export default function DiscountCodesPage() {
                                     {/* Status */}
                                     <td className="text-center px-3 py-3">
                                         <span className={`text-xs px-2.5 py-1 rounded-lg font-medium ${c.status === "active" ? "bg-green-500/10 text-green-400" :
-                                                c.status === "inactive" ? "bg-gray-500/10 text-gray-400" :
-                                                    "bg-red-500/10 text-red-400"
+                                            c.status === "inactive" ? "bg-gray-500/10 text-gray-400" :
+                                                "bg-red-500/10 text-red-400"
                                             }`}>
                                             {c.status.charAt(0).toUpperCase() + c.status.slice(1)}
                                         </span>
@@ -284,8 +344,8 @@ export default function DiscountCodesPage() {
                                                 <button
                                                     onClick={() => handleToggleStatus(c.id)}
                                                     className={`p-1.5 rounded-lg transition-colors ${c.status === "active"
-                                                            ? "text-yellow-400 hover:bg-yellow-500/10"
-                                                            : "text-green-400 hover:bg-green-500/10"
+                                                        ? "text-yellow-400 hover:bg-yellow-500/10"
+                                                        : "text-green-400 hover:bg-green-500/10"
                                                         }`}
                                                     title={c.status === "active" ? "Deactivate" : "Activate"}
                                                 >
@@ -313,6 +373,58 @@ export default function DiscountCodesPage() {
                     </div>
                 )}
             </div>
+
+            {/* ─── Batch Action Bar ─── */}
+            {selected.size > 0 && (
+                <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#1a1a2e] border border-white/10 rounded-2xl shadow-2xl shadow-black/50 px-6 py-3 flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-lg bg-indigo-500/20 flex items-center justify-center">
+                            <span className="text-xs font-bold text-indigo-400">{selected.size}</span>
+                        </div>
+                        <span className="text-sm text-gray-300">
+                            {selected.size === 1 ? "code" : "codes"} selected
+                        </span>
+                    </div>
+
+                    <div className="w-px h-6 bg-white/10" />
+
+                    <button
+                        onClick={batchActivate}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-green-400 hover:bg-green-500/10 transition-all"
+                    >
+                        <Power className="w-3.5 h-3.5" /> Activate
+                    </button>
+                    <button
+                        onClick={batchDeactivate}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-yellow-400 hover:bg-yellow-500/10 transition-all"
+                    >
+                        <PowerOff className="w-3.5 h-3.5" /> Deactivate
+                    </button>
+                    <button
+                        onClick={batchCopy}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-blue-400 hover:bg-blue-500/10 transition-all"
+                    >
+                        <Copy className="w-3.5 h-3.5" /> Copy All
+                    </button>
+
+                    <div className="w-px h-6 bg-white/10" />
+
+                    <button
+                        onClick={batchDelete}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-red-400 hover:bg-red-500/10 transition-all"
+                    >
+                        <Trash2 className="w-3.5 h-3.5" /> Delete {selected.size}
+                    </button>
+
+                    <button
+                        onClick={() => setSelected(new Set())}
+                        className="p-1.5 rounded-lg text-gray-500 hover:text-white hover:bg-white/10 transition-all ml-1"
+                        title="Clear selection"
+                    >
+                        <XCircle className="w-4 h-4" />
+                    </button>
+                </div>
+            )}
 
             {/* ─── Create Code Modal ─── */}
             {showCreateModal && (
