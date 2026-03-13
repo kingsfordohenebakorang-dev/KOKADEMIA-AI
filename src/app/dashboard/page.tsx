@@ -2,38 +2,42 @@
 import React from "react";
 import Link from "next/link";
 import {
-    BarChart3, TrendingUp, Clock, Target, BookOpen, FileText,
-    BrainCircuit, AlertCircle, ChevronRight, Zap
+    BarChart3, Clock, Target, BookOpen, FileText,
+    BrainCircuit, AlertCircle, ChevronRight, Zap, ShieldCheck, Database, Cpu
 } from "lucide-react";
 
 // ─── Mock Data ───
-const performanceScore = 74;
-const studyHours = 32.5;
-const problemsSolved = 187;
-const avgAccuracy = 78;
+const performanceMetrics = {
+    score: 74.2,
+    percentile: 82,
+    studyHours: 32.5,
+    problemsSolved: 187,
+    avgAccuracy: 78.4,
+    confidenceInterval: "±2.1%"
+};
 
 const topicMastery = [
-    { topic: "Time Value of Money", mastery: 92, discipline: "Actuarial" },
-    { topic: "Integration", mastery: 85, discipline: "Mathematics" },
-    { topic: "Probability Distributions", mastery: 81, discipline: "Statistics" },
-    { topic: "Annuities", mastery: 76, discipline: "Actuarial" },
-    { topic: "Linear Algebra", mastery: 68, discipline: "Mathematics" },
-    { topic: "Survival Models", mastery: 62, discipline: "Actuarial" },
-    { topic: "Differential Equations", mastery: 54, discipline: "Mathematics" },
-    { topic: "Ruin Probability", mastery: 41, discipline: "Actuarial" },
+    { topic: "Time Value of Money", mastery: 92.4, discipline: "ACTUARIAL" },
+    { topic: "Integration", mastery: 85.1, discipline: "MATH" },
+    { topic: "Probability Distributions", mastery: 81.0, discipline: "STATS" },
+    { topic: "Annuities", mastery: 76.8, discipline: "ACTUARIAL" },
+    { topic: "Linear Algebra", mastery: 68.5, discipline: "MATH" },
+    { topic: "Survival Models", mastery: 62.3, discipline: "ACTUARIAL" },
+    { topic: "Differential Equations", mastery: 54.9, discipline: "MATH" },
+    { topic: "Ruin Probability", mastery: 41.2, discipline: "ACTUARIAL" },
 ];
 
 const recentActivity = [
-    { query: "Variance of whole life annuity-due", type: "Computation", time: "10m ago", verified: true },
-    { query: "Eigenvalues of symmetric matrix", type: "Computation", time: "1h ago", verified: true },
-    { query: "What is the force of mortality?", type: "Conceptual", time: "3h ago", verified: false },
-    { query: "∫₀^∞ x²e^(-x) dx", type: "Computation", time: "5h ago", verified: true },
-    { query: "Prove convergence of p-series", type: "Proof", time: "1d ago", verified: false },
+    { query: "Variance of whole life annuity-due", type: "COMPUTATION", time: "10m ago", verified: true },
+    { query: "Eigenvalues of symmetric matrix", type: "COMPUTATION", time: "1h ago", verified: true },
+    { query: "What is the force of mortality?", type: "CONCEPTUAL", time: "3h ago", verified: false },
+    { query: "∫₀^∞ x²e^(-x) dx", type: "COMPUTATION", time: "5h ago", verified: true },
+    { query: "Prove convergence of p-series", type: "PROOF", time: "1d ago", verified: false },
 ];
 
 const upcomingExams = [
-    { name: "Probability Mock (SOA P)", date: "Mar 2, 2026", questions: 30, duration: "3h" },
-    { name: "Financial Maths Midterm", date: "Mar 8, 2026", questions: 25, duration: "2.5h" },
+    { name: "Probability Mock (SOA P)", date: "2026-03-02", questions: 30, duration: "180m" },
+    { name: "Financial Maths Midterm", date: "2026-03-08", questions: 25, duration: "150m" },
 ];
 
 const usageStats = {
@@ -43,174 +47,226 @@ const usageStats = {
     docsTotal: 50,
     examsGenerated: 2,
     examsTotal: 5,
-    verifiedSolutions: 3,
 };
 
 export default function DashboardPage() {
     return (
-        <div className="h-full overflow-y-auto">
-            <div className="max-w-6xl mx-auto p-6 lg:p-8 space-y-8">
-                {/* Header */}
-                <div className="flex items-center justify-between">
+        <div className="h-full overflow-y-auto bg-[#050914] text-slate-300">
+            <div className="max-w-6xl mx-auto p-6 lg:p-8 space-y-6">
+
+                {/* Header & System Indicators */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between border-b mx-1 border-slate-800/80 pb-4 gap-4">
                     <div>
-                        <h1 className="text-lg font-semibold text-gray-200">Dashboard</h1>
-                        <p className="text-xs text-gray-600 mt-0.5 font-mono">Academic Performance Center</p>
+                        <h1 className="text-2xl font-serif tracking-tight text-slate-100">Analytics Console</h1>
+                        <p className="text-[10px] text-slate-500 font-mono uppercase tracking-[0.2em] mt-1.5">Actuarial Research Platform</p>
                     </div>
-                    <Link href="/dashboard/tutor" className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600/20 text-indigo-400 rounded-lg text-xs font-medium border border-indigo-500/20 hover:bg-indigo-600/30 transition-all">
-                        <BrainCircuit className="w-3 h-3" /> Open Tutor
-                    </Link>
-                </div>
 
-                {/* Performance Score + Stats */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-                    {/* Main Score */}
-                    <div className="bg-[#0d0d14] border border-white/[0.04] rounded-xl p-5 flex flex-col items-center justify-center">
-                        <div className="relative w-20 h-20 mb-2">
-                            <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                                <circle cx="18" cy="18" r="15.5" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="2.5" />
-                                <circle cx="18" cy="18" r="15.5" fill="none" stroke="#6366f1" strokeWidth="2.5"
-                                    strokeDasharray={`${performanceScore} ${100 - performanceScore}`}
-                                    strokeLinecap="round"
-                                />
-                            </svg>
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <span className="text-xl font-bold text-white">{performanceScore}</span>
-                            </div>
+                    <div className="flex flex-wrap items-center gap-4 text-[10px] font-mono text-slate-500">
+                        <div className="flex items-center gap-1.5">
+                            <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
+                            <span>Trust Layer v1.2 Active</span>
                         </div>
-                        <span className="text-[10px] text-gray-600 uppercase tracking-widest">Performance</span>
-                    </div>
-
-                    <div className="bg-[#0d0d14] border border-white/[0.04] rounded-xl p-4">
-                        <Clock className="w-4 h-4 text-blue-400/60 mb-2" />
-                        <div className="text-xl font-bold text-gray-200">{studyHours}h</div>
-                        <div className="text-[10px] text-gray-600 uppercase tracking-wider mt-0.5">Study Hours</div>
-                    </div>
-                    <div className="bg-[#0d0d14] border border-white/[0.04] rounded-xl p-4">
-                        <Target className="w-4 h-4 text-emerald-400/60 mb-2" />
-                        <div className="text-xl font-bold text-gray-200">{problemsSolved}</div>
-                        <div className="text-[10px] text-gray-600 uppercase tracking-wider mt-0.5">Problems Solved</div>
-                    </div>
-                    <div className="bg-[#0d0d14] border border-white/[0.04] rounded-xl p-4">
-                        <BarChart3 className="w-4 h-4 text-purple-400/60 mb-2" />
-                        <div className="text-xl font-bold text-gray-200">{avgAccuracy}%</div>
-                        <div className="text-[10px] text-gray-600 uppercase tracking-wider mt-0.5">Avg Accuracy</div>
+                        <div className="flex items-center gap-1.5">
+                            <Cpu className="w-3.5 h-3.5 text-slate-600" />
+                            <span>Symbolic Engine Verified</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                            <Database className="w-3.5 h-3.5 text-slate-600" />
+                            <span>Computation Audit Enabled</span>
+                        </div>
                     </div>
                 </div>
 
-                {/* Two Column: Topic Mastery + Activity */}
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                    {/* Topic Mastery */}
-                    <div className="bg-[#0d0d14] border border-white/[0.04] rounded-xl p-5">
+                {/* Top Statistics Matrix */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-slate-800 border border-slate-800 rounded-sm overflow-hidden bg-opacity-50">
+                    <div className="bg-[#090b14] p-5 flex flex-col justify-between">
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Topic Mastery</h3>
-                            <span className="text-[10px] text-gray-600">Weakest first ↑</span>
+                            <span className="text-[10px] text-slate-500 font-mono uppercase tracking-wider">Overall Index</span>
+                            <Target className="w-3.5 h-3.5 text-slate-600" />
                         </div>
-                        <div className="space-y-3">
-                            {[...topicMastery].sort((a, b) => a.mastery - b.mastery).map((t, i) => (
-                                <div key={i}>
-                                    <div className="flex items-center justify-between mb-1">
-                                        <div className="flex items-center gap-2">
-                                            <span className="text-[11px] text-gray-300">{t.topic}</span>
-                                            <span className={`text-[9px] px-1 py-0.5 rounded font-medium ${t.discipline === "Actuarial" ? "bg-indigo-500/8 text-indigo-500" :
-                                                    t.discipline === "Mathematics" ? "bg-cyan-500/8 text-cyan-500" :
-                                                        "bg-purple-500/8 text-purple-500"
-                                                }`}>{t.discipline.slice(0, 4)}</span>
-                                        </div>
-                                        <span className={`text-[11px] font-mono font-medium ${t.mastery >= 80 ? "text-emerald-400" : t.mastery >= 60 ? "text-yellow-400" : "text-red-400"
-                                            }`}>{t.mastery}%</span>
-                                    </div>
-                                    <div className="h-1 bg-white/[0.03] rounded-full overflow-hidden">
-                                        <div className={`h-full rounded-full transition-all ${t.mastery >= 80 ? "bg-emerald-500/50" : t.mastery >= 60 ? "bg-yellow-500/50" : "bg-red-500/50"
-                                            }`} style={{ width: `${t.mastery}%` }} />
-                                    </div>
-                                </div>
-                            ))}
+                        <div>
+                            <div className="text-2xl font-serif text-slate-100">{performanceMetrics.score.toFixed(1)}</div>
+                            <div className="text-[10px] text-[#c9a05b] font-mono mt-1">PERCENTILE: {performanceMetrics.percentile}th</div>
                         </div>
                     </div>
 
-                    {/* Recent Activity */}
-                    <div className="bg-[#0d0d14] border border-white/[0.04] rounded-xl p-5">
+                    <div className="bg-[#090b14] p-5 flex flex-col justify-between">
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Recent Activity</h3>
-                            <Link href="/dashboard/tutor" className="text-[10px] text-indigo-500 hover:text-indigo-400">View all →</Link>
+                            <span className="text-[10px] text-slate-500 font-mono uppercase tracking-wider">Accuracy Variance</span>
+                            <BarChart3 className="w-3.5 h-3.5 text-slate-600" />
                         </div>
-                        <div className="space-y-2">
-                            {recentActivity.map((a, i) => (
-                                <div key={i} className="flex items-start gap-3 py-2 border-b border-white/[0.02] last:border-0">
-                                    <div className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${a.verified ? "bg-emerald-500" : "bg-gray-600"}`} />
-                                    <div className="flex-1 min-w-0">
-                                        <div className="text-[11px] text-gray-300 truncate">{a.query}</div>
-                                        <div className="flex items-center gap-2 mt-0.5">
-                                            <span className="text-[9px] text-gray-600">{a.type}</span>
-                                            <span className="text-[9px] text-gray-700">•</span>
-                                            <span className="text-[9px] text-gray-600">{a.time}</span>
-                                            {a.verified && <span className="text-[9px] text-emerald-600">✓ Verified</span>}
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+                        <div>
+                            <div className="text-2xl font-serif text-slate-100">{performanceMetrics.avgAccuracy}%</div>
+                            <div className="text-[10px] text-slate-500 font-mono mt-1">CI: {performanceMetrics.confidenceInterval}</div>
+                        </div>
+                    </div>
+
+                    <div className="bg-[#090b14] p-5 flex flex-col justify-between">
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="text-[10px] text-slate-500 font-mono uppercase tracking-wider">Time Invested</span>
+                            <Clock className="w-3.5 h-3.5 text-slate-600" />
+                        </div>
+                        <div>
+                            <div className="text-2xl font-serif text-slate-100">{performanceMetrics.studyHours}h</div>
+                            <div className="text-[10px] text-slate-500 font-mono mt-1">ACTIVE SESSIONS</div>
+                        </div>
+                    </div>
+
+                    <div className="bg-[#090b14] p-5 flex flex-col justify-between">
+                        <div className="flex items-center justify-between mb-4">
+                            <span className="text-[10px] text-slate-500 font-mono uppercase tracking-wider">Problem Volume</span>
+                            <BookOpen className="w-3.5 h-3.5 text-slate-600" />
+                        </div>
+                        <div>
+                            <div className="text-2xl font-serif text-slate-100">{performanceMetrics.problemsSolved}</div>
+                            <div className="text-[10px] text-slate-500 font-mono mt-1">SYSTEM ITERATIONS</div>
                         </div>
                     </div>
                 </div>
 
-                {/* Bottom Row: Exams + Usage */}
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-                    {/* Upcoming Exams */}
-                    <div className="bg-[#0d0d14] border border-white/[0.04] rounded-xl p-5">
-                        <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Upcoming Mock Exams</h3>
-                        <div className="space-y-2">
+                {/* Main Content Area */}
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 pt-2">
+
+                    {/* Mastery Matrix (Replacing Topic Mastery) */}
+                    <div className="border border-slate-800/80 bg-[#090b14] rounded-sm flex flex-col">
+                        <div className="px-5 py-3 border-b border-slate-800/80 flex items-center justify-between bg-[#0b0e1a]">
+                            <h3 className="text-[11px] font-serif tracking-wide text-slate-300">MASTERY MATRIX</h3>
+                            <span className="text-[9px] font-mono text-slate-500">Sorted by index asc</span>
+                        </div>
+                        <div className="p-0 overflow-x-auto">
+                            <table className="w-full text-left border-collapse">
+                                <thead>
+                                    <tr className="border-b border-slate-800/50">
+                                        <th className="px-5 py-2 text-[9px] font-mono text-slate-500 font-normal">CLASSIFICATION</th>
+                                        <th className="px-5 py-2 text-[9px] font-mono text-slate-500 font-normal">TOPIC IDENTIFIER</th>
+                                        <th className="px-5 py-2 text-[9px] font-mono text-slate-500 font-normal text-right">INDEX</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {[...topicMastery].sort((a, b) => a.mastery - b.mastery).map((t, i) => (
+                                        <tr key={i} className="border-b border-slate-800/30 last:border-0 hover:bg-slate-800/10 transition-colors">
+                                            <td className="px-5 py-2.5">
+                                                <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded-sm border ${t.discipline === "ACTUARIAL" ? "text-indigo-400 border-indigo-900/50 bg-indigo-950/20" :
+                                                        t.discipline === "MATH" ? "text-cyan-400 border-cyan-900/50 bg-cyan-950/20" :
+                                                            "text-emerald-400 border-emerald-900/50 bg-emerald-950/20"
+                                                    }`}>{t.discipline}</span>
+                                            </td>
+                                            <td className="px-5 py-2.5 text-[12px] text-slate-300 font-serif">{t.topic}</td>
+                                            <td className="px-5 py-2.5 text-[11px] font-mono text-right font-medium">
+                                                <span className={t.mastery >= 80 ? "text-slate-300" : t.mastery >= 60 ? "text-[#c9a05b]" : "text-red-900"}>
+                                                    {t.mastery.toFixed(1)}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    {/* Computation Ledger (Replacing Recent Activity) */}
+                    <div className="border border-slate-800/80 bg-[#090b14] rounded-sm flex flex-col">
+                        <div className="px-5 py-3 border-b border-slate-800/80 flex items-center justify-between bg-[#0b0e1a]">
+                            <h3 className="text-[11px] font-serif tracking-wide text-slate-300">COMPUTATION LEDGER</h3>
+                            <Link href="/dashboard/tutor" className="text-[9px] font-mono text-slate-500 hover:text-slate-300 font-medium tracking-wide">EXPLORE LOGS →</Link>
+                        </div>
+                        <div className="p-0 overflow-x-auto">
+                            <table className="w-full text-left border-collapse">
+                                <thead>
+                                    <tr className="border-b border-slate-800/50">
+                                        <th className="px-5 py-2 text-[9px] font-mono text-slate-500 font-normal">TIMESTAMP</th>
+                                        <th className="px-5 py-2 text-[9px] font-mono text-slate-500 font-normal">VERIFICATION</th>
+                                        <th className="px-5 py-2 text-[9px] font-mono text-slate-500 font-normal">OPERATION</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {recentActivity.map((a, i) => (
+                                        <tr key={i} className="border-b border-slate-800/30 last:border-0 hover:bg-slate-800/10 transition-colors">
+                                            <td className="px-5 py-2.5 text-[10px] font-mono text-slate-500 whitespace-nowrap">{a.time}</td>
+                                            <td className="px-5 py-2.5">
+                                                {a.verified ? (
+                                                    <span className="text-[9px] font-mono px-1.5 py-0.5 border border-emerald-900/50 text-emerald-500 bg-emerald-950/10 rounded-sm">VERIFIED</span>
+                                                ) : (
+                                                    <span className="text-[9px] font-mono px-1.5 py-0.5 border border-slate-700 text-slate-500 bg-slate-900/50 rounded-sm">PENDING</span>
+                                                )}
+                                            </td>
+                                            <td className="px-5 py-2.5">
+                                                <div className="text-[12px] font-serif text-slate-300 truncate max-w-[200px]">{a.query}</div>
+                                                <div className="text-[9px] font-mono text-slate-600 mt-0.5">{a.type}</div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Bottom Row: Upcoming Evaluations & Resource Consumption */}
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 pt-2">
+
+                    {/* Scheduled Evaluations */}
+                    <div className="border border-slate-800/80 bg-[#090b14] rounded-sm flex flex-col">
+                        <div className="px-5 py-3 border-b border-slate-800/80 bg-[#0b0e1a]">
+                            <h3 className="text-[11px] font-serif tracking-wide text-slate-300">SCHEDULED EVALUATIONS</h3>
+                        </div>
+                        <div className="p-0 divide-y divide-slate-800/30 flex-1">
                             {upcomingExams.map((e, i) => (
-                                <Link key={i} href="/dashboard/exams" className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-white/[0.02] transition-colors group border border-transparent hover:border-white/[0.04]">
+                                <Link key={i} href="/dashboard/exams" className="flex items-center justify-between p-4 hover:bg-slate-800/10 transition-colors group">
                                     <div>
-                                        <div className="text-[12px] text-gray-300 font-medium group-hover:text-white transition-colors">{e.name}</div>
-                                        <div className="text-[10px] text-gray-600 mt-0.5">{e.questions} questions • {e.duration}</div>
+                                        <div className="text-[13px] text-slate-200 font-serif group-hover:text-white transition-colors">{e.name}</div>
+                                        <div className="flex items-center gap-3 mt-1.5 text-[10px] font-mono text-slate-500">
+                                            <span>Q-COUNT: {e.questions}</span>
+                                            <span className="w-px h-2.5 bg-slate-700"></span>
+                                            <span>DURATION: {e.duration}</span>
+                                        </div>
                                     </div>
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-[10px] text-gray-600 font-mono">{e.date}</span>
-                                        <ChevronRight className="w-3 h-3 text-gray-700 group-hover:text-gray-400 transition-colors" />
+                                    <div className="flex items-center gap-4">
+                                        <div className="text-right">
+                                            <div className="text-[10px] font-mono text-slate-400">DATE</div>
+                                            <div className="text-[11px] font-mono text-slate-300">{e.date}</div>
+                                        </div>
+                                        <ChevronRight className="w-4 h-4 text-slate-700 group-hover:text-slate-500 transition-colors" />
                                     </div>
                                 </Link>
                             ))}
                         </div>
                     </div>
 
-                    {/* AI Usage Statistics */}
-                    <div className="bg-[#0d0d14] border border-white/[0.04] rounded-xl p-5">
-                        <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">AI Usage This Month</h3>
-                        <div className="space-y-3">
-                            {[
-                                { label: "Queries", used: usageStats.queriesUsed, total: usageStats.queriesTotal, icon: Zap },
-                                { label: "Documents", used: usageStats.docsUploaded, total: usageStats.docsTotal, icon: FileText },
-                                { label: "Exams Generated", used: usageStats.examsGenerated, total: usageStats.examsTotal, icon: BookOpen },
-                            ].map((s, i) => {
-                                const pct = Math.round((s.used / s.total) * 100);
-                                return (
-                                    <div key={i}>
-                                        <div className="flex items-center justify-between mb-1">
-                                            <span className="text-[11px] text-gray-400 flex items-center gap-1.5">
-                                                <s.icon className="w-3 h-3 text-gray-600" /> {s.label}
-                                            </span>
-                                            <span className="text-[11px] text-gray-500 font-mono">{s.used} / {s.total}</span>
-                                        </div>
-                                        <div className="h-1 bg-white/[0.03] rounded-full overflow-hidden">
-                                            <div className={`h-full rounded-full ${pct > 85 ? "bg-red-500/60" : pct > 60 ? "bg-yellow-500/40" : "bg-indigo-500/40"}`} style={{ width: `${pct}%` }} />
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                    {/* Resource Consumption */}
+                    <div className="border border-slate-800/80 bg-[#090b14] rounded-sm flex flex-col">
+                        <div className="px-5 py-3 border-b border-slate-800/80 bg-[#0b0e1a]">
+                            <h3 className="text-[11px] font-serif tracking-wide text-slate-300">RESOURCE ALLOCATION</h3>
                         </div>
+                        <div className="p-5 flex-1 flex flex-col justify-center gap-5">
+                            {[
+                                { label: "COMPUTATION QUERIES", used: usageStats.queriesUsed, total: usageStats.queriesTotal },
+                                { label: "DOCUMENT PARSING", used: usageStats.docsUploaded, total: usageStats.docsTotal },
+                                { label: "EXAM GENERATION", used: usageStats.examsGenerated, total: usageStats.examsTotal },
+                            ].map((s, i) => (
+                                <div key={i}>
+                                    <div className="flex items-end justify-between mb-1.5">
+                                        <span className="text-[10px] font-mono text-slate-500">{s.label}</span>
+                                        <span className="text-[11px] font-mono text-slate-300">{s.used} <span className="text-slate-600">/ {s.total}</span></span>
+                                    </div>
+                                    <div className="h-[2px] w-full bg-slate-900 overflow-hidden">
+                                        <div className="h-full bg-slate-500" style={{ width: `${(s.used / s.total) * 100}%` }} />
+                                    </div>
+                                </div>
+                            ))}
 
-                        {usageStats.queriesUsed / usageStats.queriesTotal > 0.5 && (
-                            <div className="mt-4 flex items-start gap-2 p-2.5 rounded-lg bg-yellow-500/[0.04] border border-yellow-500/10">
-                                <AlertCircle className="w-3 h-3 text-yellow-500 mt-0.5 flex-shrink-0" />
-                                <span className="text-[10px] text-yellow-500/80 leading-relaxed">
-                                    You have used {Math.round((usageStats.queriesUsed / usageStats.queriesTotal) * 100)}% of your monthly queries.
-                                    Consider upgrading or purchasing a Query Boost.
-                                </span>
-                            </div>
-                        )}
+                            {usageStats.queriesUsed / usageStats.queriesTotal > 0.5 && (
+                                <div className="mt-2 flex items-start gap-3 p-3 border border-[#3b311e] bg-[#1a1711] rounded-sm">
+                                    <AlertCircle className="w-3.5 h-3.5 text-[#c9a05b] mt-0.5 flex-shrink-0" />
+                                    <span className="text-[10px] font-mono text-[#c9a05b]/80 leading-relaxed uppercase tracking-wide">
+                                        System Alert: Query allocation at {Math.round((usageStats.queriesUsed / usageStats.queriesTotal) * 100)}%. Extended allocation available via configuration protocol.
+                                    </span>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     );

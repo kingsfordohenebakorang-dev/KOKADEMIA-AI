@@ -6,6 +6,7 @@ const envSchema = z.object({
     DATABASE_URL: z.string().url(),
     JWT_SECRET: z.string().min(32, "JWT_SECRET must be at least 32 characters"),
     OPENAI_API_KEY: z.string().optional(),
+    GOOGLE_API_KEY: z.string().optional(),
     NEXTAUTH_URL: z.string().url().optional(),
     API_PORT: z.string().default("3000"),
     LOG_LEVEL: z.enum(["debug", "info", "warn", "error"]).default("info"),

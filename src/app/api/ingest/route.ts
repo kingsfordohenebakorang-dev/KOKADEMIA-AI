@@ -19,7 +19,8 @@ if (typeof DOMMatrix === 'undefined') {
     global.DOMMatrix = class DOMMatrix { };
 }
 // eslint-disable-next-line @typescript-eslint/no-require-imports
-const pdf = require('pdf-parse');
+const pdfParseCore = require('pdf-parse');
+const pdf = pdfParseCore.default || pdfParseCore;
 
 export async function POST(req: Request) {
     try {

@@ -19,9 +19,9 @@ export default function ExamsPage() {
                         <h1 className="text-lg font-semibold text-gray-200">Exams</h1>
                         <p className="text-xs text-gray-600 mt-0.5 font-mono">Mock exam simulations & practice tests</p>
                     </div>
-                    <button className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600/20 text-indigo-400 rounded-lg text-xs font-medium border border-indigo-500/20 hover:bg-indigo-600/30 transition-all">
+                    <Link href="/exams" className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600/20 text-indigo-400 rounded-lg text-xs font-medium border border-indigo-500/20 hover:bg-indigo-600/30 transition-all">
                         <Plus className="w-3 h-3" /> Generate Exam
-                    </button>
+                    </Link>
                 </div>
 
                 <div className="space-y-2">
