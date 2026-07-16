@@ -37,7 +37,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                         <TerminalSquare className="w-3.5 h-3.5 text-slate-300" />
                     </div>
                     {!collapsed && (
-                        <span className="font-serif text-[15px] tracking-wide text-slate-200">KOK TRUST AI</span>
+                        <span className="font-serif text-[15px] tracking-wide text-slate-200">Kokademia</span>
                     )}
                 </div>
 

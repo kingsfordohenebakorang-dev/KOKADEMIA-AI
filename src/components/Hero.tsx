@@ -32,7 +32,7 @@ export function Hero() {
                         transition={{ duration: 0.7, delay: 0.15 }}
                         className="text-base text-gray-500 mt-6 leading-relaxed max-w-md"
                     >
-                        Not another AI that guesses answers. KOK TRUST AI translates
+                        Not another AI that guesses answers. Kokademia translates
                         every mathematical query into symbolic code, executes it, and
                         verifies the result — before showing you anything.
                     </motion.p>
@@ -85,7 +85,7 @@ export function Hero() {
                                 <div className="w-2 h-2 rounded-full bg-gray-700" />
                                 <div className="w-2 h-2 rounded-full bg-gray-700" />
                             </div>
-                            <span className="text-[9px] text-gray-700 font-mono ml-2">KOK TRUST AI — Tutor Workspace</span>
+                            <span className="text-[9px] text-gray-700 font-mono ml-2">Kokademia — Tutor Workspace</span>
                         </div>
 
                         {/* Content */}

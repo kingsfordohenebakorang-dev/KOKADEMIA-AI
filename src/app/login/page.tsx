@@ -265,7 +265,7 @@ export default function LoginPage() {
                             </div>
                             <div className="flex flex-col gap-2 items-center md:items-end">
                                 <a
-                                    href="mailto:kingsfordohenebakorang@gmail.com?subject=KOK AI Institutional Plan Inquiry"
+                                    href="mailto:kingsfordohenebakorang@gmail.com?subject=Kokademia Institutional Plan Inquiry"
                                     className="px-8 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 transition-colors whitespace-nowrap text-center w-full md:w-auto"
                                 >
                                     Contact Sales
@@ -282,7 +282,7 @@ export default function LoginPage() {
                             <div className="mb-6">
                                 <h3 className="text-xl font-bold text-white flex items-center gap-2 mb-2">
                                     <RefreshCw className="w-5 h-5 text-indigo-400" />
-                                    KOK Boost Packs (For Heavy Users)
+                                    Kokademia Boost Packs (For Heavy Users)
                                 </h3>
                                 <p className="text-sm text-gray-400">
                                     If you exceed your monthly/semester limit, you can unlock additional usage instantly.

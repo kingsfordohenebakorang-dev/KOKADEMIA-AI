@@ -29,7 +29,7 @@ export const config = {
     database: {
         host: process.env.DB_HOST!,
         port: parseInt(process.env.DB_PORT || '5432', 10),
-        name: process.env.DB_NAME || 'kok_trust_ai',
+        name: process.env.DB_NAME || 'kokademia',
         user: process.env.DB_USER!,
         password: process.env.DB_PASSWORD!,
     },

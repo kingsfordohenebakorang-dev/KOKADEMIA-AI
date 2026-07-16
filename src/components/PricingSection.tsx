@@ -188,7 +188,7 @@ export function PricingSection() {
                             </div>
                         </div>
                         <Link
-                            href="mailto:partnerships@koktrust.ai"
+                            href="mailto:partnerships@kokademia.com"
                             className="px-8 py-4 bg-white text-black rounded-xl font-bold hover:bg-gray-200 transition-colors whitespace-nowrap"
                         >
                             Contact Sales

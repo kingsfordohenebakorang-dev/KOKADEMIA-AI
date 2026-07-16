@@ -59,7 +59,7 @@ Use LaTeX inside $$ for equations. Return only the final markdown execution log.
     // Inject AutoGPT style logging framework around the response for visual demonstration
     const prefix = `### AutoGPT Autonomous Initialization 🤖
 * **Status**: Task Assigned 
-* **Agent**: KOK-Trust AutoGPT Wrapper
+* **Agent**: Kokademia AutoGPT Wrapper
 * **Goal**: Analyze Actuarial Task
 
 ---

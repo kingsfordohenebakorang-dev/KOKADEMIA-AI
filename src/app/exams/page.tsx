@@ -343,7 +343,7 @@ export default function ExamEnginePage() {
                                 <div className="text-center border-b-2 border-black/20 pb-6 mb-10">
                                     <h1 className="text-3xl font-bold font-serif uppercase tracking-wider">{examData.examTitle}</h1>
                                     <p className="text-lg font-serif mt-2 italic text-gray-600">Duration: {examData.durationMinutes} Minutes</p>
-                                    <p className="text-sm font-sans mt-4 text-gray-500">KOK TRUST AI Generated Mock Examination</p>
+                                    <p className="text-sm font-sans mt-4 text-gray-500">Kokademia Generated Mock Examination</p>
                                 </div>
 
                                 <div className="space-y-16">

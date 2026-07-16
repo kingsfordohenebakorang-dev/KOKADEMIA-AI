@@ -42,7 +42,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         <Shield className="w-4 h-4 text-white" />
                     </div>
                     <div>
-                        <div className="font-bold text-sm tracking-tight">KOK TRUST AI</div>
+                        <div className="font-bold text-sm tracking-tight">Kokademia</div>
                         <div className="text-[10px] text-gray-500 font-mono uppercase tracking-widest">Admin Console</div>
                     </div>
                     <button onClick={() => setSidebarOpen(false)} className="ml-auto lg:hidden text-gray-400 hover:text-white">
@@ -167,7 +167,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                 </div>
                                 <div className="hidden md:block text-left">
                                     <div className="text-sm font-medium">Super Admin</div>
-                                    <div className="text-[10px] text-gray-500">admin@koktrust.ai</div>
+                                    <div className="text-[10px] text-gray-500">admin@kokademia.com</div>
                                 </div>
                                 <ChevronDown className="w-3 h-3 text-gray-500" />
                             </button>

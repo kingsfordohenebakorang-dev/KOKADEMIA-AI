@@ -1,7 +1,7 @@
 # 🔒 Security Audit Report — Actuarial Platform
 **Date:** 2026-02-22  
 **Auditor:** Automated Security Review  
-**Project:** kok-trust-ai (actuarial-platform)
+**Project:** kokademia (actuarial-platform)
 
 ---
 

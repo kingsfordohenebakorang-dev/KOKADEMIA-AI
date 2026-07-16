@@ -1,8 +1,8 @@
-# KOK TRUST AI – Actuarial + Mathematical Sciences Blueprint
+# Kokademia – Actuarial + Mathematical Sciences Blueprint
 
 ## 1. Core Concept
 
-**System Name:** KOK TRUST AI  
+**System Name:** Kokademia  
 **Core Value:** Verified, structured AI learning platform for actuarial and mathematical sciences with a **Neuro-Symbolic Trust Layer**.  
 **Architecture:** Hybrid RAG (Vector + Graph) + Symbolic Compute Engine (SymPy) + Cinematic Frontend.
 
@@ -193,4 +193,4 @@ graph TD
 
 ---
 
-This positions KOK Trust AI as a **verified, structured learning platform** for both actuarial and broader quantitative disciplines, with strong cost control, academic credibility, and campus-focused adoption strategy.
+This positions Kokademia as a **verified, structured learning platform** for both actuarial and broader quantitative disciplines, with strong cost control, academic credibility, and campus-focused adoption strategy.

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "@/lib/auth";
+import { AuthProvider } from "@/lib/auth-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "KOK TRUST AI | The Cinematic Study Platform",
+  title: "Kokademia | The Cinematic Study Platform",
   description: "AI-powered actuarial science study platform with symbolic math solving and provenance-backed notes.",
 };
 

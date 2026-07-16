@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { Settings, Shield, Users, Bell, Key, FileText, Download, Save } from "lucide-react";
 
 const adminRoles = [
-    { name: "Kingsford Oheneba", email: "admin@koktrust.ai", role: "Super Admin", permissions: ["All Access"], lastLogin: "Now", status: "Active" },
-    { name: "Academic Admin", email: "academic@koktrust.ai", role: "Academic Admin", permissions: ["Content", "Analytics", "AI Monitor"], lastLogin: "1h ago", status: "Active" },
-    { name: "Support Admin", email: "support@koktrust.ai", role: "Support Admin", permissions: ["Users", "Subscriptions"], lastLogin: "3h ago", status: "Active" },
-    { name: "Finance Admin", email: "finance@koktrust.ai", role: "Finance Admin", permissions: ["Subscriptions", "Analytics"], lastLogin: "1d ago", status: "Active" },
+    { name: "Kingsford Oheneba", email: "admin@kokademia.com", role: "Super Admin", permissions: ["All Access"], lastLogin: "Now", status: "Active" },
+    { name: "Academic Admin", email: "academic@kokademia.com", role: "Academic Admin", permissions: ["Content", "Analytics", "AI Monitor"], lastLogin: "1h ago", status: "Active" },
+    { name: "Support Admin", email: "support@kokademia.com", role: "Support Admin", permissions: ["Users", "Subscriptions"], lastLogin: "3h ago", status: "Active" },
+    { name: "Finance Admin", email: "finance@kokademia.com", role: "Finance Admin", permissions: ["Subscriptions", "Analytics"], lastLogin: "1d ago", status: "Active" },
 ];
 
 const auditLogs = [

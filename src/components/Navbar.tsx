@@ -16,7 +16,7 @@ export function Navbar() {
                     <Shield className="w-3.5 h-3.5 text-white" />
                 </div>
                 <span className="font-bold text-sm tracking-tight text-gray-200">
-                    KOK<span className="text-indigo-400">TRUST</span>AI
+                    Kokademia
                 </span>
             </Link>
 

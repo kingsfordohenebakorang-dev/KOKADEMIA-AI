@@ -8,7 +8,7 @@ const logger = winston.createLogger({
         winston.format.errors({ stack: true }),
         winston.format.json()
     ),
-    defaultMeta: { service: 'kok-trust-ai' },
+    defaultMeta: { service: 'kokademia' },
     transports: [
         // Log errors to separate file
         new winston.transports.File({

@@ -1,6 +1,6 @@
-# KOK TRUST AI: Architecture & Logic Overview
+# Kokademia: Architecture & Logic Overview
 
-**KOK TRUST AI** is an "Academic Intelligence Infrastructure" designed to solve complex actuarial problems with 100% mathematical precision. Unlike standard chatbots (ChatGPT), it is built on a **Neuro-Symbolic Architecture** that combines the creativity of Large Language Models (LLMs) with the rigorous accuracy of symbolic math engines (Python/SymPy).
+**Kokademia** is an "Academic Intelligence Infrastructure" designed to solve complex actuarial problems with 100% mathematical precision. Unlike standard chatbots (ChatGPT), it is built on a **Neuro-Symbolic Architecture** that combines the creativity of Large Language Models (LLMs) with the rigorous accuracy of symbolic math engines (Python/SymPy).
 
 ---
 
@@ -50,4 +50,4 @@ The platform is structured into 6 strategic layers to serve the entire universit
 
 ## Summary for Code Review
 
-**"KOK TRUST AI is not a wrapper around ChatGPT. It is a vertically integrated academic platform that offloads mathematical reasoning to a symbolic engine and grounds every response in verified institutional data. It prioritizes precision (for the student) and analytics (for the university)."**
+**"Kokademia is not a wrapper around ChatGPT. It is a vertically integrated academic platform that offloads mathematical reasoning to a symbolic engine and grounds every response in verified institutional data. It prioritizes precision (for the student) and analytics (for the university)."**

@@ -38,7 +38,7 @@ export function FeaturesSection() {
                         How It Works
                     </h2>
                     <p className="text-sm text-gray-600 max-w-lg leading-relaxed">
-                        Three steps separate KOK TRUST AI from every other study tool.
+                        Three steps separate Kokademia from every other study tool.
                         No magic — just systematic verification.
                     </p>
                 </motion.div>

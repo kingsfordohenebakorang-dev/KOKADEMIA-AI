@@ -21,7 +21,7 @@ export async function generateActuarialResponseLangchain(prompt: string, mode: s
         throw new Error("GOOGLE_API_KEY is not configured.");
     }
 
-    const systemPromptText = `You are KOK Trust AI Tutor, an advanced actuarial platform.
+    const systemPromptText = `You are Kokademia Tutor, an advanced actuarial platform.
 Mode: {mode_description}
 Structure your response professionally, emphasizing accuracy. Use LaTeX inside $$ for math equations (e.g. $$ E[X] = \\mu $$) and ensure all symbolic derivations are clear.`;
 

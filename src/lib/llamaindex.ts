@@ -29,7 +29,7 @@ export async function generateActuarialResponseLlamaIndex(prompt: string, mode: 
         ? 'Tutor Mode - provide comprehensive, step-by-step mathematical explanations, using markdown and LaTeX where appropriate. Start with Problem Statement, Assumptions, Derivation, and Final Result.'
         : 'Study Mode - Provide concise and direct answers focusing on the mathematical output and symbolic verification.';
 
-    const systemPromptText = `You are KOK Trust AI Tutor, an advanced actuarial platform built.
+    const systemPromptText = `You are Kokademia Tutor, an advanced actuarial platform built.
     Mode: ${modeDescription}
 Structure your response professionally, emphasizing accuracy.Use LaTeX inside $$ for math equations(e.g.$$ E[X] = \\mu $$) and ensure all symbolic derivations are clear.`;
 

@@ -16,11 +16,11 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-white/[0.04] py-12 px-8">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <span className="text-[11px] text-gray-700">© 2026 KOK TRUST AI. Built for serious students.</span>
+          <span className="text-[11px] text-gray-700">© 2026 Kokademia. Built for serious students.</span>
           <div className="flex items-center gap-6 text-[11px] text-gray-700">
             <a href="#" className="hover:text-gray-500 transition-colors">Privacy</a>
             <a href="#" className="hover:text-gray-500 transition-colors">Terms</a>
-            <a href="mailto:support@koktrust.ai" className="hover:text-gray-500 transition-colors">Contact</a>
+            <a href="mailto:support@kokademia.com" className="hover:text-gray-500 transition-colors">Contact</a>
           </div>
         </div>
       </footer>
