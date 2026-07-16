@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "katex/dist/katex.min.css";
 import { AuthProvider } from "@/lib/auth-provider";
 
 const geistSans = Geist({
@@ -14,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Kokademia | The Cinematic Study Platform",
-  description: "AI-powered actuarial science study platform with symbolic math solving and provenance-backed notes.",
+  title: "Kokademia | Verified AI for Actuarial & Mathematical Sciences",
+  description: "Solve complex actuarial science and mathematics problems with complete confidence. Every calculation is verified through Kokademia's Neuro-Symbolic Trust Layer.",
 };
 
 export default function RootLayout({
@@ -24,9 +25,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
           {children}

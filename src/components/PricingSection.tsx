@@ -1,200 +1,151 @@
 "use client"
-import { motion } from "framer-motion";
-import { Check, Star, Shield, Zap, Building2 } from "lucide-react";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { motion, useInView } from "framer-motion"
+import { useRef } from "react"
+import { Check, ArrowRight, Sparkles } from "lucide-react"
+import Link from "next/link"
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 const plans = [
     {
-        name: "Foundation",
-        price: "GH₵ 0",
-        period: "/month",
-        description: "Essential trial for quick reference and light study.",
+        name: "Starter",
+        price: "Free",
+        period: "",
+        description: "Get started with verified mathematics",
         features: [
-            "10 AI Queries / Day",
-            "5 Document Uploads / Month",
-            "1 Exam Generation",
-            "Standard Response Speed"
+            "10 verified questions / day",
+            "Basic symbolic verification",
+            "KaTeX-rendered solutions",
+            "Community support",
+            "SOA Exam P practice set",
         ],
-        buttonText: "Start for Free",
-        buttonLink: "/login",
-        popular: false,
-        icon: Zap
+        cta: "Start Free",
+        highlighted: false,
     },
     {
-        name: "Analyst",
-        price: "GH₵ 49",
+        name: "Student Pro",
+        price: "$12",
         period: "/month",
-        description: "Serious prep with enhanced AI and Notebook mode.",
+        description: "Unlimited verified learning for serious students",
         features: [
-            "150 AI Queries / Month",
-            "50 Document Uploads",
-            "3MB Max Per File",
-            "Notebook Mode Access",
-            "Basic Mock Exams",
-            "Faster Response Speed"
+            "Unlimited verified questions",
+            "Full exam engine (timed, adaptive)",
+            "Advanced analytics & progress tracking",
+            "Notebook mode with LaTeX export",
+            "Flashcard generation",
+            "All SOA & IFoA exam sets",
+            "Priority AI response queue",
+            "Offline mode",
         ],
-        buttonText: "Go Analyst",
-        buttonLink: "/register?plan=analyst",
-        popular: false,
-        icon: Star
+        cta: "Start Pro Trial",
+        highlighted: true,
     },
     {
-        name: "Semester Pro",
-        price: "GH₵ 159",
-        period: "/semester",
-        description: "Full-powered 4-month package for top students.",
+        name: "Institution",
+        price: "Custom",
+        period: "",
+        description: "Deploy Kokademia for your department",
         features: [
-            "600 AI Queries / Semester",
-            "150 Document Uploads",
-            "5MB Max Per File",
-            "Actuarial + Math Vault Access",
-            "15 Verified Solutions",
-            "Priority Queue + Offline Mode",
-            "Full Mock Exam Generator"
+            "Everything in Student Pro",
+            "Faculty dashboard & analytics",
+            "Student cohort management",
+            "Custom exam creation",
+            "LMS integration (Moodle, Canvas)",
+            "On-premise deployment option",
+            "Dedicated account manager",
+            "SSO & compliance controls",
         ],
-        buttonText: "Get Best Value",
-        buttonLink: "/register?plan=semester",
-        popular: true,
-        icon: Shield
-    }
+        cta: "Book a Demo",
+        highlighted: false,
+    },
 ];
 
 export function PricingSection() {
-    return (
-        <section className="relative py-32 px-8 border-t border-white/[0.04] overflow-hidden">
-            {/* Subtle bg glow */}
-            <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-900/[0.04] rounded-full blur-[150px] pointer-events-none" />
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-            <div className="max-w-5xl mx-auto">
+    return (
+        <section id="pricing" ref={ref} className="py-24 lg:py-32 px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+                {/* Header */}
                 <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="mb-16"
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.42, ease }}
+                    className="text-center max-w-2xl mx-auto mb-14"
                 >
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-200 mb-3">
-                        Pricing
+                    <h2 className="text-[32px] md:text-[40px] font-bold tracking-[-0.03em] text-rich-black leading-[1.1]">
+                        Simple, Transparent Pricing
                     </h2>
-                    <p className="text-sm text-gray-600 max-w-md leading-relaxed">
-                        Transparent plans for students at every level. No hidden fees.
+                    <p className="text-[17px] text-muted-text mt-4 leading-relaxed">
+                        Start free. Upgrade when you&apos;re ready. No surprises.
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start relative z-10">
-                    {plans.map((plan, idx) => (
+                {/* Pricing Cards */}
+                <div className="grid md:grid-cols-3 gap-6 items-start">
+                    {plans.map((plan, i) => (
                         <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: idx * 0.1 }}
-                            className={cn(
-                                "relative p-8 rounded-2xl border backdrop-blur-sm transition-all group hover:scale-105 duration-300 flex flex-col h-full",
-                                plan.popular
-                                    ? "bg-gradient-to-b from-indigo-900/20 to-black border-indigo-500/50 shadow-2xl shadow-indigo-900/20 z-10 scale-105"
-                                    : "bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/10"
-                            )}
+                            key={plan.name}
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.42, delay: i * 0.1, ease }}
+                            className={`rounded-3xl p-8 flex flex-col relative ${
+                                plan.highlighted
+                                    ? 'bg-gradient-to-b from-white via-white to-gold/[0.04] border-2 border-gold/30 shadow-[0_8px_40px_rgba(199,154,18,0.12)]'
+                                    : 'glass-card-light'
+                            }`}
                         >
-                            {plan.popular && (
-                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full text-xs font-bold text-white uppercase tracking-wider shadow-lg">
-                                    Best Value
+                            {/* Popular Badge */}
+                            {plan.highlighted && (
+                                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                                    <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-gold text-white text-[11px] font-bold rounded-full uppercase tracking-wider shadow-[0_2px_12px_rgba(199,154,18,0.4)]">
+                                        <Sparkles className="w-3 h-3" /> Most Popular
+                                    </span>
                                 </div>
                             )}
 
-                            <div className="flex items-center gap-3 mb-4">
-                                <div className={cn("p-2 rounded-lg", plan.popular ? "bg-indigo-500/20 text-indigo-400" : "bg-white/10 text-gray-400")}>
-                                    <plan.icon className="w-6 h-6" />
-                                </div>
-                                <h3 className="text-xl font-bold text-white">{plan.name}</h3>
+                            {/* Plan Header */}
+                            <div className="mb-6">
+                                <h3 className="text-[18px] font-bold text-rich-black">{plan.name}</h3>
+                                <p className="text-[13px] text-muted-text mt-1">{plan.description}</p>
                             </div>
 
-                            <div className="mb-4">
-                                <span className="text-4xl font-bold text-white">{plan.price}</span>
-                                <span className="text-gray-500 text-sm ml-1">{plan.period}</span>
+                            {/* Price */}
+                            <div className="mb-6">
+                                <span className="text-[44px] font-bold text-rich-black tracking-tight">{plan.price}</span>
+                                {plan.period && (
+                                    <span className="text-[15px] text-muted-text ml-1">{plan.period}</span>
+                                )}
                             </div>
 
-                            <p className="text-gray-400 text-sm mb-6 h-10">{plan.description}</p>
-
-                            <ul className="space-y-4 mb-8 flex-1">
-                                {plan.features.map((feature, i) => (
-                                    <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
-                                        <Check className={cn("w-5 h-5 shrink-0", plan.popular ? "text-indigo-400" : "text-gray-500")} />
-                                        <span>{feature}</span>
+                            {/* Features */}
+                            <ul className="space-y-3 mb-8 flex-1">
+                                {plan.features.map((feature) => (
+                                    <li key={feature} className="flex items-start gap-2.5 text-[13px] text-rich-black/75">
+                                        <Check className={`w-4 h-4 mt-0.5 shrink-0 ${
+                                            plan.highlighted ? 'text-gold' : 'text-emerald-500'
+                                        }`} />
+                                        {feature}
                                     </li>
                                 ))}
                             </ul>
 
-                            <Link href={plan.buttonLink} className={cn(
-                                "w-full py-3 rounded-xl font-bold text-sm tracking-wide transition-all shadow-lg flex items-center justify-center",
-                                plan.popular
-                                    ? "bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-600/25"
-                                    : "bg-white/10 hover:bg-white/20 text-white"
-                            )}>
-                                {plan.buttonText}
+                            {/* CTA */}
+                            <Link
+                                href={plan.name === "Institution" ? "#" : "/login"}
+                                className={`w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-2xl text-[14px] font-semibold transition-all duration-200 ${
+                                    plan.highlighted
+                                        ? 'bg-gold hover:bg-gold-dark text-white shadow-[0_2px_12px_rgba(199,154,18,0.35)] hover:shadow-[0_4px_20px_rgba(199,154,18,0.45)]'
+                                        : 'bg-rich-black/[0.06] hover:bg-rich-black/[0.1] text-rich-black'
+                                }`}
+                            >
+                                {plan.cta}
+                                <ArrowRight className="w-4 h-4" />
                             </Link>
                         </motion.div>
                     ))}
                 </div>
-
-                {/* Boost Packs */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="mt-12 mb-16"
-                >
-                    <h3 className="text-xl font-bold text-white text-center mb-6">Add-On Boost Packs</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-                        {[
-                            { name: "Query Boost", price: "GH₵ 20", desc: "+100 additional queries" },
-                            { name: "Verification Boost", price: "GH₵ 30", desc: "+5 verified solutions" },
-                            { name: "Exam Pack", price: "GH₵ 40", desc: "3 full mock exams (batch processed)" },
-                        ].map((pack, i) => (
-                            <div key={i} className="p-4 rounded-xl border border-white/10 bg-white/5 text-center hover:bg-white/10 transition-all">
-                                <div className="text-lg font-bold text-white mb-1">{pack.name}</div>
-                                <div className="text-indigo-400 font-mono text-sm mb-2">{pack.price}</div>
-                                <div className="text-gray-400 text-xs">{pack.desc}</div>
-                            </div>
-                        ))}
-                    </div>
-                </motion.div>
-
-                {/* Institutional Section */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="mt-16 bg-white/5 border border-white/10 rounded-2xl p-8 md:p-12 relative overflow-hidden"
-                >
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none" />
-
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
-                        <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-4">
-                                <div className="p-2 rounded-lg bg-emerald-500/20 text-emerald-400">
-                                    <Building2 className="w-6 h-6" />
-                                </div>
-                                <h3 className="text-2xl font-bold text-white">Institutional Access</h3>
-                            </div>
-                            <p className="text-gray-400 max-w-xl mb-4">
-                                Tailored solutions for University of Ghana, KNUST, and UCC.
-                                Centralized billing, admin dashboards, and custom analytics for departments.
-                            </p>
-                            <div className="flex flex-wrap gap-4 text-sm text-gray-500 font-mono">
-                                <span>• 500+ Students</span>
-                                <span>• Admin Dashboard</span>
-                                <span>• Usage Analytics</span>
-                            </div>
-                        </div>
-                        <Link
-                            href="mailto:partnerships@kokademia.com"
-                            className="px-8 py-4 bg-white text-black rounded-xl font-bold hover:bg-gray-200 transition-colors whitespace-nowrap"
-                        >
-                            Contact Sales
-                        </Link>
-                    </div>
-                </motion.div>
             </div>
         </section>
     );
