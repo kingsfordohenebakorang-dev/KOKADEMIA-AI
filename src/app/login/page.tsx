@@ -110,9 +110,9 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-4 relative overflow-hidden">
-            {/* Background Effects */}
-            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-black to-black opacity-50 z-0" />
+        <div className="flex flex-col items-center justify-center min-h-screen bg-[#FAFAFC] text-slate-900 p-4 relative overflow-hidden font-sans">
+            {/* Background Radial Glow */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-to-b from-indigo-100/60 via-purple-50/40 to-transparent blur-3xl pointer-events-none z-0" />
 
             <AnimatePresence mode="wait">
                 {step === 'auth' && (
@@ -122,34 +122,41 @@ export default function LoginPage() {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, x: -100 }}
-                        className="w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl z-10 relative"
+                        className="w-full max-w-md bg-white border border-slate-200/80 rounded-3xl p-8 sm:p-10 shadow-xl shadow-slate-200/50 z-10 relative"
                     >
+                        {/* Logo Badge */}
+                        <div className="flex justify-center mb-6">
+                            <div className="w-12 h-12 rounded-2xl bg-indigo-600 text-white font-extrabold text-xl flex items-center justify-center shadow-lg shadow-indigo-200">
+                                K
+                            </div>
+                        </div>
+
                         <div className="text-center mb-8">
-                            <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-                                {isSignUp ? "Create Account" : "Welcome Back"}
+                            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
+                                {isSignUp ? "Create Your Account" : "Welcome Back"}
                             </h1>
-                            <p className="text-sm text-gray-400 mt-2">
-                                {isSignUp ? "Join the elite actuarial learning platform." : "Sign in to continue your actuarial journey."}
+                            <p className="text-xs font-semibold text-slate-500 mt-2">
+                                {isSignUp ? "Join the elite actuarial & math AI platform." : "Sign in to continue your actuarial learning."}
                             </p>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-5">
                             <AnimatePresence>
                                 {isSignUp && (
                                     <motion.div
                                         initial={{ opacity: 0, height: 0 }}
                                         animate={{ opacity: 1, height: 'auto' }}
                                         exit={{ opacity: 0, height: 0 }}
-                                        className="space-y-2 overflow-hidden"
+                                        className="space-y-1.5 overflow-hidden"
                                     >
-                                        <label className="text-xs text-gray-400 uppercase tracking-wider font-semibold ml-1">Full Name</label>
+                                        <label className="text-xs text-slate-700 font-bold ml-1">Full Name</label>
                                         <div className="relative group">
-                                            <User className="absolute left-4 top-3.5 w-4 h-4 text-gray-500 group-focus-within:text-indigo-400 transition-colors" />
+                                            <User className="absolute left-4 top-3.5 w-4 h-4 text-slate-400 group-focus-within:text-indigo-600 transition-colors" />
                                             <input
                                                 type="text"
                                                 value={name}
                                                 onChange={(e) => setName(e.target.value)}
-                                                className="w-full bg-black/40 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-gray-600"
+                                                className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3 pl-11 pr-4 text-xs font-semibold text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white transition-all placeholder:text-slate-400"
                                                 placeholder="John Doe"
                                                 required={isSignUp}
                                             />
@@ -158,40 +165,46 @@ export default function LoginPage() {
                                 )}
                             </AnimatePresence>
 
-                            <div className="space-y-2">
-                                <label className="text-xs text-gray-400 uppercase tracking-wider font-semibold ml-1">Email</label>
+                            <div className="space-y-1.5">
+                                <label className="text-xs text-slate-700 font-bold ml-1">Email Address</label>
                                 <div className="relative group">
-                                    <Mail className="absolute left-4 top-3.5 w-4 h-4 text-gray-500 group-focus-within:text-indigo-400 transition-colors" />
+                                    <Mail className="absolute left-4 top-3.5 w-4 h-4 text-slate-400 group-focus-within:text-indigo-600 transition-colors" />
                                     <input
                                         type="email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-gray-600"
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3 pl-11 pr-4 text-xs font-semibold text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white transition-all placeholder:text-slate-400"
                                         placeholder="student@university.edu"
                                         required
                                     />
                                 </div>
                             </div>
 
-                            <div className="space-y-2">
-                                <label className="text-xs text-gray-400 uppercase tracking-wider font-semibold ml-1">Password</label>
+                            <div className="space-y-1.5">
+                                <label className="text-xs text-slate-700 font-bold ml-1">Password</label>
                                 <div className="relative group">
-                                    <Lock className="absolute left-4 top-3.5 w-4 h-4 text-gray-500 group-focus-within:text-indigo-400 transition-colors" />
+                                    <Lock className="absolute left-4 top-3.5 w-4 h-4 text-slate-400 group-focus-within:text-indigo-600 transition-colors" />
                                     <input
                                         type="password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-gray-600"
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-3 pl-11 pr-4 text-xs font-semibold text-slate-900 focus:outline-none focus:border-indigo-600 focus:bg-white transition-all placeholder:text-slate-400"
                                         placeholder="••••••••"
                                         required
                                     />
                                 </div>
                             </div>
 
+                            {error && (
+                                <div className="p-3 rounded-xl bg-rose-50 border border-rose-100 text-xs font-bold text-rose-600">
+                                    {error}
+                                </div>
+                            )}
+
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-600/50 text-white font-medium py-3 rounded-xl transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2 group"
+                                className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300 text-white font-bold py-3.5 rounded-full transition-all shadow-md shadow-indigo-200 flex items-center justify-center gap-2 group text-xs"
                             >
                                 {isLoading ? (
                                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -201,12 +214,38 @@ export default function LoginPage() {
                             </button>
                         </form>
 
-                        <div className="mt-8 text-center">
-                            <p className="text-xs text-gray-500">
+                        {/* Quick Admin Test Login Pills */}
+                        <div className="mt-6 pt-6 border-t border-slate-100">
+                            <span className="text-[11px] font-bold text-slate-400 block text-center mb-2.5 uppercase tracking-wider">Quick Fill Test Logins</span>
+                            <div className="flex flex-wrap gap-1.5 justify-center">
+                                {[
+                                    { label: "Super Admin", email: "admin@kokademia.com", pass: "admin123" },
+                                    { label: "Academic", email: "academic@kokademia.com", pass: "academic123" },
+                                    { label: "Support", email: "support@kokademia.com", pass: "support123" },
+                                    { label: "Finance", email: "finance@kokademia.com", pass: "finance123" },
+                                    { label: "Student", email: "student@university.edu", pass: "pass123" },
+                                ].map((acc) => (
+                                    <button
+                                        key={acc.label}
+                                        type="button"
+                                        onClick={() => {
+                                            setEmail(acc.email);
+                                            setPassword(acc.pass);
+                                        }}
+                                        className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 text-slate-600 transition-colors border border-slate-200/60"
+                                    >
+                                        {acc.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="mt-6 text-center">
+                            <p className="text-xs text-slate-500 font-semibold">
                                 {isSignUp ? "Already have an account?" : "Don't have an account?"}
                                 <button
                                     onClick={() => setIsSignUp(!isSignUp)}
-                                    className="text-indigo-400 hover:text-indigo-300 transition-colors ml-1 font-semibold hover:underline"
+                                    className="text-indigo-600 hover:underline transition-colors ml-1 font-bold"
                                 >
                                     {isSignUp ? "Log in" : "Sign up for free"}
                                 </button>
@@ -225,15 +264,15 @@ export default function LoginPage() {
                         className="w-full max-w-5xl z-10 flex flex-col items-center"
                     >
                         <div className="text-center mb-10 w-full">
-                            <h2 className="text-4xl font-extrabold text-white mb-4">Choose Your Path</h2>
-                            <p className="text-gray-400">Select a plan to unlock full actuarial potential.</p>
+                            <h2 className="text-3xl font-extrabold text-slate-900 mb-2">Choose Your Path</h2>
+                            <p className="text-xs font-semibold text-slate-500">Select a plan to unlock full actuarial potential.</p>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-8">
                             <PricingCard
                                 title="Free Tier"
                                 price="GH₵ 0"
-                                icon={<Shield className="w-6 h-6 text-gray-400" />}
+                                icon={<Shield className="w-6 h-6 text-slate-400" />}
                                 features={["5 Documents", "10 AI Queries / Day", "1 Exam Generation", "Standard Speed"]}
                                 onSelect={() => handlePlanSelect('free')}
                             />
@@ -241,7 +280,7 @@ export default function LoginPage() {
                                 title="Analyst"
                                 price="GH₵ 49"
                                 period="/mo"
-                                icon={<User className="w-6 h-6 text-blue-400" />}
+                                icon={<User className="w-6 h-6 text-indigo-600" />}
                                 features={["50 Documents", "150 AI Queries / Month", "Notebook Mode", "Basic Mock Exams", "Faster Speed"]}
                                 onSelect={() => handlePlanSelect('analyst')}
                             />
@@ -251,80 +290,39 @@ export default function LoginPage() {
                                 period="/semester"
                                 badge="🏆 BEST VALUE"
                                 highlighted
-                                icon={<Crown className="w-6 h-6 text-yellow-400" />}
+                                icon={<Crown className="w-6 h-6 text-amber-500" />}
                                 features={["150 Documents", "600 Queries / Semester", "15 Verified Solutions", "Full Mock Exams", "Offline Mode + Priority Queue"]}
                                 onSelect={() => handlePlanSelect('semester')}
                             />
                         </div>
 
                         {/* Institutional Plan Banner */}
-                        <div className="w-full max-w-4xl bg-gradient-to-r from-blue-900/30 to-indigo-900/30 border border-blue-500/20 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl mb-8">
+                        <div className="w-full max-w-4xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-800 text-white rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl mb-8">
                             <div className="flex-1">
-                                <h3 className="text-2xl font-bold text-white flex items-center gap-2 mb-2">
-                                    <Zap className="w-6 h-6 text-blue-400" />
+                                <h3 className="text-2xl font-extrabold text-white flex items-center gap-2 mb-2">
+                                    <Zap className="w-6 h-6 text-amber-300" />
                                     Institutional Plan
                                 </h3>
-                                <p className="text-gray-400 text-sm mb-3">
+                                <p className="text-indigo-100 text-xs font-medium mb-3">
                                     Dedicated section for UPSA, University of Ghana, KNUST, and UCC.
                                 </p>
-                                <div className="flex gap-4 text-xs font-mono text-gray-500">
-                                    <span className="flex items-center gap-1"><Check className="w-3 h-3" /> Admin dashboard</span>
-                                    <span className="flex items-center gap-1"><Check className="w-3 h-3" /> Centralized billing</span>
-                                    <span className="flex items-center gap-1"><Check className="w-3 h-3" /> 500+ student minimum</span>
+                                <div className="flex flex-wrap gap-4 text-xs font-semibold text-indigo-200">
+                                    <span className="flex items-center gap-1"><Check className="w-3.5 h-3.5 text-amber-300" /> Admin dashboard</span>
+                                    <span className="flex items-center gap-1"><Check className="w-3.5 h-3.5 text-amber-300" /> Centralized billing</span>
+                                    <span className="flex items-center gap-1"><Check className="w-3.5 h-3.5 text-amber-300" /> 500+ student minimum</span>
                                 </div>
                             </div>
                             <div className="flex flex-col gap-2 items-center md:items-end">
                                 <a
                                     href="mailto:kingsfordohenebakorang@gmail.com?subject=Kokademia Institutional Plan Inquiry"
-                                    className="px-8 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 transition-colors whitespace-nowrap text-center w-full md:w-auto"
+                                    className="px-8 py-3 bg-white text-indigo-700 font-bold rounded-full hover:bg-slate-100 transition-colors whitespace-nowrap text-xs shadow-md"
                                 >
                                     Contact Sales
                                 </a>
-                                <div className="text-xs text-gray-400 font-mono text-center md:text-right">
-                                    <p>Tell: <a href="tel:0242789520" className="hover:text-white transition-colors">024 278 9520</a></p>
-                                    <p><a href="mailto:kingsfordohenebakorang@gmail.com" className="hover:text-white transition-colors">kingsfordohenebakorang@gmail.com</a></p>
+                                <div className="text-xs text-indigo-100 font-medium text-center md:text-right">
+                                    <p>Tell: <a href="tel:0242789520" className="underline">024 278 9520</a></p>
                                 </div>
                             </div>
-                        </div>
-
-                        {/* Boost Packs Section */}
-                        <div className="w-full max-w-4xl bg-white/5 border border-white/10 rounded-2xl p-8 mb-20 shadow-xl overflow-x-auto">
-                            <div className="mb-6">
-                                <h3 className="text-xl font-bold text-white flex items-center gap-2 mb-2">
-                                    <RefreshCw className="w-5 h-5 text-indigo-400" />
-                                    Kokademia Boost Packs (For Heavy Users)
-                                </h3>
-                                <p className="text-sm text-gray-400">
-                                    If you exceed your monthly/semester limit, you can unlock additional usage instantly.
-                                </p>
-                            </div>
-
-                            <table className="w-full text-left border-collapse min-w-max">
-                                <thead>
-                                    <tr className="border-b border-white/10 text-gray-300">
-                                        <th className="py-3 font-semibold w-1/4">Boost Pack</th>
-                                        <th className="py-3 font-semibold w-1/4">Price</th>
-                                        <th className="py-3 font-semibold w-1/2">Includes</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="text-sm text-gray-400">
-                                    <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                                        <td className="py-4 text-white font-medium">Mini Boost</td>
-                                        <td className="py-4">GH₵ 15</td>
-                                        <td className="py-4">+100 queries</td>
-                                    </tr>
-                                    <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                                        <td className="py-4 text-white font-medium">Study Boost</td>
-                                        <td className="py-4">GH₵ 35</td>
-                                        <td className="py-4">+300 queries</td>
-                                    </tr>
-                                    <tr className="hover:bg-white/5 transition-colors">
-                                        <td className="py-4 text-white font-medium">Exam Boost</td>
-                                        <td className="py-4">GH₵ 50</td>
-                                        <td className="py-4">+10 extra exam generations + 200 queries</td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </motion.div>
                 )}
@@ -338,38 +336,38 @@ export default function LoginPage() {
                         exit={{ opacity: 0, x: -100 }}
                         className="w-full max-w-md z-10"
                     >
-                        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl">
+                        <div className="card-owlearn p-8 shadow-xl bg-white">
                             {/* Header */}
                             <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                                    <Tag className="w-5 h-5 text-indigo-400" /> Discount Code
+                                <h2 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+                                    <Tag className="w-5 h-5 text-indigo-600" /> Discount Code
                                 </h2>
                                 <button
                                     onClick={() => { setStep('pricing'); setSelectedPlan(null); }}
-                                    className="p-1 rounded-lg hover:bg-white/10 text-gray-500 hover:text-white transition-colors"
+                                    className="p-1 rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors"
                                 >
                                     <X className="w-4 h-4" />
                                 </button>
                             </div>
 
                             {/* Selected Plan Summary */}
-                            <div className="bg-white/5 border border-white/5 rounded-xl p-4 mb-6">
+                            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <div className="text-sm font-semibold text-white">{planPrices[selectedPlan].label}</div>
-                                        <div className="text-xs text-gray-500 mt-0.5">Selected plan</div>
+                                        <div className="text-sm font-bold text-slate-900">{planPrices[selectedPlan].label}</div>
+                                        <div className="text-xs font-semibold text-slate-500 mt-0.5">Selected plan</div>
                                     </div>
                                     <div className="text-right">
                                         {appliedDiscount && discountStatus === 'valid' ? (
                                             <>
-                                                <div className="text-lg font-bold text-indigo-400">
-                                                    GH₵ {getDiscountedPrice()}<span className="text-xs text-gray-500">{planPrices[selectedPlan].period}</span>
+                                                <div className="text-lg font-extrabold text-indigo-600">
+                                                    GH₵ {getDiscountedPrice()}<span className="text-xs text-slate-500">{planPrices[selectedPlan].period}</span>
                                                 </div>
-                                                <div className="text-xs text-gray-600 line-through">GH₵ {planPrices[selectedPlan].price}</div>
+                                                <div className="text-xs text-slate-400 line-through">GH₵ {planPrices[selectedPlan].price}</div>
                                             </>
                                         ) : (
-                                            <div className="text-lg font-bold text-white">
-                                                GH₵ {planPrices[selectedPlan].price}<span className="text-xs text-gray-500">{planPrices[selectedPlan].period}</span>
+                                            <div className="text-lg font-extrabold text-slate-900">
+                                                GH₵ {planPrices[selectedPlan].price}<span className="text-xs text-slate-500">{planPrices[selectedPlan].period}</span>
                                             </div>
                                         )}
                                     </div>
@@ -378,8 +376,8 @@ export default function LoginPage() {
 
                             {/* Discount Input */}
                             <div className="mb-4">
-                                <label className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-2 block">
-                                    Have a discount code? <span className="text-gray-600 normal-case">(optional)</span>
+                                <label className="text-xs text-slate-700 font-bold mb-2 block">
+                                    Have a discount code? <span className="text-slate-400 font-normal">(optional)</span>
                                 </label>
                                 <div className="flex gap-2">
                                     <input
@@ -393,12 +391,12 @@ export default function LoginPage() {
                                         }}
                                         onKeyDown={e => { if (e.key === 'Enter') handleApplyCode(); }}
                                         placeholder="e.g. WELCOME25"
-                                        className="flex-1 bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white font-mono placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all tracking-wider"
+                                        className="flex-1 bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 text-xs text-slate-900 font-bold placeholder:text-slate-400 focus:outline-none focus:border-indigo-600"
                                     />
                                     <button
                                         onClick={handleApplyCode}
                                         disabled={!discountCode.trim()}
-                                        className="px-4 py-3 bg-indigo-600 hover:bg-indigo-500 disabled:bg-gray-700 disabled:text-gray-500 text-white text-sm font-medium rounded-xl transition-all"
+                                        className="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 text-white text-xs font-bold rounded-2xl transition-all shadow-md"
                                     >
                                         Apply
                                     </button>
@@ -407,9 +405,9 @@ export default function LoginPage() {
 
                             {/* Feedback */}
                             {discountStatus === 'valid' && appliedDiscount && (
-                                <div className="flex items-center gap-2 p-3 rounded-xl bg-green-500/10 border border-green-500/20 mb-4">
-                                    <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
-                                    <span className="text-xs text-green-300">
+                                <div className="flex items-center gap-2 p-3 rounded-2xl bg-emerald-50 border border-emerald-100 mb-4">
+                                    <CheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                                    <span className="text-xs text-emerald-800 font-medium">
                                         Code applied! You save{' '}
                                         <strong>
                                             {appliedDiscount.type === 'percentage'
@@ -422,10 +420,10 @@ export default function LoginPage() {
                             )}
 
                             {discountStatus === 'invalid' && (
-                                <div className="flex items-center gap-2 p-3 rounded-xl bg-red-500/10 border border-red-500/20 mb-4">
-                                    <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0" />
-                                    <span className="text-xs text-red-300">
-                                        Invalid code or not applicable to {planPrices[selectedPlan].label}. Please try another.
+                                <div className="flex items-center gap-2 p-3 rounded-2xl bg-rose-50 border border-rose-100 mb-4">
+                                    <AlertCircle className="w-4 h-4 text-rose-600 flex-shrink-0" />
+                                    <span className="text-xs text-rose-700 font-medium">
+                                        Invalid code or not applicable to {planPrices[selectedPlan].label}.
                                     </span>
                                 </div>
                             )}
@@ -434,7 +432,7 @@ export default function LoginPage() {
                             <div className="space-y-3 mt-6">
                                 <button
                                     onClick={handleConfirmPlan}
-                                    className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-3 rounded-xl transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2"
+                                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-full transition-all shadow-md shadow-indigo-200 flex items-center justify-center gap-2 text-xs"
                                 >
                                     {discountStatus === 'valid' ? (
                                         <>Continue with Discount <ArrowRight className="w-4 h-4" /></>
@@ -442,22 +440,13 @@ export default function LoginPage() {
                                         <>Continue — GH₵ {planPrices[selectedPlan].price}{planPrices[selectedPlan].period} <ArrowRight className="w-4 h-4" /></>
                                     )}
                                 </button>
-
-                                {discountStatus !== 'valid' && (
-                                    <button
-                                        onClick={handleConfirmPlan}
-                                        className="w-full text-xs text-gray-500 hover:text-gray-300 py-2 transition-colors"
-                                    >
-                                        Skip — I don&apos;t have a code
-                                    </button>
-                                )}
                             </div>
                         </div>
                     </motion.div>
                 )}
             </AnimatePresence>
 
-            <div className="absolute bottom-6 text-[10px] text-gray-600 font-mono uppercase tracking-[0.2em]">
+            <div className="absolute bottom-6 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
                 Secure Actuarial Network • 256-Bit Encryption
             </div>
         </div>
@@ -468,38 +457,40 @@ export default function LoginPage() {
 function PricingCard({ title, price, period, badge, features, highlighted = false, icon, onSelect }: any) {
     return (
         <motion.div
-            whileHover={{ y: -5 }}
-            className={`p-8 rounded-2xl border transition-all flex flex-col ${highlighted
-                ? 'bg-white/10 border-indigo-500 shadow-[0_0_40px_-10px_rgba(79,70,229,0.3)]'
-                : 'bg-white/5 border-white/10'
-                }`}
+            whileHover={{ y: -4 }}
+            className={`p-8 rounded-3xl border transition-all flex flex-col ${
+                highlighted
+                    ? 'bg-gradient-to-b from-indigo-600 to-purple-800 text-white border-indigo-500 shadow-xl shadow-indigo-200'
+                    : 'bg-white text-slate-900 border-slate-200 shadow-sm'
+            }`}
         >
             <div className="flex items-center gap-3 mb-4">
                 {icon}
                 <h3 className="text-xl font-bold">{title}</h3>
                 {badge && (
-                    <span className="ml-auto text-[10px] font-bold uppercase tracking-[0.1em] bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded">
+                    <span className="ml-auto text-[10px] font-bold uppercase tracking-wider bg-amber-400 text-slate-900 px-2.5 py-1 rounded-full">
                         {badge}
                     </span>
                 )}
             </div>
             <div className="mb-6 flex items-baseline gap-1">
-                <span className="text-4xl font-bold">{price}</span>
-                {period && <span className="text-gray-500 text-sm">{period}</span>}
+                <span className="text-4xl font-extrabold">{price}</span>
+                {period && <span className={highlighted ? "text-indigo-200 text-sm font-medium" : "text-slate-500 text-sm font-medium"}>{period}</span>}
             </div>
-            <ul className="space-y-4 mb-8 flex-1">
+            <ul className="space-y-3.5 mb-8 flex-1">
                 {features.map((f: string, i: number) => (
-                    <li key={i} className="flex items-center gap-3 text-sm text-gray-300">
-                        <Check className="w-4 h-4 text-indigo-400" /> {f}
+                    <li key={i} className={`flex items-center gap-3 text-xs font-semibold ${highlighted ? "text-indigo-100" : "text-slate-600"}`}>
+                        <Check className={`w-4 h-4 ${highlighted ? "text-amber-300" : "text-indigo-600"}`} /> {f}
                     </li>
                 ))}
             </ul>
             <button
                 onClick={onSelect}
-                className={`w-full py-3 rounded-xl font-semibold transition-all ${highlighted
-                    ? 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg'
-                    : 'bg-white/10 hover:bg-white/20 text-white'
-                    }`}
+                className={`w-full py-3.5 rounded-full font-bold text-xs transition-all shadow-md ${
+                    highlighted
+                        ? 'bg-white hover:bg-slate-100 text-indigo-700'
+                        : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-100'
+                }`}
             >
                 Get Started
             </button>
