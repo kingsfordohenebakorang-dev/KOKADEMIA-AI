@@ -11,42 +11,42 @@ export function CinematicCTA() {
     const isInView = useInView(ref, { once: true, margin: "-100px" });
 
     return (
-        <section ref={ref} className="py-24 lg:py-32 px-6 lg:px-8">
+        <section ref={ref} className="py-24 bg-[#FAFAFC] px-6 lg:px-8">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, ease }}
-                className="max-w-5xl mx-auto relative overflow-hidden rounded-[32px]"
+                className="max-w-5xl mx-auto relative overflow-hidden rounded-[36px] shadow-2xl shadow-indigo-300/40"
             >
                 {/* Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-rich-black via-rich-black to-[#1a1509]" />
-                <div className="absolute inset-0 opacity-20">
-                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gold/30 rounded-full blur-[120px]" />
-                    <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-gold/20 rounded-full blur-[100px]" />
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-700 via-indigo-600 to-purple-800" />
+                <div className="absolute inset-0 opacity-30">
+                    <div className="absolute -top-20 -right-20 w-[450px] h-[450px] bg-purple-400 rounded-full blur-[100px]" />
+                    <div className="absolute -bottom-20 -left-20 w-[350px] h-[350px] bg-indigo-300 rounded-full blur-[100px]" />
                 </div>
 
                 {/* Content */}
                 <div className="relative z-10 px-8 py-16 lg:px-16 lg:py-20 text-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold mb-6">
+                        <span>✨ Start Your Verified Learning Journey</span>
+                    </div>
+
                     <motion.h2
                         initial={{ opacity: 0, y: 12 }}
                         animate={isInView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.42, delay: 0.15, ease }}
-                        className="text-[32px] md:text-[40px] lg:text-[48px] font-bold tracking-[-0.03em] text-white leading-[1.1] max-w-3xl mx-auto"
+                        className="text-[34px] md:text-[44px] lg:text-[50px] font-extrabold tracking-tight text-white leading-tight max-w-3xl mx-auto"
                     >
-                        Learn Mathematics with{" "}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-light via-gold to-gold-dark">
-                            Proof, Not Probability
-                        </span>
+                        Ready to Ace Your Actuarial &amp; Math Exams?
                     </motion.h2>
 
                     <motion.p
                         initial={{ opacity: 0, y: 12 }}
                         animate={isInView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.42, delay: 0.3, ease }}
-                        className="text-[17px] text-white/60 mt-5 leading-relaxed max-w-xl mx-auto"
+                        className="text-[17px] text-indigo-100 mt-5 leading-relaxed max-w-xl mx-auto font-medium"
                     >
-                        The world&apos;s first AI study platform where every mathematical answer
-                        is verified before you see it.
+                        Join 14,000+ students mastering actuarial models and advanced mathematics with 100% verified symbolic AI.
                     </motion.p>
 
                     <motion.div
@@ -57,13 +57,16 @@ export function CinematicCTA() {
                     >
                         <Link
                             href="/login"
-                            className="inline-flex items-center gap-2.5 px-8 py-4 bg-gold hover:bg-gold-light text-white text-[15px] font-semibold rounded-2xl transition-all duration-200 shadow-[0_4px_20px_rgba(199,154,18,0.4)] hover:shadow-[0_8px_32px_rgba(199,154,18,0.5)] hover:-translate-y-0.5"
+                            className="inline-flex items-center gap-2.5 px-8 py-4 bg-white hover:bg-slate-100 text-indigo-700 text-[15px] font-bold rounded-full transition-all duration-200 shadow-xl hover:-translate-y-0.5"
                         >
                             Start Learning Free <ArrowRight className="w-4 h-4" />
                         </Link>
-                        <button className="inline-flex items-center gap-2.5 px-8 py-4 text-[15px] font-semibold text-white/80 hover:text-white rounded-2xl border border-white/[0.15] hover:border-white/[0.3] transition-all duration-200">
-                            Book a Demo
-                        </button>
+                        <Link
+                            href="/login"
+                            className="inline-flex items-center gap-2.5 px-8 py-4 text-[15px] font-bold text-white hover:bg-white/10 rounded-full border border-white/30 transition-all duration-200"
+                        >
+                            View All Courses
+                        </Link>
                     </motion.div>
                 </div>
             </motion.div>

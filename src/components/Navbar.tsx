@@ -68,32 +68,30 @@ export function Navbar() {
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-                    scrolled
-                        ? 'bg-ivory/80 backdrop-blur-xl border-b border-rich-black/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04)]'
-                        : 'bg-transparent'
-                }`}
+                className={`fixed top-4 left-0 w-full z-50 px-4 md:px-8 transition-all duration-300`}
             >
-                <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+                <div className={`max-w-7xl mx-auto px-6 h-16 rounded-full flex items-center justify-between transition-all duration-300 ${
+                    scrolled
+                        ? 'bg-white/90 backdrop-blur-xl border border-slate-200/80 shadow-[0_4px_25px_rgba(15,23,42,0.08)]'
+                        : 'bg-white/70 backdrop-blur-md border border-slate-200/50 shadow-sm'
+                }`}>
                     {/* Logo / Wordmark */}
-                    <Link href="/" className="flex items-center gap-1">
-                        <span className="text-[22px] font-bold tracking-[-0.02em] text-rich-black">
-                            Koka
-                            <span className="relative inline-block">
-                                d
-                                <span className="absolute -top-[2px] right-[1px] w-[5px] h-[5px] bg-gold rounded-[1px]" />
-                            </span>
-                            emia
+                    <Link href="/" className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-indigo-200">
+                            K
+                        </div>
+                        <span className="text-[20px] font-bold tracking-tight text-slate-900">
+                            Kokademia
                         </span>
                     </Link>
 
                     {/* Desktop Nav */}
-                    <div className="hidden md:flex items-center gap-8">
+                    <div className="hidden md:flex items-center gap-1 bg-slate-100/70 p-1.5 rounded-full border border-slate-200/60">
                         {navLinks.map((link) => (
                             <a
                                 key={link.label}
                                 href={link.href}
-                                className="text-[14px] font-medium text-muted-text hover:text-rich-black transition-colors duration-200"
+                                className="text-[13px] font-semibold text-slate-600 hover:text-indigo-600 px-4 py-1.5 rounded-full transition-all duration-200 hover:bg-white"
                             >
                                 {link.label}
                             </a>
@@ -101,25 +99,25 @@ export function Navbar() {
                     </div>
 
                     {/* Desktop CTAs */}
-                    <div className="hidden md:flex items-center gap-4">
+                    <div className="hidden md:flex items-center gap-3">
                         <Link
                             href="/login"
-                            className="text-[14px] font-medium text-muted-text hover:text-rich-black transition-colors duration-200"
+                            className="text-[14px] font-semibold text-slate-700 hover:text-indigo-600 px-4 py-2 transition-colors duration-200"
                         >
                             Log In
                         </Link>
                         <Link
                             href="/login"
-                            className="inline-flex items-center px-5 py-2.5 bg-gold hover:bg-gold-dark text-white text-[14px] font-semibold rounded-xl transition-all duration-200 shadow-[0_2px_8px_rgba(199,154,18,0.3)] hover:shadow-[0_4px_16px_rgba(199,154,18,0.4)]"
+                            className="inline-flex items-center px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-[14px] font-semibold rounded-full transition-all duration-200 shadow-md shadow-indigo-200 hover:shadow-lg hover:shadow-indigo-300 hover:-translate-y-0.5"
                         >
-                            Start Free
+                            Start Learning Free
                         </Link>
                     </div>
 
                     {/* Mobile Hamburger */}
                     <button
                         onClick={() => setMobileOpen(!mobileOpen)}
-                        className="md:hidden p-2 text-rich-black"
+                        className="md:hidden p-2 text-slate-800"
                         aria-label="Toggle menu"
                     >
                         {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

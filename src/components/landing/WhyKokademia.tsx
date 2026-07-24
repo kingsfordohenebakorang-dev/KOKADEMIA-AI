@@ -40,25 +40,28 @@ export function WhyKokademia() {
     const isInView = useInView(ref, { once: true, margin: "-100px" });
 
     return (
-        <section ref={ref} className="py-24 lg:py-32 px-6 lg:px-8 bg-ivory-dark/30">
+        <section ref={ref} className="py-24 px-6 lg:px-8 bg-white border-t border-slate-200/60">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 12 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.42, ease }}
-                    className="text-center max-w-2xl mx-auto mb-14"
+                    className="text-center max-w-2xl mx-auto mb-16"
                 >
-                    <h2 className="text-[32px] md:text-[40px] font-bold tracking-[-0.03em] text-rich-black leading-[1.1]">
-                        Why Kokademia?
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-semibold mb-4">
+                        <span>🎯 Why Choose Kokademia</span>
+                    </div>
+                    <h2 className="text-[34px] md:text-[44px] font-extrabold tracking-tight text-slate-900 leading-tight">
+                        The Difference Between AI Guessing &amp; Proving
                     </h2>
-                    <p className="text-[17px] text-muted-text mt-4 leading-relaxed">
-                        The difference between AI that guesses and AI that proves.
+                    <p className="text-[17px] text-slate-600 mt-4 leading-relaxed">
+                        Why thousands of actuarial and mathematical sciences students rely on our verified symbolic engine.
                     </p>
                 </motion.div>
 
                 {/* Cards */}
-                <div className="grid md:grid-cols-3 gap-6">
+                <div className="grid md:grid-cols-3 gap-8">
                     {cards.map((card, i) => {
                         const Icon = card.icon;
                         return (
@@ -67,23 +70,23 @@ export function WhyKokademia() {
                                 initial={{ opacity: 0, y: 16 }}
                                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                                 transition={{ duration: 0.42, delay: i * 0.1, ease }}
-                                className="glass-card-light p-8 group"
+                                className="card-owlearn p-8 group"
                             >
-                                <div className="w-12 h-12 rounded-2xl bg-gold/[0.1] flex items-center justify-center mb-5 group-hover:bg-gold/[0.18] transition-colors duration-300">
-                                    <Icon className="w-6 h-6 text-gold" />
+                                <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300 shadow-sm">
+                                    <Icon className="w-7 h-7" />
                                 </div>
 
-                                <h3 className="text-[20px] font-bold text-rich-black mb-2">
+                                <h3 className="text-xl font-bold text-slate-900 mb-3">
                                     {card.title}
                                 </h3>
-                                <p className="text-[14px] text-muted-text leading-relaxed mb-4">
+                                <p className="text-sm text-slate-600 leading-relaxed mb-6">
                                     {card.description}
                                 </p>
 
-                                <ul className="space-y-2">
+                                <ul className="space-y-2.5 pt-4 border-t border-slate-100">
                                     {card.bullets.map((bullet) => (
-                                        <li key={bullet} className="flex items-start gap-2 text-[13px] text-muted-text">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-gold mt-1.5 shrink-0" />
+                                        <li key={bullet} className="flex items-center gap-2.5 text-xs font-semibold text-slate-700">
+                                            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
                                             {bullet}
                                         </li>
                                     ))}

@@ -236,115 +236,139 @@ const mathSymbols = [
 ];
 
 export function Hero() {
+    const [searchPrompt, setSearchPrompt] = useState("");
+
+    const popularTags = [
+        "Financial Mathematics",
+        "Probability (SOA P)",
+        "Life Contingencies",
+        "Linear Algebra",
+        "Differential Equations"
+    ];
+
     return (
-        <section className="relative min-h-screen flex items-center overflow-hidden pt-16">
-            {/* Background Gradient Orbs */}
+        <section className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16 bg-[#FAFAFC]">
+            {/* Background Soft Gradients */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] bg-gold/[0.04] rounded-full blur-[120px]" />
-                <div className="absolute bottom-[20%] right-[10%] w-[400px] h-[400px] bg-gold/[0.03] rounded-full blur-[100px]" />
+                <div className="absolute -top-[10%] left-[20%] w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[140px]" />
+                <div className="absolute bottom-[10%] right-[15%] w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[120px]" />
             </div>
 
-            {/* Floating Math Symbols */}
-            <div className="absolute inset-0 pointer-events-none hidden lg:block">
-                {mathSymbols.map((s, i) => (
-                    <span
-                        key={i}
-                        className={`absolute ${s.size} text-gold/[0.1] font-serif select-none ${
-                            i % 2 === 0 ? 'animate-float-gentle' : 'animate-float-reverse'
-                        }`}
-                        style={{
-                            top: s.top, bottom: (s as { bottom?: string }).bottom,
-                            left: s.left, right: s.right,
-                            animationDelay: s.delay,
-                        }}
-                    >
-                        {s.symbol}
-                    </span>
-                ))}
-            </div>
-
-            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12 lg:gap-16 py-12 lg:py-0">
+            <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
                 {/* ── Left: Content ── */}
-                <div className="flex-1 max-w-xl">
+                <div className="flex-1 max-w-2xl">
+                    {/* Owlearn Pill Tag */}
                     <motion.div
                         {...fadeUp}
                         transition={{ ...fadeUp.transition, delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold/[0.08] border border-gold/[0.15] mb-6"
+                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-150 text-indigo-700 mb-6 shadow-sm"
                     >
-                        <FlaskConical className="w-3.5 h-3.5 text-gold" />
-                        <span className="text-[12px] font-semibold text-gold-dark tracking-wide">
-                            Neuro-Symbolic AI Platform
+                        <Sparkles className="w-3.5 h-3.5 text-indigo-600 animate-pulse" />
+                        <span className="text-[13px] font-semibold tracking-wide">
+                            ✨ AI-Powered Actuarial &amp; Math Platform
                         </span>
                     </motion.div>
 
                     <motion.h1
                         {...fadeUp}
                         transition={{ ...fadeUp.transition, delay: 0.2 }}
-                        className="text-[40px] md:text-[52px] lg:text-[56px] font-bold leading-[1.08] tracking-[-0.03em] text-rich-black"
+                        className="text-[42px] md:text-[54px] lg:text-[60px] font-extrabold leading-[1.08] tracking-tight text-slate-900"
                     >
-                        Verified AI for{" "}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-dark via-gold to-gold-light">
-                            Actuarial &amp; Mathematical
-                        </span>{" "}
-                        Sciences
+                        Master Math &amp; Actuarial Science with{" "}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-800">
+                            Verified AI Guidance
+                        </span>
                     </motion.h1>
 
                     <motion.p
                         {...fadeUp}
                         transition={{ ...fadeUp.transition, delay: 0.35 }}
-                        className="text-[17px] md:text-[18px] text-muted-text mt-6 leading-[1.65] max-w-[480px]"
+                        className="text-[17px] md:text-[18px] text-slate-600 mt-5 leading-relaxed max-w-xl"
                     >
-                        Solve complex actuarial science and mathematics problems with complete confidence.
-                        Every calculation is verified through Kokademia&apos;s Neuro-Symbolic Trust Layer
-                        using SymPy code execution — not AI guessing.
+                        Solve complex actuarial models and advanced mathematics step-by-step. Every equation is verified live using our SymPy Symbolic Engine for 100% computational accuracy.
                     </motion.p>
 
+                    {/* Owlearn Search Input Bar */}
                     <motion.div
                         {...fadeUp}
-                        transition={{ ...fadeUp.transition, delay: 0.5 }}
-                        className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-4"
+                        transition={{ ...fadeUp.transition, delay: 0.45 }}
+                        className="mt-8 p-2 bg-white rounded-2xl md:rounded-full border border-slate-200 shadow-lg shadow-slate-200/50 flex flex-col md:flex-row items-center gap-2"
                     >
+                        <div className="flex items-center gap-3 px-4 py-2 w-full flex-1">
+                            <Brain className="w-5 h-5 text-indigo-600 shrink-0" />
+                            <input
+                                type="text"
+                                value={searchPrompt}
+                                onChange={(e) => setSearchPrompt(e.target.value)}
+                                placeholder="What actuarial topic or math problem do you want to master today?"
+                                className="w-full text-[14px] text-slate-900 placeholder-slate-400 bg-transparent focus:outline-none font-medium"
+                            />
+                        </div>
                         <Link
                             href="/login"
-                            className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-gold hover:bg-gold-dark text-white text-[15px] font-semibold rounded-2xl transition-all duration-200 shadow-[0_2px_12px_rgba(199,154,18,0.35)] hover:shadow-[0_6px_24px_rgba(199,154,18,0.45)] hover:-translate-y-0.5"
+                            className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-7 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-[14px] rounded-xl md:rounded-full transition-all duration-200 shadow-md shadow-indigo-200 hover:shadow-indigo-300"
                         >
-                            Start Learning Free <ArrowRight className="w-4 h-4" />
+                            Solve Now <ArrowRight className="w-4 h-4" />
                         </Link>
-                        <button
-                            className="inline-flex items-center gap-2.5 px-7 py-3.5 text-[15px] font-semibold text-rich-black rounded-2xl border border-rich-black/[0.12] hover:border-rich-black/[0.25] bg-surface/50 hover:bg-surface transition-all duration-200"
-                        >
-                            <Play className="w-4 h-4 text-gold" /> Watch Demo
-                        </button>
                     </motion.div>
 
-                    {/* Trust Indicators */}
+                    {/* Topic Tags */}
+                    <motion.div
+                        {...fadeUp}
+                        transition={{ ...fadeUp.transition, delay: 0.55 }}
+                        className="mt-4 flex items-center gap-2 flex-wrap text-xs text-slate-500"
+                    >
+                        <span className="font-semibold text-slate-700">Popular:</span>
+                        {popularTags.map((tag) => (
+                            <button
+                                key={tag}
+                                onClick={() => setSearchPrompt(tag)}
+                                className="px-3 py-1 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 rounded-full text-slate-600 transition-colors duration-150 font-medium"
+                            >
+                                {tag}
+                            </button>
+                        ))}
+                    </motion.div>
+
+                    {/* Student Avatar Stack & Trust Metrics */}
                     <motion.div
                         {...fadeUp}
                         transition={{ ...fadeUp.transition, delay: 0.65 }}
-                        className="mt-10 flex items-center gap-6 text-[13px] text-muted-text"
+                        className="mt-10 pt-6 border-t border-slate-200/80 flex items-center gap-6"
                     >
-                        <div className="flex items-center gap-1.5">
-                            <CheckCircle className="w-4 h-4 text-emerald-500" />
-                            <span>SOA Exam Prep</span>
+                        <div className="flex items-center -space-x-2">
+                            <div className="w-9 h-9 rounded-full bg-indigo-500 text-white font-bold text-xs flex items-center justify-center border-2 border-white">KO</div>
+                            <div className="w-9 h-9 rounded-full bg-emerald-500 text-white font-bold text-xs flex items-center justify-center border-2 border-white">EA</div>
+                            <div className="w-9 h-9 rounded-full bg-amber-500 text-white font-bold text-xs flex items-center justify-center border-2 border-white">KA</div>
+                            <div className="w-9 h-9 rounded-full bg-purple-600 text-white font-bold text-xs flex items-center justify-center border-2 border-white">+14k</div>
                         </div>
-                        <div className="flex items-center gap-1.5">
-                            <CheckCircle className="w-4 h-4 text-emerald-500" />
-                            <span>IFoA Exam Prep</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                            <CheckCircle className="w-4 h-4 text-emerald-500" />
-                            <span>Verified Math</span>
+                        <div>
+                            <div className="flex items-center gap-1 text-amber-500 text-xs font-bold">
+                                ★★★★★ <span className="text-slate-800 font-bold ml-1">4.9/5</span>
+                            </div>
+                            <p className="text-xs text-slate-500">Trusted by 14,200+ Actuarial &amp; Math students</p>
                         </div>
                     </motion.div>
                 </div>
 
-                {/* ── Right: Animated Dashboard ── */}
+                {/* ── Right: Owlearn Dashboard Preview Card ── */}
                 <motion.div
                     initial={{ opacity: 0, x: 30, scale: 0.97 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
                     transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                    className="flex-1 flex justify-center lg:justify-end w-full lg:w-auto"
+                    className="flex-1 flex justify-center lg:justify-end w-full lg:w-auto relative"
                 >
+                    {/* Floating Overlay Badge: Exam Readiness */}
+                    <div className="absolute -top-6 -left-6 z-20 hidden sm:flex items-center gap-3 px-4 py-3 bg-white rounded-2xl shadow-xl border border-slate-100 animate-float-gentle">
+                        <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
+                            99%
+                        </div>
+                        <div>
+                            <div className="text-xs font-bold text-slate-900">SOA / IFoA Ready</div>
+                            <div className="text-[11px] text-slate-500">Verified SymPy Engine</div>
+                        </div>
+                    </div>
+
                     <VerificationDashboard />
                 </motion.div>
             </div>

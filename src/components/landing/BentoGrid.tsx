@@ -65,28 +65,28 @@ export function BentoGrid() {
     const isInView = useInView(ref, { once: true, margin: "-100px" });
 
     return (
-        <section id="features" ref={ref} className="py-24 lg:py-32 px-6 lg:px-8">
+        <section id="how-it-works" ref={ref} className="py-24 bg-[#FAFAFC] px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 12 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.42, ease }}
-                    className="text-center max-w-2xl mx-auto mb-14"
+                    className="text-center max-w-2xl mx-auto mb-16"
                 >
-                    <h2 className="text-[32px] md:text-[40px] font-bold tracking-[-0.03em] text-rich-black leading-[1.1]">
-                        Everything You Need to{" "}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-dark to-gold-light">
-                            Master Mathematics
-                        </span>
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-semibold mb-4">
+                        <span>🚀 Intelligent Learning Platform</span>
+                    </div>
+                    <h2 className="text-[34px] md:text-[44px] font-extrabold tracking-tight text-slate-900 leading-tight">
+                        Built For Deep Understanding &amp; High Accuracy
                     </h2>
-                    <p className="text-[17px] text-muted-text mt-4 leading-relaxed">
-                        A complete learning ecosystem designed for actuarial and mathematical sciences students.
+                    <p className="text-[17px] text-slate-600 mt-4 leading-relaxed">
+                        A modern learning ecosystem engineered specifically for actuarial &amp; mathematical sciences.
                     </p>
                 </motion.div>
 
                 {/* Bento Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     {features.map((feature, i) => {
                         const Icon = feature.icon;
                         return (
@@ -95,29 +95,27 @@ export function BentoGrid() {
                                 initial={{ opacity: 0, y: 16 }}
                                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                                 transition={{ duration: 0.42, delay: i * 0.06, ease }}
-                                className={`glass-card-light p-6 lg:p-8 group ${feature.span} ${
+                                className={`card-owlearn p-8 group ${feature.span} ${
                                     feature.accent
-                                        ? 'bg-gradient-to-br from-white/70 via-white/60 to-gold/[0.06]'
-                                        : ''
+                                        ? 'bg-gradient-to-br from-indigo-600 to-purple-700 text-white'
+                                        : 'bg-white'
                                 }`}
                             >
-                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 ${
+                                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 ${
                                     feature.accent
-                                        ? 'bg-gold/[0.12]'
-                                        : 'bg-ivory-dark/80'
+                                        ? 'bg-white/10 text-white border border-white/20'
+                                        : 'bg-indigo-50 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white'
                                 }`}>
-                                    <Icon className={`w-5 h-5 ${
-                                        feature.accent ? 'text-gold' : 'text-muted-text group-hover:text-gold'
-                                    } transition-colors duration-300`} />
+                                    <Icon className="w-6 h-6" />
                                 </div>
 
-                                <h3 className={`font-semibold text-rich-black mb-1.5 ${
-                                    feature.accent ? 'text-[18px] lg:text-[20px]' : 'text-[15px]'
+                                <h3 className={`font-bold mb-2 ${
+                                    feature.accent ? 'text-2xl text-white' : 'text-lg text-slate-900'
                                 }`}>
                                     {feature.title}
                                 </h3>
-                                <p className={`text-muted-text leading-relaxed ${
-                                    feature.accent ? 'text-[15px]' : 'text-[13px]'
+                                <p className={`leading-relaxed ${
+                                    feature.accent ? 'text-indigo-100 text-base' : 'text-slate-600 text-sm'
                                 }`}>
                                     {feature.description}
                                 </p>

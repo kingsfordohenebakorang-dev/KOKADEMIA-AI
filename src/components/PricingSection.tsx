@@ -65,79 +65,86 @@ export function PricingSection() {
     const isInView = useInView(ref, { once: true, margin: "-100px" });
 
     return (
-        <section id="pricing" ref={ref} className="py-24 lg:py-32 px-6 lg:px-8">
+        <section id="pricing" ref={ref} className="py-24 bg-[#FAFAFC] px-6 lg:px-8 border-t border-slate-200/60">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 12 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.42, ease }}
-                    className="text-center max-w-2xl mx-auto mb-14"
+                    className="text-center max-w-2xl mx-auto mb-16"
                 >
-                    <h2 className="text-[32px] md:text-[40px] font-bold tracking-[-0.03em] text-rich-black leading-[1.1]">
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-semibold mb-4">
+                        <span>💎 Flexible Plans</span>
+                    </div>
+                    <h2 className="text-[34px] md:text-[44px] font-extrabold tracking-tight text-slate-900 leading-tight">
                         Simple, Transparent Pricing
                     </h2>
-                    <p className="text-[17px] text-muted-text mt-4 leading-relaxed">
-                        Start free. Upgrade when you&apos;re ready. No surprises.
+                    <p className="text-[17px] text-slate-600 mt-4 leading-relaxed">
+                        Start free. Upgrade when you&apos;re ready. Zero hidden fees.
                     </p>
                 </motion.div>
 
                 {/* Pricing Cards */}
-                <div className="grid md:grid-cols-3 gap-6 items-start">
+                <div className="grid md:grid-cols-3 gap-8 items-stretch">
                     {plans.map((plan, i) => (
                         <motion.div
                             key={plan.name}
                             initial={{ opacity: 0, y: 16 }}
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.42, delay: i * 0.1, ease }}
-                            className={`rounded-3xl p-8 flex flex-col relative ${
+                            className={`rounded-3xl p-8 flex flex-col justify-between relative transition-all duration-300 ${
                                 plan.highlighted
-                                    ? 'bg-gradient-to-b from-white via-white to-gold/[0.04] border-2 border-gold/30 shadow-[0_8px_40px_rgba(199,154,18,0.12)]'
-                                    : 'glass-card-light'
+                                    ? 'bg-gradient-to-b from-indigo-600 to-purple-700 text-white shadow-xl shadow-indigo-200 scale-105 z-10 border border-indigo-500'
+                                    : 'card-owlearn bg-white text-slate-900'
                             }`}
                         >
                             {/* Popular Badge */}
                             {plan.highlighted && (
                                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                                    <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-gold text-white text-[11px] font-bold rounded-full uppercase tracking-wider shadow-[0_2px_12px_rgba(199,154,18,0.4)]">
-                                        <Sparkles className="w-3 h-3" /> Most Popular
+                                    <span className="inline-flex items-center gap-1.5 px-4 py-1 bg-amber-400 text-slate-950 text-xs font-extrabold rounded-full uppercase tracking-wider shadow-md">
+                                        <Sparkles className="w-3.5 h-3.5" /> Most Popular
                                     </span>
                                 </div>
                             )}
 
-                            {/* Plan Header */}
-                            <div className="mb-6">
-                                <h3 className="text-[18px] font-bold text-rich-black">{plan.name}</h3>
-                                <p className="text-[13px] text-muted-text mt-1">{plan.description}</p>
-                            </div>
+                            <div>
+                                {/* Plan Header */}
+                                <div className="mb-6">
+                                    <h3 className={`text-xl font-bold ${plan.highlighted ? 'text-white' : 'text-slate-900'}`}>{plan.name}</h3>
+                                    <p className={`text-xs mt-1 leading-relaxed ${plan.highlighted ? 'text-indigo-100' : 'text-slate-500'}`}>{plan.description}</p>
+                                </div>
 
-                            {/* Price */}
-                            <div className="mb-6">
-                                <span className="text-[44px] font-bold text-rich-black tracking-tight">{plan.price}</span>
-                                {plan.period && (
-                                    <span className="text-[15px] text-muted-text ml-1">{plan.period}</span>
-                                )}
-                            </div>
+                                {/* Price */}
+                                <div className="mb-6 pb-6 border-b border-slate-100/20">
+                                    <span className={`text-5xl font-extrabold tracking-tight ${plan.highlighted ? 'text-white' : 'text-slate-900'}`}>{plan.price}</span>
+                                    {plan.period && (
+                                        <span className={`text-sm ml-1.5 ${plan.highlighted ? 'text-indigo-200' : 'text-slate-500'}`}>{plan.period}</span>
+                                    )}
+                                </div>
 
-                            {/* Features */}
-                            <ul className="space-y-3 mb-8 flex-1">
-                                {plan.features.map((feature) => (
-                                    <li key={feature} className="flex items-start gap-2.5 text-[13px] text-rich-black/75">
-                                        <Check className={`w-4 h-4 mt-0.5 shrink-0 ${
-                                            plan.highlighted ? 'text-gold' : 'text-emerald-500'
-                                        }`} />
-                                        {feature}
-                                    </li>
-                                ))}
-                            </ul>
+                                {/* Features */}
+                                <ul className="space-y-3 mb-8">
+                                    {plan.features.map((feature) => (
+                                        <li key={feature} className={`flex items-center gap-3 text-xs font-semibold ${
+                                            plan.highlighted ? 'text-indigo-50' : 'text-slate-700'
+                                        }`}>
+                                            <Check className={`w-4 h-4 shrink-0 ${
+                                                plan.highlighted ? 'text-amber-300' : 'text-emerald-500'
+                                            }`} />
+                                            {feature}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
 
                             {/* CTA */}
                             <Link
                                 href={plan.name === "Institution" ? "#" : "/login"}
-                                className={`w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-2xl text-[14px] font-semibold transition-all duration-200 ${
+                                className={`w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-full text-sm font-bold transition-all duration-200 ${
                                     plan.highlighted
-                                        ? 'bg-gold hover:bg-gold-dark text-white shadow-[0_2px_12px_rgba(199,154,18,0.35)] hover:shadow-[0_4px_20px_rgba(199,154,18,0.45)]'
-                                        : 'bg-rich-black/[0.06] hover:bg-rich-black/[0.1] text-rich-black'
+                                        ? 'bg-white hover:bg-slate-100 text-indigo-700 shadow-md'
+                                        : 'bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-200'
                                 }`}
                             >
                                 {plan.cta}

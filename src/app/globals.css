@@ -69,6 +69,19 @@
   --color-muted-light: #9CA3AF;
   --color-border-subtle: #E5E1D8;
 
+  /* ── Owlearn EdTech Theme Palette ── */
+  --color-owlearn-bg: #FAFAFC;
+  --color-owlearn-card: #FFFFFF;
+  --color-owlearn-slate: #0F172A;
+  --color-owlearn-purple: #6366F1;
+  --color-owlearn-purple-light: #EEF2FF;
+  --color-owlearn-emerald: #10B981;
+  --color-owlearn-emerald-light: #ECFDF5;
+  --color-owlearn-amber: #F59E0B;
+  --color-owlearn-amber-light: #FEF3C7;
+  --color-owlearn-gray: #64748B;
+  --color-owlearn-border: #E2E8F0;
+
   /* ── Typography ── */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -152,6 +165,31 @@
     box-shadow:
       0 0 24px rgba(199, 154, 18, 0.25),
       0 0 80px rgba(199, 154, 18, 0.12);
+  }
+
+  /* ── Owlearn EdTech Component Utilities ── */
+  .card-owlearn {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 24px;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card-owlearn:hover {
+    box-shadow: 0 12px 30px -4px rgba(99, 102, 241, 0.12);
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: translateY(-2px);
+  }
+
+  .pill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 600;
   }
 
   /* ── Dashboard Mock Glass ── */
