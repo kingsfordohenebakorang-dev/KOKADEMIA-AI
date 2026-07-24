@@ -214,32 +214,6 @@ export default function LoginPage() {
                             </button>
                         </form>
 
-                        {/* Quick Admin Test Login Pills */}
-                        <div className="mt-6 pt-6 border-t border-slate-100">
-                            <span className="text-[11px] font-bold text-slate-400 block text-center mb-2.5 uppercase tracking-wider">Quick Fill Test Logins</span>
-                            <div className="flex flex-wrap gap-1.5 justify-center">
-                                {[
-                                    { label: "Super Admin", email: "admin@kokademia.com", pass: "admin123" },
-                                    { label: "Academic", email: "academic@kokademia.com", pass: "academic123" },
-                                    { label: "Support", email: "support@kokademia.com", pass: "support123" },
-                                    { label: "Finance", email: "finance@kokademia.com", pass: "finance123" },
-                                    { label: "Student", email: "student@university.edu", pass: "pass123" },
-                                ].map((acc) => (
-                                    <button
-                                        key={acc.label}
-                                        type="button"
-                                        onClick={() => {
-                                            setEmail(acc.email);
-                                            setPassword(acc.pass);
-                                        }}
-                                        className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 text-slate-600 transition-colors border border-slate-200/60"
-                                    >
-                                        {acc.label}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
                         <div className="mt-6 text-center">
                             <p className="text-xs text-slate-500 font-semibold">
                                 {isSignUp ? "Already have an account?" : "Don't have an account?"}
