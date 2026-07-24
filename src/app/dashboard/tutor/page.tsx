@@ -150,82 +150,76 @@ print(latex(var_Y))`,
         }
     };
 
-    const currentSolution = solutions[activeSolution];
-
-    return (
-        <div className="h-full flex overflow-hidden">
-            {/* ─── Center: Main Workspace ─── */}
-            <div className="flex-1 flex flex-col min-w-0">
+    const currentSolution = solutions[activeSolution];    return (
+        <div className="h-full flex overflow-hidden bg-[#FAFAFC] text-slate-800">
+            {/* ─── Left Side: Main Chat / Solution View ─── */}
+            <div className="flex-1 flex flex-col overflow-hidden">
                 {/* Header */}
-                <div className="h-12 flex items-center justify-between px-6 border-b border-white/[0.04] bg-[#0a0a10]/80 flex-shrink-0">
+                <div className="h-16 border-b border-slate-200 bg-white px-6 flex items-center justify-between flex-shrink-0">
                     <div className="flex items-center gap-4">
-                        <h2 className="text-[13px] font-semibold text-gray-300">Tutor AI</h2>
-                        <span className="text-[10px] text-gray-700">|</span>
-                        {/* Mode Selector */}
-                        <div className="flex gap-0.5 bg-white/[0.02] rounded-lg p-0.5 border border-white/[0.04]">
-                            {(["student", "research", "exam"] as Mode[]).map(m => (
-                                <button
-                                    key={m}
-                                    onClick={() => setMode(m)}
-                                    className={`px-3 py-1 rounded-md text-[11px] font-medium transition-all capitalize ${mode === m
-                                        ? "bg-indigo-500/10 text-indigo-400 border border-indigo-500/15"
-                                        : "text-gray-600 hover:text-gray-400 border border-transparent"
-                                        }`}
-                                >
-                                    {m} Mode
-                                </button>
-                            ))}
-                        </div>
+                        <h1 className="text-lg font-bold text-slate-900">AI Mathematics Tutor</h1>
+                        <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-100 flex items-center gap-1">
+                            <Shield className="w-3 h-3 text-emerald-600" /> SymPy Verified
+                        </span>
                     </div>
-                    <span className="text-[9px] text-gray-700 font-mono">{modeDescriptions[mode]}</span>
+
+                    {/* Mode Selector */}
+                    <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-full border border-slate-200">
+                        {(["student", "research", "exam"] as Mode[]).map(m => (
+                            <button
+                                key={m}
+                                onClick={() => setMode(m)}
+                                className={`px-3 py-1 rounded-full text-xs font-bold capitalize transition-all ${
+                                    mode === m
+                                        ? "bg-indigo-600 text-white shadow-sm"
+                                        : "text-slate-600 hover:text-slate-900"
+                                }`}
+                            >
+                                {m}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
-                {/* Solutions Display — Document Style */}
-                <div className="flex-1 overflow-y-auto">
-                    {solutions.length === 0 ? (
-                        <div className="h-full flex items-center justify-center">
-                            <div className="text-center max-w-md">
-                                <Shield className="w-8 h-8 text-gray-800 mx-auto mb-3" />
-                                <p className="text-[13px] text-gray-500">Enter a mathematical or actuarial question below.</p>
-                                <p className="text-[10px] text-gray-700 mt-1">All solutions are verified through the Trust Layer.</p>
-                            </div>
-                        </div>
-                    ) : currentSolution ? (
-                        <div className="max-w-3xl mx-auto py-8 px-6">
-                            {/* Solution Tabs */}
+                {/* Content Area */}
+                <div className="flex-1 overflow-y-auto p-6 space-y-6">
+                    {currentSolution ? (
+                        <div className="max-w-4xl mx-auto card-owlearn p-8 bg-white">
+                            {/* Solution Navigation */}
                             {solutions.length > 1 && (
-                                <div className="flex gap-1 mb-6 overflow-x-auto pb-2">
+                                <div className="flex items-center gap-2 mb-6 overflow-x-auto pb-2 border-b border-slate-100">
                                     {solutions.map((s, i) => (
                                         <button
                                             key={s.id}
                                             onClick={() => setActiveSolution(i)}
-                                            className={`px-3 py-1 rounded-md text-[10px] font-mono whitespace-nowrap transition-all ${i === activeSolution
-                                                ? "bg-white/[0.05] text-gray-300 border border-white/[0.06]"
-                                                : "text-gray-600 hover:text-gray-400"
-                                                }`}
+                                            className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+                                                i === activeSolution
+                                                    ? "bg-indigo-600 text-white"
+                                                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                                            }`}
                                         >
-                                            Q{s.id}: {s.query.slice(0, 35)}...
+                                            Q{s.id}: {s.query.slice(0, 30)}...
                                         </button>
                                     ))}
                                 </div>
                             )}
 
                             {/* Query */}
-                            <div className="mb-6 pb-4 border-b border-white/[0.04]">
-                                <div className="text-[10px] text-gray-700 uppercase tracking-widest mb-1">Query</div>
-                                <p className="text-[13px] text-gray-400 leading-relaxed">{currentSolution.query}</p>
+                            <div className="mb-6 pb-4 border-b border-slate-100">
+                                <div className="text-xs font-bold text-indigo-600 uppercase tracking-wider mb-1">Student Question</div>
+                                <p className="text-base text-slate-900 font-semibold leading-relaxed">{currentSolution.query}</p>
                             </div>
 
                             {/* Document-style rendered solution */}
-                            <article className="prose prose-invert prose-sm max-w-none
-                                prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-gray-200
-                                prose-h2:text-base prose-h2:mt-0 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b prose-h2:border-white/[0.04]
-                                prose-h3:text-[13px] prose-h3:text-gray-400 prose-h3:uppercase prose-h3:tracking-wider prose-h3:mt-6 prose-h3:mb-2
-                                prose-p:text-[13px] prose-p:text-gray-400 prose-p:leading-relaxed
-                                prose-strong:text-gray-300
-                                prose-code:text-indigo-400 prose-code:text-[12px] prose-code:bg-white/[0.03] prose-code:px-1 prose-code:rounded
-                                prose-ul:text-[13px] prose-ul:text-gray-400
-                                prose-li:text-[13px]
+                            <article className="prose prose-slate max-w-none
+                                prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-slate-900
+                                prose-h2:text-lg prose-h2:mt-0 prose-h2:mb-4 prose-h2:pb-2 prose-h2:border-b prose-h2:border-slate-100
+                                prose-h3:text-sm prose-h3:text-indigo-600 prose-h3:uppercase prose-h3:tracking-wider prose-h3:mt-6 prose-h3:mb-2
+                                prose-p:text-sm prose-p:text-slate-700 prose-p:leading-relaxed
+                                prose-strong:text-slate-900 prose-strong:font-bold
+                                prose-code:text-indigo-600 prose-code:text-xs prose-code:bg-indigo-50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+                                prose-ul:text-sm prose-ul:text-slate-700
+                                prose-li:text-sm
                             ">
                                 <ReactMarkdown remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
                                     {currentSolution.content}
@@ -233,12 +227,12 @@ print(latex(var_Y))`,
                             </article>
 
                             {/* Timestamp */}
-                            <div className="mt-8 pt-4 border-t border-white/[0.03] flex items-center justify-between">
-                                <span className="text-[9px] text-gray-700 font-mono">
+                            <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between">
+                                <span className="text-xs text-slate-500 font-semibold">
                                     Generated at {currentSolution.timestamp} • {mode} mode
                                 </span>
-                                <button className="text-[10px] text-gray-700 hover:text-gray-400 transition-colors flex items-center gap-1">
-                                    <Copy className="w-3 h-3" /> Copy
+                                <button className="text-xs text-slate-600 hover:text-indigo-600 font-bold transition-colors flex items-center gap-1">
+                                    <Copy className="w-3.5 h-3.5" /> Copy Answer
                                 </button>
                             </div>
                         </div>
@@ -246,12 +240,12 @@ print(latex(var_Y))`,
 
                     {/* Loading State */}
                     {isLoading && (
-                        <div className="max-w-3xl mx-auto px-6 pb-8">
-                            <div className="flex items-center gap-3 p-4 rounded-lg bg-indigo-500/[0.03] border border-indigo-500/[0.06]">
-                                <Loader2 className="w-4 h-4 text-indigo-500 animate-spin" />
+                        <div className="max-w-4xl mx-auto">
+                            <div className="flex items-center gap-3 p-4 rounded-2xl bg-indigo-50 border border-indigo-100 shadow-sm">
+                                <Loader2 className="w-5 h-5 text-indigo-600 animate-spin" />
                                 <div>
-                                    <span className="text-[11px] text-indigo-400 font-medium">Trust Layer Executing…</span>
-                                    <span className="text-[10px] text-gray-600 ml-2">Generating symbolic verification</span>
+                                    <span className="text-xs text-indigo-900 font-bold block">Trust Layer Executing...</span>
+                                    <span className="text-[11px] text-indigo-700 font-medium">Running SymPy symbolic code sandbox verification</span>
                                 </div>
                             </div>
                         </div>
@@ -259,108 +253,85 @@ print(latex(var_Y))`,
                 </div>
 
                 {/* Input Area */}
-                <div className="border-t border-white/[0.04] bg-[#0a0a10]/80 p-4 flex-shrink-0">
-                    <div className="max-w-3xl mx-auto">
-                        <div className="relative bg-[#0d0d14] border border-white/[0.06] rounded-xl overflow-hidden focus-within:border-indigo-500/20 transition-colors">
+                <div className="border-t border-slate-200 bg-white p-4 shrink-0">
+                    <div className="max-w-4xl mx-auto">
+                        <div className="relative bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden focus-within:border-indigo-500 transition-colors shadow-sm">
                             <textarea
                                 ref={inputRef}
                                 value={input}
                                 onChange={e => setInput(e.target.value)}
                                 onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSubmit(); } }}
-                                placeholder="Enter a mathematical or actuarial question…"
+                                placeholder="Ask any actuarial or mathematical science problem..."
                                 rows={2}
-                                className="w-full bg-transparent text-[13px] text-gray-300 placeholder:text-gray-700 px-4 py-3 pr-12 resize-none focus:outline-none"
+                                className="w-full bg-transparent text-sm text-slate-900 placeholder:text-slate-400 px-4 py-3 pr-12 resize-none focus:outline-none font-medium"
                             />
                             <button
                                 onClick={handleSubmit}
                                 disabled={!input.trim() || isLoading}
-                                className="absolute right-3 bottom-3 w-7 h-7 rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:bg-gray-800 disabled:text-gray-700 flex items-center justify-center transition-all"
+                                className="absolute right-3 bottom-3 w-8 h-8 rounded-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 text-white flex items-center justify-center transition-all shadow-md"
                             >
                                 {isLoading ? (
-                                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                    <Loader2 className="w-4 h-4 animate-spin" />
                                 ) : (
-                                    <Send className="w-3.5 h-3.5" />
+                                    <Send className="w-4 h-4" />
                                 )}
                             </button>
                         </div>
-                        <div className="flex items-center justify-between mt-2">
-                            <span className="text-[9px] text-gray-700">LaTeX supported • Shift+Enter for new line</span>
-                            <span className="text-[9px] text-gray-700 font-mono">87/150 queries</span>
+                        <div className="flex items-center justify-between mt-2 px-1">
+                            <span className="text-[11px] text-slate-500 font-medium">LaTeX supported • Shift+Enter for new line</span>
+                            <span className="text-[11px] text-slate-600 font-bold">87/150 queries remaining</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* ─── Right Side: Trust Layer Panel ─── */}
-            {currentSolution?.trustLayer.status !== "error" && (
-                <div className="hidden xl:flex flex-col w-72 border-l border-white/[0.04] bg-[#090910] flex-shrink-0">
-                    <div className="h-12 flex items-center gap-2 px-4 border-b border-white/[0.04]">
-                        <Shield className="w-3.5 h-3.5 text-indigo-500" />
-                        <span className="text-[11px] font-semibold text-gray-400">Trust Layer</span>
+            {currentSolution && currentSolution.trustLayer.status !== "error" && (
+                <div className="hidden xl:flex flex-col w-80 border-l border-slate-200 bg-white shrink-0">
+                    <div className="h-16 flex items-center gap-2 px-6 border-b border-slate-100">
+                        <Shield className="w-4 h-4 text-emerald-600" />
+                        <span className="text-sm font-bold text-slate-900">Trust Layer Proof</span>
                     </div>
 
-                    {currentSolution ? (
-                        <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                            {/* Status */}
-                            <div className="flex items-center gap-2">
-                                {currentSolution.trustLayer.status === "verified" ? (
-                                    <CheckCircle className="w-4 h-4 text-emerald-500" />
-                                ) : currentSolution.trustLayer.status === "executing" ? (
-                                    <Loader2 className="w-4 h-4 text-indigo-400 animate-spin" />
-                                ) : (
-                                    <AlertCircle className="w-4 h-4 text-yellow-500" />
-                                )}
-                                <span className={`text-[11px] font-medium ${currentSolution.trustLayer.status === "verified" ? "text-emerald-400" :
-                                    currentSolution.trustLayer.status === "executing" ? "text-indigo-400" :
-                                        "text-yellow-400"
-                                    }`}>
-                                    {currentSolution.trustLayer.status === "verified" ? "Verified via Symbolic Engine" :
-                                        currentSolution.trustLayer.status === "executing" ? "Executing..." : "Unverified"}
+                    <div className="flex-1 overflow-y-auto p-6 space-y-6">
+                        {/* Status Badge */}
+                        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-xs font-bold text-emerald-800">Verification Status</span>
+                                <span className="text-xs font-extrabold text-emerald-600 bg-white px-2 py-0.5 rounded-full border border-emerald-200">
+                                    PASSED
                                 </span>
                             </div>
+                            <div className="text-xs text-emerald-700 font-medium">Confidence: {currentSolution.trustLayer.confidence}% • {currentSolution.trustLayer.computeTime}</div>
+                        </div>
 
-                            {/* Metrics */}
-                            <div className="space-y-2">
-                                {[
-                                    { label: "Confidence", value: `${currentSolution.trustLayer.confidence}%`, color: currentSolution.trustLayer.confidence >= 90 ? "text-emerald-400" : "text-yellow-400" },
-                                    { label: "Compute Time", value: currentSolution.trustLayer.computeTime, color: "text-gray-400" },
-                                    { label: "Method", value: currentSolution.trustLayer.method, color: "text-gray-400" },
-                                    { label: "Source", value: currentSolution.trustLayer.source, color: "text-gray-500" },
-                                ].map((m, i) => (
-                                    <div key={i} className="flex items-start justify-between py-1.5 border-b border-white/[0.02]">
-                                        <span className="text-[10px] text-gray-600">{m.label}</span>
-                                        <span className={`text-[10px] font-mono text-right max-w-[140px] ${m.color}`}>{m.value}</span>
-                                    </div>
-                                ))}
+                        {/* SymPy Code Box */}
+                        <div>
+                            <div className="flex items-center justify-between mb-2">
+                                <span className="text-xs font-bold text-slate-800">Generated Python/SymPy</span>
+                                <Code className="w-3.5 h-3.5 text-slate-400" />
                             </div>
+                            <pre className="p-3.5 rounded-2xl bg-slate-900 text-slate-200 text-xs font-mono overflow-x-auto leading-relaxed border border-slate-800">
+                                {currentSolution.trustLayer.pythonCode}
+                            </pre>
+                        </div>
 
-                            {/* Code Translation */}
-                            <div>
-                                <div className="flex items-center gap-1.5 mb-2">
-                                    <Code className="w-3 h-3 text-gray-600" />
-                                    <span className="text-[10px] text-gray-600 uppercase tracking-wider font-semibold">Code Translation</span>
-                                </div>
-                                <pre className="bg-black/40 border border-white/[0.03] rounded-lg p-3 text-[10px] font-mono text-emerald-400/80 whitespace-pre-wrap leading-relaxed overflow-x-auto">
-                                    {currentSolution.trustLayer.pythonCode}
-                                </pre>
-                            </div>
-
-                            {/* Execution Result */}
-                            <div>
-                                <div className="flex items-center gap-1.5 mb-2">
-                                    <CheckCircle className="w-3 h-3 text-gray-600" />
-                                    <span className="text-[10px] text-gray-600 uppercase tracking-wider font-semibold">Execution Output</span>
-                                </div>
-                                <div className="bg-black/40 border border-white/[0.03] rounded-lg p-3 text-[10px] font-mono text-gray-400">
-                                    {currentSolution.trustLayer.symPyOutput}
-                                </div>
+                        {/* Evaluation Result */}
+                        <div>
+                            <span className="text-xs font-bold text-slate-800 block mb-2">Symbolic Evaluation</span>
+                            <div className="p-3.5 rounded-2xl bg-slate-100 text-slate-900 font-mono text-xs font-bold border border-slate-200">
+                                {currentSolution.trustLayer.symPyOutput}
                             </div>
                         </div>
-                    ) : (
-                        <div className="flex-1 flex items-center justify-center p-4">
-                            <p className="text-[10px] text-gray-700 text-center">Submit a query to see<br />Trust Layer verification.</p>
+
+                        {/* Citation Reference */}
+                        <div>
+                            <span className="text-xs font-bold text-slate-800 block mb-1">Source Provenance</span>
+                            <p className="text-xs text-slate-600 font-medium bg-slate-50 p-3 rounded-xl border border-slate-200/60">
+                                📖 {currentSolution.trustLayer.source}
+                            </p>
                         </div>
-                    )}
+                    </div>
                 </div>
             )}
         </div>

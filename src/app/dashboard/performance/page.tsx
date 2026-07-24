@@ -17,42 +17,40 @@ const topicBreakdown = [
 export default function PerformancePage() {
     const max = Math.max(...weeklyScores);
     return (
-        <div className="h-full overflow-y-auto">
-            <div className="max-w-4xl mx-auto p-6 lg:p-8 space-y-8">
-                <div>
-                    <h1 className="text-lg font-semibold text-gray-200">Performance</h1>
-                    <p className="text-xs text-gray-600 mt-0.5 font-mono">Track your progress across all subjects</p>
-                </div>
+        <div className="space-y-8 max-w-5xl mx-auto">
+            <div>
+                <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Performance Analytics</h1>
+                <p className="text-xs font-semibold text-slate-500 mt-1">Track your progress and subject mastery over time</p>
+            </div>
 
-                {/* Weekly Trend */}
-                <div className="bg-[#0d0d14] border border-white/[0.04] rounded-xl p-5">
-                    <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Weekly Score Trend</h3>
-                    <div className="flex items-end gap-2 h-24">
-                        {weeklyScores.map((s, i) => (
-                            <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                                <span className="text-[9px] text-gray-600 font-mono">{s}%</span>
-                                <div className="w-full bg-indigo-500/30 rounded-t" style={{ height: `${(s / max) * 100}%` }} />
-                                <span className="text-[8px] text-gray-700">{["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][i]}</span>
-                            </div>
-                        ))}
-                    </div>
+            {/* Weekly Trend */}
+            <div className="card-owlearn p-6">
+                <h3 className="text-xs font-extrabold text-indigo-600 uppercase tracking-wider mb-6">Weekly Score Trend</h3>
+                <div className="flex items-end gap-4 h-36 pt-4">
+                    {weeklyScores.map((s, i) => (
+                        <div key={i} className="flex-1 flex flex-col items-center gap-2">
+                            <span className="text-xs font-bold text-slate-900">{s}%</span>
+                            <div className="w-full bg-indigo-600 rounded-t-xl transition-all duration-300" style={{ height: `${(s / max) * 100}%` }} />
+                            <span className="text-xs font-semibold text-slate-500">{["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][i]}</span>
+                        </div>
+                    ))}
                 </div>
+            </div>
 
-                {/* Topic Breakdown */}
-                <div className="bg-[#0d0d14] border border-white/[0.04] rounded-xl p-5">
-                    <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Topic Breakdown</h3>
-                    <div className="space-y-3">
-                        {topicBreakdown.map((t, i) => (
-                            <div key={i} className="flex items-center gap-3">
-                                <span className="text-[11px] text-gray-400 w-44 truncate">{t.topic}</span>
-                                <div className="flex-1 h-1.5 bg-white/[0.03] rounded-full overflow-hidden">
-                                    <div className={`h-full rounded-full ${t.score >= 80 ? "bg-emerald-500/50" : t.score >= 60 ? "bg-yellow-500/50" : "bg-red-500/50"}`} style={{ width: `${t.score}%` }} />
-                                </div>
-                                <span className={`text-[11px] font-mono w-8 text-right ${t.score >= 80 ? "text-emerald-400" : t.score >= 60 ? "text-yellow-400" : "text-red-400"}`}>{t.score}</span>
-                                {t.trend === "up" ? <TrendingUp className="w-3 h-3 text-emerald-500" /> : t.trend === "down" ? <TrendingDown className="w-3 h-3 text-red-400" /> : <Target className="w-3 h-3 text-gray-600" />}
+            {/* Topic Breakdown */}
+            <div className="card-owlearn p-6">
+                <h3 className="text-xs font-extrabold text-indigo-600 uppercase tracking-wider mb-6">Topic Mastery Breakdown</h3>
+                <div className="space-y-4">
+                    {topicBreakdown.map((t, i) => (
+                        <div key={i} className="flex items-center gap-4">
+                            <span className="text-xs font-bold text-slate-800 w-48 truncate">{t.topic}</span>
+                            <div className="flex-1 h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div className={`h-full rounded-full ${t.score >= 80 ? "bg-emerald-500" : t.score >= 60 ? "bg-amber-500" : "bg-rose-500"}`} style={{ width: `${t.score}%` }} />
                             </div>
-                        ))}
-                    </div>
+                            <span className={`text-xs font-extrabold w-10 text-right ${t.score >= 80 ? "text-emerald-600" : t.score >= 60 ? "text-amber-600" : "text-rose-600"}`}>{t.score}%</span>
+                            {t.trend === "up" ? <TrendingUp className="w-4 h-4 text-emerald-500" /> : t.trend === "down" ? <TrendingDown className="w-4 h-4 text-rose-500" /> : <Target className="w-4 h-4 text-slate-400" />}
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

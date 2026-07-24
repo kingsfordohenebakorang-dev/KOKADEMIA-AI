@@ -12,40 +12,38 @@ const exams = [
 
 export default function ExamsPage() {
     return (
-        <div className="h-full overflow-y-auto">
-            <div className="max-w-4xl mx-auto p-6 lg:p-8 space-y-6">
-                <div className="flex items-center justify-between">
-                    <div>
-                        <h1 className="text-lg font-semibold text-gray-200">Exams</h1>
-                        <p className="text-xs text-gray-600 mt-0.5 font-mono">Mock exam simulations & practice tests</p>
-                    </div>
-                    <Link href="/exams" className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600/20 text-indigo-400 rounded-lg text-xs font-medium border border-indigo-500/20 hover:bg-indigo-600/30 transition-all">
-                        <Plus className="w-3 h-3" /> Generate Exam
-                    </Link>
+        <div className="space-y-6 max-w-5xl mx-auto">
+            <div className="flex items-center justify-between">
+                <div>
+                    <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Mock Exam Simulations</h1>
+                    <p className="text-xs font-semibold text-slate-500 mt-1">Timed SOA/IFoA exam simulations &amp; practice tests</p>
                 </div>
+                <Link href="/exams" className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-xs font-bold transition-all shadow-md shadow-indigo-200">
+                    <Plus className="w-4 h-4" /> Generate New Exam
+                </Link>
+            </div>
 
-                <div className="space-y-2">
-                    {exams.map((e, i) => (
-                        <div key={i} className="bg-[#0d0d14] border border-white/[0.04] rounded-xl p-5 hover:bg-white/[0.02] transition-colors group">
-                            <div className="flex items-start justify-between">
-                                <div>
-                                    <h3 className="text-[13px] font-medium text-gray-300 group-hover:text-white transition-colors">{e.name}</h3>
-                                    <div className="flex items-center gap-3 mt-1.5 text-[10px] text-gray-600">
-                                        <span>{e.questions} questions</span>
-                                        <span>•</span>
-                                        <span>{e.duration}</span>
-                                        <span>•</span>
-                                        <span>{e.attempts} attempt{e.attempts !== 1 ? "s" : ""}</span>
-                                    </div>
-                                </div>
-                                <div className="text-right">
-                                    <div className={`text-[13px] font-mono font-medium ${e.bestScore !== "—" ? "text-indigo-400" : "text-gray-700"}`}>{e.bestScore}</div>
-                                    <div className="text-[9px] text-gray-700 mt-0.5">{e.lastAttempt}</div>
+            <div className="space-y-4">
+                {exams.map((e, i) => (
+                    <div key={i} className="card-owlearn p-6 hover:border-indigo-200 transition-colors group">
+                        <div className="flex items-start justify-between">
+                            <div>
+                                <h3 className="text-base font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{e.name}</h3>
+                                <div className="flex items-center gap-3 mt-2 text-xs font-medium text-slate-500">
+                                    <span>{e.questions} questions</span>
+                                    <span>•</span>
+                                    <span>{e.duration}</span>
+                                    <span>•</span>
+                                    <span>{e.attempts} attempt{e.attempts !== 1 ? "s" : ""}</span>
                                 </div>
                             </div>
+                            <div className="text-right">
+                                <div className={`text-base font-extrabold ${e.bestScore !== "—" ? "text-indigo-600" : "text-slate-400"}`}>{e.bestScore}</div>
+                                <div className="text-xs font-medium text-slate-400 mt-1">{e.lastAttempt}</div>
+                            </div>
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
         </div>
     );
