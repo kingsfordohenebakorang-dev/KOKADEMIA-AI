@@ -39,8 +39,18 @@ export default function LoginPage() {
 
         await new Promise(resolve => setTimeout(resolve, 1500));
 
-        if (email === 'admin@actuary.com' && password === 'admin') {
+        const adminEmails = [
+            'admin@kokademia.com',
+            'academic@kokademia.com',
+            'support@kokademia.com',
+            'finance@kokademia.com',
+            'admin@actuary.com'
+        ];
+
+        if (adminEmails.includes(email.toLowerCase()) && (password === 'admin' || password === 'admin123' || password === `${email.split('@')[0]}123`)) {
             window.location.href = '/admin';
+        } else if (email && password) {
+            window.location.href = '/dashboard';
         } else if (isSignUp) {
             setStep('pricing');
         } else {
